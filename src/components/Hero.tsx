@@ -2,7 +2,6 @@ import { useEffect, useRef, useState } from 'react'
 import { motion, useScroll, useTransform, useMotionValue, useSpring } from 'framer-motion'
 import HexGrid from './HexGrid'
 
-const COLS = 10
 
 export default function Hero() {
   const containerRef = useRef<HTMLDivElement>(null)
@@ -11,8 +10,7 @@ export default function Hero() {
   // Spring-smoothed mouse for blob parallax
   const mouseX = useMotionValue(0)
   const mouseY = useMotionValue(0)
-  const blobX  = useSpring(mouseX, { stiffness: 22, damping: 24, restDelta: 0.001 })
-  const blobMY = useSpring(mouseY, { stiffness: 22, damping: 24, restDelta: 0.001 })
+
 
   const { scrollYProgress } = useScroll({ target: containerRef, offset: ['start start', 'end start'] })
   const fadeOut   = useTransform(scrollYProgress, [0, 0.55], [1, 0])

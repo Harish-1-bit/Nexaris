@@ -46,10 +46,14 @@ export default function Testimonials() {
   const t = testimonials[current]
 
   return (
-    <section className="relative py-28 overflow-hidden" style={{ background: '#000' }}>
+    <section className="relative py-28 overflow-hidden" style={{ background: '#000000' }}>
       <div className="absolute top-0 inset-x-0 h-px" style={{ background: 'rgba(255,255,255,0.06)' }} />
 
-      <div className="max-w-6xl mx-auto px-8 md:px-14">
+      {/* subtle ambient glow */}
+      <div className="absolute top-0 right-1/4 w-[500px] h-[250px] pointer-events-none"
+        style={{ background: 'radial-gradient(ellipse at top,rgba(255,30,30,0.06) 0%,transparent 70%)' }} />
+
+      <div className="max-w-7xl mx-auto px-8 md:px-14">
         {/* label */}
         <motion.p
           ref={ref}
@@ -57,7 +61,7 @@ export default function Testimonials() {
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.5 }}
           className="text-xs font-medium tracking-[0.2em] uppercase mb-14"
-          style={{ color: '#A855F7' }}
+          style={{ color: '#FF5E00' }}
         >
           Testimonies
         </motion.p>
@@ -87,7 +91,7 @@ export default function Testimonials() {
               >
                 {/* opening quote mark */}
                 <div className="text-6xl font-display font-bold leading-none mb-4 select-none"
-                  style={{ color: 'rgba(168,85,247,0.25)' }}>
+                  style={{ color: 'rgba(255,30,30,0.25)' }}>
                   "
                 </div>
                 <blockquote
@@ -101,7 +105,7 @@ export default function Testimonials() {
                 <div className="flex items-center gap-4">
                   <div
                     className="w-11 h-11 rounded-full flex items-center justify-center text-sm font-bold flex-shrink-0"
-                    style={{ background: 'linear-gradient(135deg,rgba(108,59,255,0.6),rgba(168,85,247,0.6))', color: '#e8eaf0' }}
+                    style={{ background: 'linear-gradient(135deg,rgba(255,94,0,0.6),rgba(255,30,30,0.6))', color: '#e8eaf0' }}
                   >
                     {t.initials}
                   </div>
@@ -119,7 +123,7 @@ export default function Testimonials() {
                 onClick={prev}
                 className="w-9 h-9 rounded-full flex items-center justify-center transition-all duration-200"
                 style={{ border: '1px solid rgba(255,255,255,0.12)', color: 'rgba(160,168,192,0.7)' }}
-                onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.borderColor = 'rgba(168,85,247,0.4)'; (e.currentTarget as HTMLElement).style.color = '#A855F7' }}
+                onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.borderColor = 'rgba(255,94,0,0.4)'; (e.currentTarget as HTMLElement).style.color = '#FF5E00' }}
                 onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.borderColor = 'rgba(255,255,255,0.12)'; (e.currentTarget as HTMLElement).style.color = 'rgba(160,168,192,0.7)' }}
               >
                 <ChevronLeft size={16} />
@@ -135,8 +139,8 @@ export default function Testimonials() {
                       width: i === current ? 24 : 8,
                       height: 8,
                       background: i === current
-                        ? 'linear-gradient(to right,#6C3BFF,#A855F7)'
-                        : 'rgba(255,255,255,0.18)',
+                        ? 'linear-gradient(to right,#FF5E00,#FF1E1E)'
+                        : 'rgba(255,94,0,0.18)',
                     }}
                   />
                 ))}
@@ -146,7 +150,7 @@ export default function Testimonials() {
                 onClick={next}
                 className="w-9 h-9 rounded-full flex items-center justify-center transition-all duration-200"
                 style={{ border: '1px solid rgba(255,255,255,0.12)', color: 'rgba(160,168,192,0.7)' }}
-                onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.borderColor = 'rgba(168,85,247,0.4)'; (e.currentTarget as HTMLElement).style.color = '#A855F7' }}
+                onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.borderColor = 'rgba(255,94,0,0.4)'; (e.currentTarget as HTMLElement).style.color = '#FF5E00' }}
                 onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.borderColor = 'rgba(255,255,255,0.12)'; (e.currentTarget as HTMLElement).style.color = 'rgba(160,168,192,0.7)' }}
               >
                 <ChevronRight size={16} />
@@ -163,7 +167,7 @@ export default function Testimonials() {
                 animate={inView ? { opacity: 1, x: 0 } : {}}
                 transition={{ duration: 0.55, delay: 0.1 + i * 0.07 }}
                 className="flex items-center justify-center h-14 rounded-xl"
-                style={{ border: '1px solid rgba(255,255,255,0.07)', background: 'rgba(14,10,31,0.4)' }}
+                style={{ border: '1px solid rgba(255,94,0,0.12)', background: 'rgba(20,20,20,0.35)' }}
               >
                 <span className="font-display font-bold text-sm tracking-widest uppercase"
                   style={{ color: 'rgba(160,168,192,0.45)' }}>

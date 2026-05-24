@@ -43,9 +43,9 @@ const services = [
 
 /* ── SVG visuals per service ── */
 function Visual({ type, hovered }: { type: string; hovered: boolean }) {
-  const stroke = hovered ? 'rgba(168,85,247,0.9)' : 'rgba(168,85,247,0.55)'
-  const fill   = hovered ? 'rgba(168,85,247,0.18)' : 'rgba(168,85,247,0.08)'
-  const glow   = hovered ? 'rgba(108,59,255,0.35)'  : 'rgba(108,59,255,0.15)'
+  const stroke = hovered ? 'rgba(255,94,0,0.9)' : 'rgba(255,30,30,0.55)'
+  const fill   = hovered ? 'rgba(255,30,30,0.18)' : 'rgba(255,30,30,0.08)'
+  const glow   = hovered ? 'rgba(255,30,30,0.35)'  : 'rgba(255,94,0,0.15)'
 
   const map: Record<string, React.ReactNode> = {
     brand: (
@@ -173,22 +173,22 @@ function ServiceCard({ service, index }: { service: typeof services[0]; index: n
       onHoverEnd={() => setHovered(false)}
       className="group relative flex items-stretch cursor-pointer rounded-xl overflow-hidden transition-all duration-400"
       style={{
-        background: hovered ? 'rgba(18,13,40,0.5)' : 'rgba(14,10,31,0.45)',
-        border: `1px solid ${hovered ? 'rgba(168,85,247,0.22)' : 'rgba(255,255,255,0.07)'}`,
-        boxShadow: hovered ? '0 16px 48px rgba(168,85,247,0.07)' : 'none',
+        background: hovered ? 'rgba(20,20,20,0.5)' : 'rgba(12,12,12,0.45)',
+        border: `1px solid ${hovered ? 'rgba(255,94,0,0.25)' : 'rgba(255,255,255,0.06)'}`,
+        boxShadow: hovered ? '0 16px 48px rgba(255,30,30,0.06)' : 'none',
       }}
     >
       {/* left: text */}
-      <div className="flex-1 p-7 flex flex-col justify-between min-h-[180px]">
+      <div className="flex-1 p-12 flex flex-col justify-between min-h-[280px]">
         <div>
-          <span className="text-xs font-medium tracking-widest mb-4 block" style={{ color: 'rgba(160,168,192,0.6)' }}>
+          <span className="text-sm font-medium tracking-widest mb-4 block" style={{ color: 'rgba(160,168,192,0.6)' }}>
             {service.number}
           </span>
           <h3
-            className="font-display font-bold text-xl mb-2.5 transition-all duration-300"
+            className="font-display font-bold text-2xl mb-3.5 transition-all duration-300"
             style={{
               color: hovered ? 'transparent' : '#e8eaf0',
-              background: hovered ? 'linear-gradient(135deg,#e8eaf0,#A855F7)' : 'none',
+              background: hovered ? 'linear-gradient(135deg,#ffffff,#FF5E00)' : 'none',
               WebkitBackgroundClip: hovered ? 'text' : 'unset',
               WebkitTextFillColor: hovered ? 'transparent' : 'unset',
               backgroundClip: hovered ? 'text' : 'unset',
@@ -196,29 +196,29 @@ function ServiceCard({ service, index }: { service: typeof services[0]; index: n
           >
             {service.title}
           </h3>
-          <p className="text-sm leading-relaxed" style={{ color: 'rgba(160,168,192,0.75)' }}>
+          <p className="text-base leading-relaxed" style={{ color: 'rgba(160,168,192,0.75)' }}>
             {service.description}
           </p>
         </div>
         <motion.div
           animate={{ x: hovered ? 4 : 0, opacity: hovered ? 1 : 0.4 }}
           transition={{ duration: 0.25 }}
-          className="flex items-center gap-1.5 text-xs font-medium mt-5"
-          style={{ color: '#A855F7' }}
+          className="flex items-center gap-1.5 text-sm font-medium mt-6"
+          style={{ color: '#FF5E00' }}
         >
-          Learn more <ArrowRight size={11} />
+          Learn more <ArrowRight size={13} />
         </motion.div>
       </div>
 
       {/* right: visual */}
       <div
-        className="w-[148px] flex-shrink-0 flex items-center justify-center p-5"
-        style={{ borderLeft: '1px solid rgba(255,255,255,0.05)', background: 'rgba(108,59,255,0.03)' }}
+        className="w-[220px] flex-shrink-0 flex items-center justify-center p-6"
+        style={{ borderLeft: '1px solid rgba(255,255,255,0.05)', background: 'rgba(255,30,30,0.02)' }}
       >
         <motion.div
           animate={{ scale: hovered ? 1.07 : 1, opacity: hovered ? 1 : 0.65 }}
           transition={{ duration: 0.35 }}
-          className="w-[100px] h-[100px]"
+          className="w-[150px] h-[150px]"
         >
           <Visual type={service.visual} hovered={hovered} />
         </motion.div>
@@ -232,14 +232,14 @@ export default function Services() {
   const inView = useInView(ref, { once: true, margin: '-80px' })
 
   return (
-    <section id="services" className="relative py-28 overflow-hidden" style={{ background: '#000' }}>
+    <section id="services" className="relative py-28 overflow-hidden" style={{ background: '#000000' }}>
       <div className="absolute top-0 inset-x-0 h-px" style={{ background: 'rgba(255,255,255,0.06)' }} />
 
       {/* subtle center glow */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] pointer-events-none"
-        style={{ background: 'radial-gradient(ellipse at top,rgba(168,85,247,0.05) 0%,transparent 70%)' }} />
+        style={{ background: 'radial-gradient(ellipse at top,rgba(255,30,30,0.06) 0%,transparent 70%)' }} />
 
-      <div className="max-w-6xl mx-auto px-8 md:px-14">
+      <div className="max-w-7xl mx-auto px-8 md:px-14">
         {/* header */}
         <div ref={ref} className="flex flex-col items-center text-center mb-14">
           <motion.p
@@ -247,7 +247,7 @@ export default function Services() {
             animate={inView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.5 }}
             className="text-xs font-medium tracking-[0.2em] uppercase mb-5"
-            style={{ color: '#A855F7' }}
+            style={{ color: '#FF5E00' }}
           >
             Services
           </motion.p>
@@ -263,7 +263,7 @@ export default function Services() {
         </div>
 
         {/* 2-col grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {services.map((s, i) => (
             <ServiceCard key={s.number} service={s} index={i} />
           ))}
@@ -284,7 +284,7 @@ export default function Services() {
             style={{ color: 'rgba(160,168,192,0.7)' }}
           >
             View all services
-            <ArrowRight size={13} className="group-hover:translate-x-1 transition-transform" style={{ color: '#A855F7' }} />
+            <ArrowRight size={13} className="group-hover:translate-x-1 transition-transform" style={{ color: '#FF5E00' }} />
           </motion.button>
         </motion.div>
       </div>

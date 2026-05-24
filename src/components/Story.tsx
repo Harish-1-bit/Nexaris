@@ -7,28 +7,28 @@ const chapters = [
     chapter: 'Chapter I',
     title: 'The Spark',
     body: 'It started in a small studio with a big question: why do most digital products feel forgettable? Three designers and two engineers decided to answer it — by building things that actually matter.',
-    accent: 'from-blue-500 to-cyan-400',
+    accent: 'from-orange-500 to-red-500',
   },
   {
     year: '2019',
     chapter: 'Chapter II',
     title: 'The Craft',
     body: 'We stopped chasing trends and started setting them. Our obsession with craft — every pixel, every interaction, every line of code — earned us our first international clients and industry recognition.',
-    accent: 'from-cyan-400 to-blue-400',
+    accent: 'from-red-500 to-orange-500',
   },
   {
     year: '2021',
     chapter: 'Chapter III',
     title: 'The Scale',
     body: 'What began as a boutique studio grew into a full-service digital powerhouse. We expanded our capabilities across mobile, video, branding, and marketing — without ever compromising on quality.',
-    accent: 'from-blue-400 to-cyan-300',
+    accent: 'from-orange-400 to-red-400',
   },
   {
     year: '2024',
     chapter: 'Chapter IV',
     title: 'The Future',
     body: 'Today, Nexaris stands at the intersection of technology and storytelling. We\'re not just building products — we\'re shaping how the world experiences brands in the digital age.',
-    accent: 'from-cyan-300 to-blue-500',
+    accent: 'from-red-400 to-orange-500',
   },
 ]
 
@@ -48,25 +48,25 @@ function ChapterCard({ chapter, index }: { chapter: typeof chapters[0]; index: n
       {/* Year bubble */}
       <div className="flex-shrink-0 relative">
         <div className={`w-32 h-32 rounded-full bg-gradient-to-br ${chapter.accent} p-0.5`}>
-          <div className="w-full h-full rounded-full bg-navy-900 flex flex-col items-center justify-center">
-            <span className="text-2xl font-display font-bold text-silver-100">{chapter.year}</span>
+          <div className="w-full h-full rounded-full bg-black flex flex-col items-center justify-center">
+            <span className="text-2xl font-display font-bold text-white-soft">{chapter.year}</span>
           </div>
         </div>
         {/* Connecting line */}
         {index < chapters.length - 1 && (
-          <div className="absolute top-full left-1/2 -translate-x-1/2 w-px h-24 bg-gradient-to-b from-cyan-400/40 to-transparent hidden md:block" />
+          <div className="absolute top-full left-1/2 -translate-x-1/2 w-px h-24 bg-gradient-to-b from-orange-500/40 to-transparent hidden md:block" />
         )}
       </div>
 
       {/* Content */}
       <div className={`flex-1 ${isEven ? 'md:text-left' : 'md:text-right'} text-center`}>
-        <span className="text-cyan-400/70 text-xs font-medium tracking-widest uppercase mb-2 block">
+        <span className="text-orange-500/70 text-xs font-medium tracking-widest uppercase mb-2 block">
           {chapter.chapter}
         </span>
-        <h3 className="font-display font-bold text-3xl text-silver-100 mb-4">
+        <h3 className="font-display font-bold text-3xl text-white-soft mb-4">
           {chapter.title}
         </h3>
-        <p className="text-silver-300 text-base leading-relaxed max-w-lg">
+        <p className="text-muted text-base leading-relaxed max-w-lg">
           {chapter.body}
         </p>
       </div>
@@ -87,27 +87,27 @@ export default function Story() {
 
   return (
     <section id="story" ref={containerRef} className="relative py-32 overflow-hidden">
-      <div className="absolute inset-0 bg-navy-900" />
+      <div className="absolute inset-0 bg-black" />
 
       {/* Animated vertical line */}
       <div className="absolute left-1/2 top-0 bottom-0 w-px bg-white/5 hidden md:block">
         <motion.div
           style={{ height: lineHeight }}
-          className="w-full bg-gradient-to-b from-blue-500 via-cyan-400 to-blue-500"
+          className="w-full bg-gradient-to-b from-red-500 via-orange-400 to-red-500"
         />
       </div>
 
-      <div className="relative z-10 max-w-5xl mx-auto px-6">
+      <div className="relative z-10 max-w-7xl mx-auto px-8 md:px-14">
         {/* Header */}
         <div ref={headerRef} className="text-center mb-24">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={headerInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6 }}
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass border border-cyan-400/20 mb-6"
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass border border-orange-500/20 mb-6"
           >
-            <span className="w-1.5 h-1.5 rounded-full bg-cyan-400" />
-            <span className="text-cyan-400 text-xs font-medium tracking-widest uppercase">
+            <span className="w-1.5 h-1.5 rounded-full bg-orange-500" />
+            <span className="text-orange-500 text-xs font-medium tracking-widest uppercase">
               Our Journey
             </span>
           </motion.div>
@@ -116,7 +116,7 @@ export default function Story() {
             initial={{ opacity: 0, y: 30 }}
             animate={headerInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.8, delay: 0.1 }}
-            className="font-display font-bold text-silver-100 mb-6"
+            className="font-display font-bold text-white-soft mb-6"
             style={{ fontSize: 'clamp(2rem, 5vw, 4rem)' }}
           >
             A Story of{' '}
@@ -129,7 +129,7 @@ export default function Story() {
             initial={{ opacity: 0, y: 20 }}
             animate={headerInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="text-silver-300 text-lg max-w-xl mx-auto"
+            className="text-muted text-lg max-w-xl mx-auto"
           >
             Every great brand has a story. Here's ours — told in chapters, 
             built in code, and measured in impact.
@@ -147,14 +147,14 @@ export default function Story() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
-          className="text-center mt-12 p-12 rounded-3xl glass border border-cyan-400/10"
+          className="text-center mt-12 p-12 rounded-3xl glass border border-orange-500/10"
         >
-          <p className="font-display font-bold text-silver-100 text-2xl md:text-3xl leading-relaxed">
+          <p className="font-display font-bold text-white-soft text-2xl md:text-3xl leading-relaxed">
             "We don't just build digital products.{' '}
             <span className="text-gradient">We build the next chapter</span>{' '}
             of your brand's story."
           </p>
-          <p className="text-silver-300 mt-4 text-sm">— The Nexaris Team</p>
+          <p className="text-muted mt-4 text-sm">— The Nexaris Team</p>
         </motion.div>
       </div>
     </section>

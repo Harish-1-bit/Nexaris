@@ -12,25 +12,25 @@
 ───────────────────────────────────────────────────────── */
 @theme {
   /* backgrounds */
-  --color-base:       #080510;
-  --color-base-soft:  #0e0a1f;
-  --color-base-card:  #120d28;
+  --color-base:       #000000;
+  --color-base-soft:  #080808;
+  --color-base-card:  #141414;
 
-  /* violet / purple — primary */
-  --color-violet-600: #6C3BFF;
-  --color-violet-500: #7C4DFF;
-  --color-violet-400: #9B72FF;
-  --color-purple-500: #A855F7;
-  --color-purple-400: #C084FC;
+  /* violet / purple mapped to Neon Red / Solar Orange */
+  --color-violet-600: #FF1E1E;
+  --color-violet-500: #FF3333;
+  --color-violet-400: #FF4D4D;
+  --color-purple-500: #FF5E00;
+  --color-purple-400: #FF7A29;
 
   /* magenta / pink — accent */
-  --color-magenta:    #EC4899;
-  --color-pink-400:   #F472B6;
+  --color-magenta:    #FF1E1E;
+  --color-pink-400:   #FF5E00;
 
   /* amber / coral — complement */
-  --color-amber-400:  #FBBF24;
-  --color-amber-300:  #FCD34D;
-  --color-coral:      #FF6B6B;
+  --color-amber-400:  #FF5E00;
+  --color-amber-300:  #FF7A29;
+  --color-coral:      #FF1E1E;
 
   /* neutrals */
   --color-white-soft: #F0EEF8;
@@ -52,27 +52,27 @@
   }
 
   body {
-    background: #080510;
+    background: #000000;
     color: #F0EEF8;
     font-family: 'Inter', system-ui, sans-serif;
     overflow-x: hidden;
   }
 
-  ::selection { background: rgba(168,85,247,0.30); color: #F0EEF8; }
+  ::selection { background: rgba(255,94,0,0.30); color: #F0EEF8; }
 
   ::-webkit-scrollbar { width: 3px; }
-  ::-webkit-scrollbar-track { background: #080510; }
+  ::-webkit-scrollbar-track { background: #000000; }
   ::-webkit-scrollbar-thumb {
-    background: linear-gradient(to bottom, #6C3BFF, #EC4899);
+    background: linear-gradient(to bottom, #FF5E00, #FF1E1E);
     border-radius: 2px;
   }
 }
 
 /* ── UTILITIES ────────────────────────────────────────── */
 @layer utilities {
-  /* violet → magenta gradient text */
+  /* Red-Orange gradient text */
   .text-gradient {
-    background: linear-gradient(135deg, #F0EEF8 0%, #C084FC 40%, #EC4899 100%);
+    background: linear-gradient(135deg, #F0EEF8 0%, #FF7A29 50%, #FF1E1E 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -80,34 +80,34 @@
 
   /* amber accent text */
   .text-amber {
-    background: linear-gradient(135deg, #FBBF24 0%, #FCD34D 100%);
+    background: linear-gradient(135deg, #FF7A29 0%, #FF5E00 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
   }
 
   .glass {
-    background: rgba(18, 13, 40, 0.60);
+    background: rgba(15, 15, 15, 0.60);
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
-    border: 1px solid rgba(168, 85, 247, 0.12);
+    border: 1px solid rgba(255, 94, 0, 0.12);
   }
 
   .glass-amber {
-    background: rgba(18, 13, 40, 0.55);
+    background: rgba(15, 15, 15, 0.55);
     backdrop-filter: blur(14px);
-    border: 1px solid rgba(251, 191, 36, 0.15);
+    border: 1px solid rgba(255, 94, 0, 0.15);
   }
 
   .grid-bg {
     background-image:
-      linear-gradient(rgba(108,59,255,0.05) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(108,59,255,0.05) 1px, transparent 1px);
+      linear-gradient(rgba(255,30,30,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,30,30,0.04) 1px, transparent 1px);
     background-size: 60px 60px;
   }
 
   .dot-grid {
-    background-image: radial-gradient(rgba(168,85,247,0.14) 1px, transparent 1px);
+    background-image: radial-gradient(rgba(255,94,0,0.12) 1px, transparent 1px);
     background-size: 30px 30px;
   }
 }
@@ -160,12 +160,12 @@
 
 /* ── FOOTER AURORA ────────────────────────────────────── */
 @keyframes footer-glow {
-  0%, 100% { transform: scale(1)    translateZ(0); opacity: 0.72; }
-  50%       { transform: scale(1.12) translateZ(0); opacity: 1;    }
+  0%, 100% { transform: translate(-50%, -50%) scale(1)    translateZ(0); opacity: 0.72; }
+  50%       { transform: translate(-50%, -50%) scale(1.12) translateZ(0); opacity: 1;    }
 }
 @keyframes footer-glow-b {
-  0%, 100% { transform: scale(1.08) translateZ(0); opacity: 0.52; }
-  50%       { transform: scale(0.92) translateZ(0); opacity: 0.82; }
+  0%, 100% { transform: translate(-50%, -50%) scale(1.08) translateZ(0); opacity: 0.52; }
+  50%       { transform: translate(-50%, -50%) scale(0.92) translateZ(0); opacity: 0.82; }
 }
 @keyframes footer-streak {
   0%, 100% { transform: scaleY(0.7) translateZ(0); opacity: 0.16; }

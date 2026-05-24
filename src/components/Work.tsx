@@ -1,4 +1,4 @@
-import { useRef } from 'react'
+import { useRef, useState } from 'react'
 import { motion, useInView } from 'framer-motion'
 import { ArrowRight } from 'lucide-react'
 
@@ -9,7 +9,6 @@ const projects = [
     tags: ['Branding', 'UX/UI Design', 'Web Development'],
     description:
       'A next-generation wealth management platform. We refined their visual identity and rebuilt their website to reflect strategic insight and decisive action.',
-    col: 'left',
   },
   {
     id: 2,
@@ -17,7 +16,6 @@ const projects = [
     tags: ['UX/UI Design', 'Web Development', 'Photography'],
     description:
       'Mindfulness and wellness platform with personalized coaching. A complete digital experience built around calm, clarity, and user wellbeing.',
-    col: 'right',
   },
   {
     id: 3,
@@ -25,7 +23,6 @@ const projects = [
     tags: ['Branding', 'UX/UI Design', 'Web Development'],
     description:
       'A smart B2B solution tracking energy consumption and certifications. Built for businesses seeking better performance and compliance.',
-    col: 'left',
   },
   {
     id: 4,
@@ -33,7 +30,6 @@ const projects = [
     tags: ['Branding', 'UX/UI Design', 'Web Development'],
     description:
       'A diagnostic tool helping professionals identify and treat critical issues. The site serves as a trusted reference across the industry.',
-    col: 'right',
   },
   {
     id: 5,
@@ -41,17 +37,16 @@ const projects = [
     tags: ['Branding', 'UX/UI Design', 'Web Development'],
     description:
       'Premium e-commerce experience for a luxury lifestyle brand. Immersive product storytelling with a +180% conversion rate improvement.',
-    col: 'left',
   },
 ]
 
 /* gradient visual per project */
 const palettes = [
-  { a: 'rgba(108,59,255,0.4)',  b: 'rgba(168,85,247,0.18)', line: '#A855F7' },
-  { a: 'rgba(108,59,255,0.35)', b: 'rgba(168,85,247,0.14)', line: '#9B72FF' },
-  { a: 'rgba(80,40,200,0.45)',  b: 'rgba(168,85,247,0.12)', line: '#A855F7' },
-  { a: 'rgba(60,20,140,0.5)',   b: 'rgba(108,59,255,0.18)', line: '#6C3BFF' },
-  { a: 'rgba(90,40,180,0.38)',  b: 'rgba(168,85,247,0.15)', line: '#A855F7' },
+  { a: 'rgba(255,30,30,0.32)',  b: 'rgba(255,94,0,0.14)', line: '#FF5E00' },
+  { a: 'rgba(255,30,30,0.28)',  b: 'rgba(255,94,0,0.10)', line: '#FF7A29' },
+  { a: 'rgba(200,40,40,0.35)',  b: 'rgba(255,94,0,0.08)', line: '#FF5E00' },
+  { a: 'rgba(140,20,20,0.4)',   b: 'rgba(255,30,30,0.14)', line: '#FF1E1E' },
+  { a: 'rgba(180,40,40,0.30)',  b: 'rgba(255,94,0,0.12)', line: '#FF5E00' },
 ]
 
 function ProjectVisual({ id }: { id: number }) {
@@ -82,55 +77,109 @@ function ProjectVisual({ id }: { id: number }) {
   )
 }
 
-function ProjectCard({ project, index, col }: { project: typeof projects[0]; index: number; col: 'left' | 'right' }) {
-  const ref = useRef(null)
-  const inView = useInView(ref, { once: true, margin: '-70px' })
-  const row = Math.floor(index / 2)
-
+function ProjectCardMobile({ project }: { project: typeof projects[0] }) {
   return (
-    <motion.div
-      ref={ref}
-      initial={{ opacity: 0, x: col === 'left' ? -50 : 50, y: 16 }}
-      animate={inView ? { opacity: 1, x: 0, y: 0 } : {}}
-      transition={{ duration: 0.82, delay: row * 0.13, ease: [0.16, 1, 0.3, 1] }}
-      className="group cursor-pointer"
+    <div
+      className="rounded-2xl overflow-hidden p-5 flex flex-col gap-4"
+      style={{ background: 'rgba(15,15,15,0.6)', border: '1px solid rgba(255,255,255,0.06)' }}
     >
-      {/* image */}
-      <div className="relative w-full rounded-xl overflow-hidden mb-5" style={{ aspectRatio: '4/3' }}>
+      {/* visual */}
+      <div className="relative w-full aspect-[16/10] rounded-xl overflow-hidden">
         <ProjectVisual id={project.id} />
-
-        {/* tags overlay — bottom-left like AKIS */}
-        <div className="absolute bottom-3 left-3 flex flex-wrap gap-1.5 z-10">
+        <div className="absolute bottom-2 left-2 flex flex-wrap gap-1 z-10">
           {project.tags.map((tag) => (
-            <span key={tag} className="px-2.5 py-1 rounded-md text-[10px] font-medium"
-              style={{ background: 'rgba(8,5,16,0.78)', backdropFilter: 'blur(8px)', border: '1px solid rgba(255,255,255,0.1)', color: 'rgba(255,255,255,0.8)' }}>
+            <span key={tag} className="px-2 py-0.5 rounded text-[9px] font-medium"
+              style={{ background: 'rgba(0,0,0,0.8)', border: '1px solid rgba(255,94,0,0.15)', color: 'rgba(255,255,255,0.8)' }}>
               {tag}
             </span>
           ))}
         </div>
+      </div>
+      {/* text */}
+      <div>
+        <h4 className="font-display font-bold text-lg text-white mb-2">{project.title}</h4>
+        <p className="text-xs leading-relaxed" style={{ color: 'rgba(160,168,192,0.7)' }}>{project.description}</p>
+        <div className="flex items-center gap-1 text-xs font-semibold mt-4" style={{ color: '#FF5E00' }}>
+          View Project <ArrowRight size={11} />
+        </div>
+      </div>
+    </div>
+  )
+}
 
-        {/* hover overlay */}
-        <motion.div
-          initial={{ opacity: 0 }} whileHover={{ opacity: 1 }} transition={{ duration: 0.3 }}
-          className="absolute inset-0"
-          style={{ background: 'rgba(168,85,247,0.04)' }} />
+function ProjectCardDesktop({
+  project,
+  index,
+  hoveredIndex,
+  setHoveredIndex,
+}: {
+  project: typeof projects[0]
+  index: number
+  hoveredIndex: number | null
+  setHoveredIndex: (idx: number | null) => void
+}) {
+  const baseX = (index - 2) * 300 // increased horizontal spacing offset
+  const baseRotate = (index - 2) * 6 // rotational fan angle
+  const baseTranslateY = Math.abs(index - 2) * 12 // vertical arc drop
+
+  const isHovered = hoveredIndex === index
+  const isLeft = hoveredIndex !== null && index < hoveredIndex
+  const isRight = hoveredIndex !== null && index > hoveredIndex
+
+  const x = isLeft ? baseX - 60 : isRight ? baseX + 60 : baseX
+  const y = isHovered ? -20 : baseTranslateY
+  const rotate = isHovered ? 0 : baseRotate
+  const scale = isHovered ? 1.04 : (hoveredIndex !== null ? 0.96 : 1)
+  const zIndex = isHovered ? 30 : 10 + index
+
+  return (
+    <motion.div
+      onHoverStart={() => setHoveredIndex(index)}
+      onHoverEnd={() => setHoveredIndex(null)}
+      animate={{ x, y, rotate, scale, zIndex }}
+      transition={{ ease: [0.16, 1, 0.3, 1], duration: 0.85 }}
+      className="absolute bottom-10 origin-bottom cursor-pointer rounded-2xl overflow-hidden p-5 flex flex-col justify-between"
+      style={{
+        width: 360,
+        height: 480,
+        background: 'rgba(15,15,15,0.85)',
+        backdropFilter: 'blur(16px)',
+        border: isHovered ? '1px solid rgba(255,94,0,0.35)' : '1px solid rgba(255,255,255,0.06)',
+        boxShadow: isHovered ? '0 25px 60px rgba(255,30,30,0.12)' : 'none',
+      }}
+    >
+      {/* Visual */}
+      <div className="relative w-full h-[220px] rounded-xl overflow-hidden mb-4">
+        <ProjectVisual id={project.id} />
+        <div className="absolute bottom-2 left-2 flex flex-wrap gap-1 z-10">
+          {project.tags.slice(0, 2).map((tag) => (
+            <span key={tag} className="px-2.5 py-0.5 rounded text-[10px] font-medium"
+              style={{ background: 'rgba(0,0,0,0.8)', border: '1px solid rgba(255,94,0,0.15)', color: 'rgba(255,255,255,0.8)' }}>
+              {tag}
+            </span>
+          ))}
+        </div>
       </div>
 
-      {/* text */}
-      <h3 className="font-display font-bold text-lg mb-2 transition-colors duration-300"
-        style={{ color: '#e8eaf0' }}
-        onMouseEnter={(e) => (e.currentTarget.style.color = '#A855F7')}
-        onMouseLeave={(e) => (e.currentTarget.style.color = '#e8eaf0')}>
-        {project.title}
-      </h3>
-      <p className="text-sm leading-relaxed line-clamp-3" style={{ color: 'rgba(160,168,192,0.75)' }}>
-        {project.description}
-      </p>
+      {/* Info */}
+      <div className="flex-1 flex flex-col justify-between">
+        <div>
+          <h4 className="font-display font-bold text-lg text-white mb-2 leading-tight">
+            {project.title}
+          </h4>
+          <p className="text-sm leading-relaxed line-clamp-4" style={{ color: 'rgba(160,168,192,0.7)' }}>
+            {project.description}
+          </p>
+        </div>
+        <div className="flex items-center gap-1.5 text-xs font-semibold mt-3" style={{ color: '#FF5E00' }}>
+          View Project <ArrowRight size={12} />
+        </div>
+      </div>
     </motion.div>
   )
 }
 
-/* mid-section CTA — matches AKIS "Got a project in mind?" block */
+/* mid-section CTA */
 function MidCTA() {
   const ref = useRef(null)
   const inView = useInView(ref, { once: true, margin: '-60px' })
@@ -140,8 +189,8 @@ function MidCTA() {
       initial={{ opacity: 0, y: 24 }}
       animate={inView ? { opacity: 1, y: 0 } : {}}
       transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-      className="col-span-1 md:col-span-2 rounded-2xl p-10 flex flex-col items-start gap-5 my-2"
-      style={{ background: 'rgba(14,10,31,0.6)', border: '1px solid rgba(255,255,255,0.07)' }}
+      className="rounded-2xl p-10 flex flex-col items-start gap-5 my-2"
+      style={{ background: 'rgba(15,15,15,0.6)', border: '1px solid rgba(255,30,30,0.07)' }}
     >
       <h3 className="font-display font-bold text-white text-2xl leading-snug">
         Got a project in mind?
@@ -150,11 +199,18 @@ function MidCTA() {
         Free 30-minute call to talk about your project.
       </p>
       <motion.button
-        whileHover={{ scale: 1.04, boxShadow: '0 0 28px rgba(168,85,247,0.3)' }}
+        whileHover={{ scale: 1.04, boxShadow: '0 0 28px rgba(255,94,0,0.3)' }}
         whileTap={{ scale: 0.97 }}
-        onClick={() => document.querySelector('#contact')?.scrollIntoView({ behavior: 'smooth' })}
-        className="flex items-center gap-2 px-6 py-3 rounded-xl text-sm font-semibold"
-        style={{ background: 'linear-gradient(135deg,#A855F7,#6C3BFF)', color: '#080510' }}
+        onClick={() => {
+          const element = document.querySelector('#contact');
+          if (element) {
+            element.scrollIntoView({ behavior: 'smooth' });
+          } else {
+            window.location.href = '/contact';
+          }
+        }}
+        className="flex items-center gap-2 px-6 py-3 rounded-xl text-sm font-semibold cursor-pointer"
+        style={{ background: 'linear-gradient(135deg,#FF5E00,#FF1E1E)', color: '#000000' }}
       >
         See how we can help <ArrowRight size={14} />
       </motion.button>
@@ -165,19 +221,17 @@ function MidCTA() {
 export default function Work() {
   const headerRef = useRef(null)
   const headerInView = useInView(headerRef, { once: true, margin: '-80px' })
-
-  const leftProjects  = projects.filter((p) => p.col === 'left')
-  const rightProjects = projects.filter((p) => p.col === 'right')
+  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null)
 
   return (
-    <section id="work" className="relative py-28 overflow-hidden" style={{ background: '#000' }}>
+    <section id="work" className="relative py-28 overflow-hidden" style={{ background: '#000000' }}>
       <div className="absolute top-0 inset-x-0 h-px" style={{ background: 'rgba(255,255,255,0.06)' }} />
 
       {/* right ambient glow */}
       <div className="absolute right-0 top-1/3 w-[420px] h-[500px] pointer-events-none"
-        style={{ background: 'radial-gradient(ellipse at right,rgba(108,59,255,0.07) 0%,transparent 70%)' }} />
+        style={{ background: 'radial-gradient(ellipse at right,rgba(255,30,30,0.06) 0%,transparent 70%)' }} />
 
-      <div className="max-w-6xl mx-auto px-8 md:px-14">
+      <div className="max-w-7xl mx-auto px-8 md:px-14">
         {/* header — split layout */}
         <div ref={headerRef} className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-14">
           <div>
@@ -186,7 +240,7 @@ export default function Work() {
               animate={headerInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.5 }}
               className="text-xs font-medium tracking-[0.2em] uppercase mb-5"
-              style={{ color: '#A855F7' }}
+              style={{ color: '#FF5E00' }}
             >
               Projects
             </motion.p>
@@ -212,24 +266,32 @@ export default function Work() {
           </motion.p>
         </div>
 
-        {/* staggered 2-col grid — right col offset down like AKIS */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-14">
-          {/* left column */}
-          <div className="flex flex-col gap-14">
-            {leftProjects.map((p, i) => (
-              <ProjectCard key={p.id} project={p} index={i * 2} col="left" />
+        {/* Desktop interactive card deck / Mobile grid layout */}
+        <div className="relative w-full overflow-visible min-h-[480px] flex items-center justify-center my-10">
+          
+          {/* Mobile vertical stack layout */}
+          <div className="flex flex-col gap-8 w-full md:hidden">
+            {projects.map((project) => (
+              <ProjectCardMobile key={project.id} project={project} />
             ))}
           </div>
-          {/* right column — pushed down */}
-          <div className="flex flex-col gap-14 md:pt-20">
-            {rightProjects.map((p, i) => (
-              <ProjectCard key={p.id} project={p} index={i * 2 + 1} col="right" />
+
+          {/* Desktop interactive fanned deck */}
+          <div className="hidden md:flex relative justify-center items-end h-[560px] w-full overflow-visible">
+            {projects.map((project, i) => (
+              <ProjectCardDesktop
+                key={project.id}
+                project={project}
+                index={i}
+                hoveredIndex={hoveredIndex}
+                setHoveredIndex={setHoveredIndex}
+              />
             ))}
           </div>
         </div>
 
         {/* mid CTA */}
-        <div className="mt-14">
+        <div className="mt-20">
           <MidCTA />
         </div>
 
@@ -244,11 +306,11 @@ export default function Work() {
         >
           <motion.button
             whileHover={{ x: 4 }}
-            className="group flex items-center gap-2 text-sm font-medium"
+            className="group flex items-center gap-2 text-sm font-medium cursor-pointer"
             style={{ color: 'rgba(160,168,192,0.7)' }}
           >
             All projects
-            <ArrowRight size={13} className="group-hover:translate-x-1 transition-transform" style={{ color: '#A855F7' }} />
+            <ArrowRight size={13} className="group-hover:translate-x-1 transition-transform" style={{ color: '#FF5E00' }} />
           </motion.button>
         </motion.div>
       </div>

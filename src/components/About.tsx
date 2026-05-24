@@ -7,11 +7,11 @@ export default function About() {
   const inView = useInView(ref, { once: true, margin: '-80px' })
 
   return (
-    <section id="about" className="relative py-28 overflow-hidden" style={{ background: '#000' }}>
+    <section id="about" className="relative py-28 overflow-hidden" style={{ background: '#000000' }}>
       {/* subtle top border */}
       <div className="absolute top-0 inset-x-0 h-px" style={{ background: 'rgba(255,255,255,0.06)' }} />
 
-      <div className="max-w-6xl mx-auto px-8 md:px-14">
+      <div className="max-w-7xl mx-auto px-8 md:px-14">
         {/* label */}
         <motion.p
           ref={ref}
@@ -19,7 +19,7 @@ export default function About() {
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.55 }}
           className="text-xs font-medium tracking-[0.2em] uppercase mb-10"
-          style={{ color: '#A855F7' }}
+          style={{ color: '#FF5E00' }}
         >
           About
         </motion.p>
@@ -49,12 +49,19 @@ export default function About() {
           >
             <motion.button
               whileHover={{ x: 4 }}
-              onClick={() => document.querySelector('#contact')?.scrollIntoView({ behavior: 'smooth' })}
-              className="group inline-flex items-center gap-2 text-sm font-medium self-start"
+              onClick={() => {
+                const element = document.querySelector('#contact');
+                if (element) {
+                  element.scrollIntoView({ behavior: 'smooth' });
+                } else {
+                  window.location.href = '/contact';
+                }
+              }}
+              className="group inline-flex items-center gap-2 text-sm font-medium self-start cursor-pointer"
               style={{ color: '#a0a8c0' }}
             >
               Discover the studio
-              <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" style={{ color: '#A855F7' }} />
+              <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" style={{ color: '#FF5E00' }} />
             </motion.button>
 
             <p className="text-base leading-relaxed" style={{ color: 'rgba(160,168,192,0.85)' }}>
@@ -62,33 +69,10 @@ export default function About() {
               actually are. That's been our driving force since day one, and it shapes every
               project we take on — from brand identity to full-stack development.
             </p>
-
-            {/* stats row */}
-            <div className="grid grid-cols-3 gap-6 pt-4 mt-2" style={{ borderTop: '1px solid rgba(255,255,255,0.07)' }}>
-              {[
-                { value: '150+', label: 'Projects delivered' },
-                { value: '7+',   label: 'Years of craft' },
-                { value: '40+',  label: 'Happy clients' },
-              ].map((s) => (
-                <div key={s.label}>
-                  <div
-                    className="font-display font-bold text-2xl mb-1"
-                    style={{
-                      background: 'linear-gradient(135deg,#e8eaf0,#A855F7)',
-                      WebkitBackgroundClip: 'text',
-                      WebkitTextFillColor: 'transparent',
-                      backgroundClip: 'text',
-                    }}
-                  >
-                    {s.value}
-                  </div>
-                  <div className="text-xs" style={{ color: '#a0a8c0' }}>{s.label}</div>
-                </div>
-              ))}
-            </div>
           </motion.div>
         </div>
       </div>
+
     </section>
   )
 }

@@ -12,7 +12,7 @@ export default function Horizon() {
   return (
     <motion.div
       ref={ref}
-      style={{ opacity: fadeIn, height: 220, background: '#080510' }}
+      style={{ opacity: fadeIn, height: 220, background: '#000000' }}
       className="relative w-full overflow-hidden"
     >
       {/* ── PERSPECTIVE GRID FLOOR ── */}
@@ -23,8 +23,8 @@ export default function Horizon() {
           background: `
             linear-gradient(to bottom,
               transparent 0%,
-              rgba(108,59,255,0.04) 40%,
-              rgba(108,59,255,0.10) 100%)
+              rgba(255,30,30,0.04) 40%,
+              rgba(255,94,0,0.10) 100%)
           `,
         }}
       >
@@ -37,17 +37,17 @@ export default function Horizon() {
         >
           <defs>
             <linearGradient id="hLineGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-              <stop offset="0%"   stopColor="rgba(108,59,255,0)"   />
-              <stop offset="60%"  stopColor="rgba(168,85,247,0.35)" />
-              <stop offset="100%" stopColor="rgba(236,72,153,0.55)" />
+              <stop offset="0%"   stopColor="rgba(255,30,30,0)"   />
+              <stop offset="60%"  stopColor="rgba(255,94,0,0.35)" />
+              <stop offset="100%" stopColor="rgba(255,30,30,0.55)" />
             </linearGradient>
             <linearGradient id="vLineGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-              <stop offset="0%"   stopColor="rgba(108,59,255,0)"   />
-              <stop offset="100%" stopColor="rgba(168,85,247,0.28)" />
+              <stop offset="0%"   stopColor="rgba(255,30,30,0)"   />
+              <stop offset="100%" stopColor="rgba(255,94,0,0.28)" />
             </linearGradient>
           </defs>
 
-          {/* Horizontal lines — perspective spacing (closer = denser at bottom) */}
+          {/* Horizontal lines — perspective spacing */}
           {[0.18, 0.32, 0.46, 0.58, 0.68, 0.77, 0.84, 0.90, 0.95, 1.0].map((t, i) => (
             <line
               key={i}
@@ -84,7 +84,7 @@ export default function Horizon() {
         style={{
           top: '28%',
           height: 1,
-          background: 'linear-gradient(to right, transparent 0%, rgba(108,59,255,0.6) 15%, rgba(236,72,153,0.9) 40%, rgba(251,191,36,0.8) 50%, rgba(236,72,153,0.9) 60%, rgba(108,59,255,0.6) 85%, transparent 100%)',
+          background: 'linear-gradient(to right, transparent 0%, rgba(255,30,30,0.6) 15%, rgba(255,94,0,0.9) 50%, rgba(255,30,30,0.6) 85%, transparent 100%)',
           willChange: 'transform, opacity',
         }}
       />
@@ -95,18 +95,18 @@ export default function Horizon() {
         style={{
           top: '18%',
           height: 60,
-          background: 'radial-gradient(ellipse 70% 100% at 50% 100%, rgba(168,85,247,0.28) 0%, rgba(236,72,153,0.18) 40%, transparent 80%)',
+          background: 'radial-gradient(ellipse 70% 100% at 50% 100%, rgba(255,94,0,0.28) 0%, rgba(255,30,30,0.18) 40%, transparent 80%)',
           filter: 'blur(12px)',
           willChange: 'transform, opacity',
         }}
       />
 
-      {/* Amber accent bloom — complementary pop */}
+      {/* Amber/Orange accent bloom */}
       <div
         className="absolute horizon-glow"
         style={{
           top: '15%', left: '35%', right: '35%', height: 50,
-          background: 'radial-gradient(ellipse at center, rgba(251,191,36,0.22) 0%, transparent 80%)',
+          background: 'radial-gradient(ellipse at center, rgba(255,94,0,0.22) 0%, transparent 80%)',
           filter: 'blur(16px)',
           animationDelay: '1.5s',
           willChange: 'transform, opacity',
@@ -120,21 +120,21 @@ export default function Horizon() {
           willChange: 'transform',
           position: 'absolute',
           top: '10%', width: '30%', height: '60%',
-          background: 'linear-gradient(to right, transparent, rgba(236,72,153,0.12), rgba(251,191,36,0.08), transparent)',
+          background: 'linear-gradient(to right, transparent, rgba(255,30,30,0.12), rgba(255,94,0,0.08), transparent)',
           filter: 'blur(8px)',
         }}
       />
 
-      {/* ── TOP FADE — blends into hero ── */}
+      {/* ── TOP FADE ── */}
       <div
         className="absolute top-0 inset-x-0 h-[45%] pointer-events-none"
-        style={{ background: 'linear-gradient(to bottom, #080510, transparent)' }}
+        style={{ background: 'linear-gradient(to bottom, #000000, transparent)' }}
       />
 
-      {/* ── BOTTOM FADE — blends into next section ── */}
+      {/* ── BOTTOM FADE ── */}
       <div
         className="absolute bottom-0 inset-x-0 h-[35%] pointer-events-none"
-        style={{ background: 'linear-gradient(to top, #080510, transparent)' }}
+        style={{ background: 'linear-gradient(to top, #000000, transparent)' }}
       />
 
       {/* ── FLOATING STATS above horizon ── */}
@@ -156,7 +156,7 @@ export default function Horizon() {
             <div
               className="font-display font-bold text-2xl md:text-3xl mb-0.5"
               style={{
-                background: 'linear-gradient(135deg, #F0EEF8, #C084FC, #EC4899)',
+                background: 'linear-gradient(135deg, #F0EEF8, #FF7A29, #FF1E1E)',
                 WebkitBackgroundClip: 'text',
                 WebkitTextFillColor: 'transparent',
                 backgroundClip: 'text',

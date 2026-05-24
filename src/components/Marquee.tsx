@@ -11,15 +11,15 @@ export default function Marquee() {
     <div
       className="relative py-5 overflow-hidden"
       style={{
-        borderTop: '1px solid rgba(168,85,247,0.12)',
-        borderBottom: '1px solid rgba(168,85,247,0.12)',
-        background: 'rgba(14,10,31,0.6)',
+        borderTop: '1px solid rgba(255,94,0,0.12)',
+        borderBottom: '1px solid rgba(255,94,0,0.12)',
+        background: 'rgba(20,20,20,0.6)',
       }}
     >
       <div className="absolute inset-y-0 left-0 w-20 z-10 pointer-events-none"
-        style={{ background: 'linear-gradient(to right,#080510,transparent)' }} />
+        style={{ background: 'linear-gradient(to right,#000000,transparent)' }} />
       <div className="absolute inset-y-0 right-0 w-20 z-10 pointer-events-none"
-        style={{ background: 'linear-gradient(to left,#080510,transparent)' }} />
+        style={{ background: 'linear-gradient(to left,#000000,transparent)' }} />
 
       <div className="flex">
         <motion.div
@@ -34,7 +34,7 @@ export default function Marquee() {
               className="text-xs font-medium tracking-[0.18em] uppercase"
               style={{
                 color: item === '✦'
-                  ? (i % 6 === 1 ? '#A855F7' : i % 6 === 3 ? '#EC4899' : '#FBBF24')
+                  ? (i % 6 === 1 ? '#FF5E00' : i % 6 === 3 ? '#FF1E1E' : '#FF7A29')
                   : 'rgba(155,147,184,0.65)',
               }}
             >

@@ -24,11 +24,11 @@ export default function Footer() {
   const infoInView = useInView(infoRef, { once: true, margin: '-60px' })
 
   return (
-    <footer className="relative overflow-hidden" style={{ background: '#000' }}>
+    <footer className="relative overflow-hidden" style={{ background: '#000000' }}>
 
       {/* ── CTA AURORA BANNER ── */}
       <div ref={ctaRef} className="relative w-full overflow-hidden" style={{ height: 340 }}>
-        <div className="absolute inset-0" style={{ background: '#000' }} />
+        <div className="absolute inset-0" style={{ background: '#000000' }} />
 
         {/* Main glow — CSS animation, GPU only */}
         <div
@@ -36,9 +36,9 @@ export default function Footer() {
           style={{
             top: '50%', left: '50%',
             transform: 'translate(-50%,-50%)',
-            width: 600, height: 260,
-            background: 'radial-gradient(ellipse at center, rgba(168,85,247,0.52) 0%, rgba(108,59,255,0.32) 40%, transparent 75%)',
-            filter: 'blur(40px)',
+            width: 1200, height: 420,
+            background: 'radial-gradient(ellipse at center, rgba(255,94,0,0.52) 0%, rgba(255,30,30,0.32) 40%, transparent 75%)',
+            filter: 'blur(70px)',
             willChange: 'transform, opacity',
           }}
         />
@@ -48,9 +48,9 @@ export default function Footer() {
           style={{
             top: '50%', left: '50%',
             transform: 'translate(-50%,-50%)',
-            width: 380, height: 170,
-            background: 'radial-gradient(ellipse at center, rgba(168,85,247,0.58) 0%, rgba(108,59,255,0.28) 50%, transparent 80%)',
-            filter: 'blur(28px)',
+            width: 800, height: 260,
+            background: 'radial-gradient(ellipse at center, rgba(255,94,0,0.58) 0%, rgba(255,30,30,0.28) 50%, transparent 80%)',
+            filter: 'blur(45px)',
             willChange: 'transform, opacity',
           }}
         />
@@ -63,7 +63,7 @@ export default function Footer() {
             style={{
               left: `${38 + i * 4}%`,
               width: 2,
-              background: 'linear-gradient(to bottom, transparent, rgba(168,85,247,0.42), rgba(108,59,255,0.52), rgba(168,85,247,0.32), transparent)',
+              background: 'linear-gradient(to bottom, transparent, rgba(255,94,0,0.42), rgba(255,30,30,0.52), rgba(255,94,0,0.32), transparent)',
               filter: 'blur(3px)',
               animationDelay: `${i * 0.42}s`,
               animationDuration: `${3 + i * 0.65}s`,
@@ -92,7 +92,7 @@ export default function Footer() {
             style={{
               background: 'rgba(0,0,0,0.48)',
               backdropFilter: 'blur(14px)',
-              border: '1px solid rgba(168,85,247,0.12)',
+              border: '1px solid rgba(255,94,0,0.12)',
             }}
           >
             <h2
@@ -102,11 +102,18 @@ export default function Footer() {
               Ready to build a brand that<br />matches your ambition?
             </h2>
             <motion.button
-              whileHover={{ scale: 1.05, boxShadow: '0 0 28px rgba(168,85,247,0.38)' }}
+              whileHover={{ scale: 1.05, boxShadow: '0 0 28px rgba(255,94,0,0.38)' }}
               whileTap={{ scale: 0.97 }}
-              onClick={() => document.querySelector('#contact')?.scrollIntoView({ behavior: 'smooth' })}
-              className="inline-flex items-center gap-2 px-6 py-2.5 rounded-lg text-sm font-semibold"
-              style={{ background: 'linear-gradient(135deg,#A855F7,#6C3BFF)', color: '#000' }}
+              onClick={() => {
+                const element = document.querySelector('#contact');
+                if (element) {
+                  element.scrollIntoView({ behavior: 'smooth' });
+                } else {
+                  window.location.href = '/contact';
+                }
+              }}
+              className="inline-flex items-center gap-2 px-6 py-2.5 rounded-lg text-sm font-semibold cursor-pointer"
+              style={{ background: 'linear-gradient(135deg,#FF5E00,#FF1E1E)', color: '#000' }}
             >
               Let's talk <ArrowRight size={13} />
             </motion.button>
@@ -118,9 +125,9 @@ export default function Footer() {
       <div
         ref={infoRef}
         className="relative z-10"
-        style={{ borderTop: '1px solid rgba(255,255,255,0.06)', background: '#000' }}
+        style={{ borderTop: '1px solid rgba(255,255,255,0.06)', background: '#000000' }}
       >
-        <div className="max-w-6xl mx-auto px-8 md:px-14 py-10">
+        <div className="max-w-7xl mx-auto px-8 md:px-14 py-10">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
 
             {/* Left */}
@@ -136,10 +143,17 @@ export default function Footer() {
                 Let's talk about it.
               </p>
               <button
-                onClick={() => document.querySelector('#contact')?.scrollIntoView({ behavior: 'smooth' })}
-                className="px-5 py-2 rounded-lg text-xs font-medium text-white transition-all duration-250"
+                onClick={() => {
+                  const element = document.querySelector('#contact');
+                  if (element) {
+                    element.scrollIntoView({ behavior: 'smooth' });
+                  } else {
+                    window.location.href = '/contact';
+                  }
+                }}
+                className="px-5 py-2 rounded-lg text-xs font-medium text-white transition-all duration-250 cursor-pointer"
                 style={{ border: '1px solid rgba(255,255,255,0.18)' }}
-                onMouseEnter={(e) => (e.currentTarget.style.borderColor = 'rgba(168,85,247,0.4)')}
+                onMouseEnter={(e) => (e.currentTarget.style.borderColor = 'rgba(255,94,0,0.4)')}
                 onMouseLeave={(e) => (e.currentTarget.style.borderColor = 'rgba(255,255,255,0.18)')}
               >
                 Contact us
@@ -161,7 +175,20 @@ export default function Footer() {
                   <li key={link.label}>
                     <a
                       href={link.href}
-                      onClick={(e) => { e.preventDefault(); document.querySelector(link.href)?.scrollIntoView({ behavior: 'smooth' }) }}
+                      onClick={(e) => {
+                        e.preventDefault();
+                        const element = document.querySelector(link.href);
+                        if (element) {
+                          element.scrollIntoView({ behavior: 'smooth' });
+                        } else {
+                          // navigate based on mapping
+                          const path = link.href === '#services' ? '/services' : 
+                                       link.href === '#work' ? '/work' :
+                                       link.href === '#about' ? '/about' :
+                                       link.href === '#contact' ? '/contact' : '/';
+                          window.location.href = path;
+                        }
+                      }}
                       className="text-sm transition-colors duration-200"
                       style={{ color: 'rgba(160,168,192,0.7)' }}
                       onMouseEnter={(e) => (e.currentTarget.style.color = '#e8eaf0')}
@@ -195,7 +222,7 @@ export default function Footer() {
                         onMouseEnter={(e) => (e.currentTarget.style.color = '#e8eaf0')}
                         onMouseLeave={(e) => (e.currentTarget.style.color = 'rgba(160,168,192,0.7)')}
                       >
-                        <Icon size={12} style={{ color: 'rgba(168,85,247,0.55)', flexShrink: 0 }} />
+                        <Icon size={12} style={{ color: 'rgba(255,94,0,0.55)', flexShrink: 0 }} />
                         {item.value}
                       </a>
                     </li>
@@ -220,7 +247,7 @@ export default function Footer() {
       </div>
 
       {/* ── GIANT WORDMARK ── */}
-      <div className="relative overflow-hidden select-none" style={{ background: '#000' }}>
+      <div className="relative overflow-hidden select-none" style={{ background: '#000000' }}>
         <div className="absolute top-0 inset-x-0 h-px"
           style={{ background: 'linear-gradient(to right,transparent,rgba(255,255,255,0.05),transparent)' }} />
         <motion.div

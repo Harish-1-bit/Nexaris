@@ -60,8 +60,8 @@ function FAQItem({ item, index }: { item: typeof faqs[0]; index: number }) {
         <span
           className="flex-shrink-0 w-6 h-6 rounded-full flex items-center justify-center transition-all duration-300"
           style={{
-            background: open ? 'rgba(168,85,247,0.15)' : 'rgba(255,255,255,0.06)',
-            color: open ? '#A855F7' : 'rgba(160,168,192,0.6)',
+            background: open ? 'rgba(255,94,0,0.15)' : 'rgba(255,255,255,0.06)',
+            color: open ? '#FF5E00' : 'rgba(160,168,192,0.6)',
           }}
         >
           {open ? <Minus size={12} /> : <Plus size={12} />}
@@ -95,10 +95,14 @@ export default function Process() {
   const inView = useInView(ref, { once: true, margin: '-80px' })
 
   return (
-    <section className="relative py-28 overflow-hidden" style={{ background: '#000' }}>
+    <section className="relative py-28 overflow-hidden" style={{ background: '#000000' }}>
       <div className="absolute top-0 inset-x-0 h-px" style={{ background: 'rgba(255,255,255,0.06)' }} />
 
-      <div className="max-w-6xl mx-auto px-8 md:px-14">
+      {/* subtle ambient glow */}
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] pointer-events-none"
+        style={{ background: 'radial-gradient(ellipse at top,rgba(255,30,30,0.05) 0%,transparent 70%)' }} />
+
+      <div className="max-w-7xl mx-auto px-8 md:px-14">
         {/* header */}
         <div ref={ref} className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-14">
           <div>
@@ -107,7 +111,7 @@ export default function Process() {
               animate={inView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.5 }}
               className="text-xs font-medium tracking-[0.2em] uppercase mb-5"
-              style={{ color: '#A855F7' }}
+              style={{ color: '#FF5E00' }}
             >
               FAQ
             </motion.p>
@@ -130,8 +134,15 @@ export default function Process() {
           >
             Can't find what you're looking for?{' '}
             <button
-              onClick={() => document.querySelector('#contact')?.scrollIntoView({ behavior: 'smooth' })}
-              className="underline underline-offset-2 hover:text-white transition-colors"
+              onClick={() => {
+                const element = document.querySelector('#contact');
+                if (element) {
+                  element.scrollIntoView({ behavior: 'smooth' });
+                } else {
+                  window.location.hash = 'contact';
+                }
+              }}
+              className="underline underline-offset-2 hover:text-white transition-colors cursor-pointer"
               style={{ color: 'rgba(160,168,192,0.6)' }}
             >
               Let's talk.

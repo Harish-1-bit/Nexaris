@@ -94,10 +94,10 @@ export default function Hero() {
 
           <TextReveal
             tag="h1"
-            lines={["Your Entire Digital", "Ecosystem, Built Here."]}
-            gradientWords={["Built", "Here"]}
+            lines={["We Architect Elite", "Digital Ecosystems."]}
+            gradientWords={["Digital", "Ecosystems"]}
             className="font-display font-bold leading-[1.05] tracking-tight max-w-[800px] text-center"
-            style={{ fontSize: 'clamp(2.8rem, 6.4vw, 5.8rem)', color: '#F0EEF8' }}
+            style={{ fontSize: 'clamp(2.2rem, 6.2vw, 5.4rem)', color: '#F0EEF8' }}
             delay={0.15}
           />
 
@@ -106,9 +106,9 @@ export default function Hero() {
             animate={{ opacity: 1 }}
             transition={{ duration: 0.9, delay: 1.0 }}
             style={{ color: 'rgba(155,147,184,0.85)' }}
-            className="max-w-[420px] text-center text-sm md:text-base leading-relaxed mt-6"
+            className="max-w-[480px] text-center text-sm md:text-base leading-relaxed mt-6 px-4"
           >
-            Code, design, video, and strategy. We scale your vision by handling every aspect of your enterprise's digital presence under one roof.
+            A bespoke design and engineering studio. We partner with forward-thinking enterprises to construct and scale class-defining digital platforms.
           </motion.p>
 
           {/* CTA buttons */}

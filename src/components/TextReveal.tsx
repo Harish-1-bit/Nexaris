@@ -57,10 +57,10 @@ export default function TextReveal({
         variants={containerVariants}
         initial="hidden"
         animate={isInView ? 'visible' : 'hidden'}
-        className="flex flex-col"
+        className="flex flex-col items-center"
       >
         {lines.map((line, lineIdx) => (
-          <span key={lineIdx} className="flex flex-wrap leading-tight">
+          <span key={lineIdx} className="flex flex-wrap justify-center leading-tight">
             {line.split(' ').map((word, wordIdx) => {
               // Strip punctuation to match highlighting keywords
               const cleanWord = word.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g, "")

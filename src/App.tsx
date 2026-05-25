@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react'
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom'
 import { AnimatePresence } from 'framer-motion'
 import Navbar from './components/Navbar'
@@ -15,6 +16,7 @@ import CursorGlow from './components/CursorGlow'
 import PageWrapper from './components/PageWrapper'
 import ScrollToTop from './components/ScrollToTop'
 import ExploreCanvas from './components/ExploreCanvas'
+import Preloader from './components/Preloader'
 
 function Home() {
   return (
@@ -74,9 +76,27 @@ function ContactPage() {
 
 function AppContent() {
   const location = useLocation()
+  const [isLoaded, setIsLoaded] = useState(false)
+
+  useEffect(() => {
+    if (!isLoaded) {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = ''
+    }
+    return () => {
+      document.body.style.overflow = ''
+    }
+  }, [isLoaded])
 
   return (
     <div className="relative min-h-screen overflow-x-hidden bg-black text-[#F0EEF8]">
+      <AnimatePresence>
+        {!isLoaded && (
+          <Preloader onComplete={() => setIsLoaded(true)} key="preloader" />
+        )}
+      </AnimatePresence>
+
       <ScrollToTop />
       <Navbar />
       <CursorGlow />

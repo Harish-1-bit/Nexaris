@@ -88,7 +88,7 @@ export default function Footer() {
             initial={{ opacity: 0, y: 28 }}
             animate={ctaInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.75, ease: [0.16, 1, 0.3, 1] }}
-            className="max-w-md w-full text-center px-10 py-8 rounded-2xl"
+            className="max-w-xl w-full text-center px-10 py-8 rounded-2xl"
             style={{
               background: 'rgba(0,0,0,0.48)',
               backdropFilter: 'blur(14px)',
@@ -97,7 +97,7 @@ export default function Footer() {
           >
             <h2
               className="font-display font-bold text-white leading-tight mb-6"
-              style={{ fontSize: 'clamp(1.3rem, 2.8vw, 1.9rem)' }}
+              style={{ fontSize: 'clamp(1.8rem, 3.8vw, 2.4rem)' }}
             >
               Ready to build a brand that<br />matches your ambition?
             </h2>

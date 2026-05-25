@@ -5,9 +5,9 @@ import { Move, Globe, Zap, Sparkles, Layout, Shield } from 'lucide-react'
 const items = [
   {
     id: 1,
-    x: 1300,
-    y: 750,
-    width: 600,
+    x: 830,
+    y: 470,
+    width: 540,
     type: 'hero',
     content: (
       <div className="text-center p-12 flex flex-col items-center gap-4 select-none">
@@ -26,9 +26,9 @@ const items = [
   },
   {
     id: 2,
-    x: 400,
-    y: 350,
-    width: 420,
+    x: 585,
+    y: 250,
+    width: 380,
     type: 'card',
     content: (
       <div className="p-8 flex flex-col gap-3 select-none">
@@ -42,9 +42,9 @@ const items = [
   },
   {
     id: 3,
-    x: 2350,
-    y: 380,
-    width: 420,
+    x: 1235,
+    y: 250,
+    width: 380,
     type: 'card',
     content: (
       <div className="p-8 flex flex-col gap-3 select-none">
@@ -58,9 +58,9 @@ const items = [
   },
   {
     id: 4,
-    x: 350,
-    y: 1100,
-    width: 450,
+    x: 575,
+    y: 760,
+    width: 400,
     type: 'card',
     content: (
       <div className="p-8 flex flex-col gap-4 select-none">
@@ -83,9 +83,9 @@ const items = [
   },
   {
     id: 5,
-    x: 2400,
-    y: 1120,
-    width: 420,
+    x: 1235,
+    y: 760,
+    width: 380,
     type: 'card',
     content: (
       <div className="p-8 flex flex-col gap-3 select-none">
@@ -99,9 +99,9 @@ const items = [
   },
   {
     id: 6,
-    x: 950,
-    y: 1450,
-    width: 480,
+    x: 900,
+    y: 970,
+    width: 400,
     type: 'card',
     content: (
       <div className="p-8 select-none">
@@ -120,9 +120,9 @@ const items = [
   },
   {
     id: 7,
-    x: 1750,
-    y: 1450,
-    width: 480,
+    x: 890,
+    y: 40,
+    width: 420,
     type: 'card',
     content: (
       <div className="p-8 flex flex-col justify-between h-full gap-4 select-none">
@@ -137,9 +137,9 @@ const items = [
   },
   {
     id: 8,
-    x: 1450,
-    y: 320,
-    width: 420,
+    x: 1732,
+    y: 310,
+    width: 380,
     type: 'card',
     content: (
       <div className="p-6 text-center select-none">
@@ -150,9 +150,9 @@ const items = [
   },
   {
     id: 9,
-    x: 1900,
-    y: 750,
-    width: 400,
+    x: 1570,
+    y: 510,
+    width: 360,
     type: 'card',
     content: (
       <div className="p-8 select-none">
@@ -170,9 +170,9 @@ const items = [
   },
   {
     id: 10,
-    x: 850,
-    y: 720,
-    width: 400,
+    x: 270,
+    y: 510,
+    width: 360,
     type: 'card',
     content: (
       <div className="p-8 flex flex-col gap-3 select-none">
@@ -186,9 +186,9 @@ const items = [
   },
   {
     id: 11,
-    x: 900,
-    y: 320,
-    width: 400,
+    x: 86,
+    y: 280,
+    width: 385,
     type: 'card',
     content: (
       <div className="p-8 flex flex-col gap-3 select-none">
@@ -202,9 +202,9 @@ const items = [
   },
   {
     id: 12,
-    x: 2350,
-    y: 1450,
-    width: 420,
+    x: 1727,
+    y: 740,
+    width: 390,
     type: 'card',
     content: (
       <div className="p-8 flex flex-col gap-3 select-none">
@@ -218,9 +218,9 @@ const items = [
   },
   {
     id: 13,
-    x: 450,
-    y: 720,
-    width: 420,
+    x: 113,
+    y: 740,
+    width: 330,
     type: 'card',
     content: (
       <div className="p-8 flex flex-col gap-3 select-none">
@@ -263,19 +263,19 @@ export default function ExploreCanvas() {
           <motion.div
             drag
             dragConstraints={{
-              left: -2500,
-              right: 500,
-              top: -1450,
-              bottom: 500,
+              left: -1150,
+              right: 150,
+              top: -700,
+              bottom: 150,
             }}
             dragElastic={0.15}
             dragMomentum={true}
             dragTransition={{ bounceStiffness: 400, bounceDamping: 26, power: 0.18 }}
-            initial={{ x: -1050, y: -565 }}
+            initial={{ x: -500, y: -290 }}
             className="absolute dot-grid"
             style={{
-              width: 3200,
-              height: 1800,
+              width: 2200,
+              height: 1200,
               border: '2px dashed rgba(255, 94, 0, 0.08)',
               borderRadius: '24px',
             }}

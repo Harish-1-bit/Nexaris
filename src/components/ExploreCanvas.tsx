@@ -5,8 +5,8 @@ import { Move, Globe, Zap, Sparkles, Layout } from 'lucide-react'
 const items = [
   {
     id: 1,
-    x: 950,
-    y: 500,
+    x: 1350,
+    y: 750,
     width: 500,
     type: 'hero',
     content: (
@@ -26,8 +26,8 @@ const items = [
   },
   {
     id: 2,
-    x: 450,
-    y: 280,
+    x: 550,
+    y: 400,
     width: 320,
     type: 'card',
     content: (
@@ -42,8 +42,8 @@ const items = [
   },
   {
     id: 3,
-    x: 1850,
-    y: 300,
+    x: 2450,
+    y: 450,
     width: 300,
     type: 'card',
     content: (
@@ -58,8 +58,8 @@ const items = [
   },
   {
     id: 4,
-    x: 350,
-    y: 700,
+    x: 450,
+    y: 1100,
     width: 340,
     type: 'card',
     content: (
@@ -83,8 +83,8 @@ const items = [
   },
   {
     id: 5,
-    x: 1900,
-    y: 720,
+    x: 2500,
+    y: 1120,
     width: 320,
     type: 'card',
     content: (
@@ -99,8 +99,8 @@ const items = [
   },
   {
     id: 6,
-    x: 650,
-    y: 1050,
+    x: 950,
+    y: 1450,
     width: 420,
     type: 'card',
     content: (
@@ -120,8 +120,8 @@ const items = [
   },
   {
     id: 7,
-    x: 1450,
-    y: 1050,
+    x: 1950,
+    y: 1450,
     width: 380,
     type: 'card',
     content: (
@@ -137,8 +137,8 @@ const items = [
   },
   {
     id: 8,
-    x: 1050,
-    y: 220,
+    x: 1450,
+    y: 320,
     width: 300,
     type: 'card',
     content: (
@@ -179,19 +179,19 @@ export default function ExploreCanvas() {
           <motion.div
             drag
             dragConstraints={{
-              left: -1700,
-              right: 400,
-              top: -1050,
-              bottom: 400,
+              left: -2500,
+              right: 500,
+              top: -1450,
+              bottom: 500,
             }}
             dragElastic={0.15}
             dragMomentum={true}
             dragTransition={{ bounceStiffness: 400, bounceDamping: 26, power: 0.18 }}
-            initial={{ x: -600, y: -315 }}
+            initial={{ x: -1050, y: -565 }}
             className="absolute dot-grid"
             style={{
-              width: 2400,
-              height: 1400,
+              width: 3200,
+              height: 1800,
               border: '2px dashed rgba(255, 94, 0, 0.08)',
               borderRadius: '24px',
             }}

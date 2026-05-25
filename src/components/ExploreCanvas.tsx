@@ -1,18 +1,18 @@
 import { useRef } from 'react'
 import { motion } from 'framer-motion'
-import { Move, Globe, Zap, Sparkles, Layout } from 'lucide-react'
+import { Move, Globe, Zap, Sparkles, Layout, Shield } from 'lucide-react'
 
 const items = [
   {
     id: 1,
-    x: 1350,
+    x: 1300,
     y: 750,
-    width: 500,
+    width: 600,
     type: 'hero',
     content: (
-      <div className="text-center p-10 flex flex-col items-center gap-4 select-none">
-        <div className="w-12 h-12 rounded-full bg-gradient-to-br from-orange-500/20 to-red-500/20 border border-orange-500/30 flex items-center justify-center animate-pulse">
-          <Move size={22} className="text-[#FF5E00]" />
+      <div className="text-center p-12 flex flex-col items-center gap-4 select-none">
+        <div className="w-14 h-14 rounded-full bg-gradient-to-br from-orange-500/20 to-red-500/20 border border-orange-500/30 flex items-center justify-center animate-pulse">
+          <Move size={24} className="text-[#FF5E00]" />
         </div>
         <h3 className="font-display font-extrabold text-3xl text-white">Nexaris Universe</h3>
         <p className="text-sm max-w-sm text-muted leading-relaxed">
@@ -26,9 +26,9 @@ const items = [
   },
   {
     id: 2,
-    x: 550,
-    y: 400,
-    width: 320,
+    x: 400,
+    y: 350,
+    width: 420,
     type: 'card',
     content: (
       <div className="p-8 flex flex-col gap-3 select-none">
@@ -42,9 +42,9 @@ const items = [
   },
   {
     id: 3,
-    x: 2450,
-    y: 450,
-    width: 300,
+    x: 2350,
+    y: 380,
+    width: 420,
     type: 'card',
     content: (
       <div className="p-8 flex flex-col gap-3 select-none">
@@ -58,9 +58,9 @@ const items = [
   },
   {
     id: 4,
-    x: 450,
+    x: 350,
     y: 1100,
-    width: 340,
+    width: 450,
     type: 'card',
     content: (
       <div className="p-8 flex flex-col gap-4 select-none">
@@ -83,9 +83,9 @@ const items = [
   },
   {
     id: 5,
-    x: 2500,
+    x: 2400,
     y: 1120,
-    width: 320,
+    width: 420,
     type: 'card',
     content: (
       <div className="p-8 flex flex-col gap-3 select-none">
@@ -101,7 +101,7 @@ const items = [
     id: 6,
     x: 950,
     y: 1450,
-    width: 420,
+    width: 480,
     type: 'card',
     content: (
       <div className="p-8 select-none">
@@ -120,9 +120,9 @@ const items = [
   },
   {
     id: 7,
-    x: 1950,
+    x: 1750,
     y: 1450,
-    width: 380,
+    width: 480,
     type: 'card',
     content: (
       <div className="p-8 flex flex-col justify-between h-full gap-4 select-none">
@@ -139,12 +139,96 @@ const items = [
     id: 8,
     x: 1450,
     y: 320,
-    width: 300,
+    width: 420,
     type: 'card',
     content: (
       <div className="p-6 text-center select-none">
         <span className="text-[10px] font-semibold text-muted uppercase tracking-[0.2em] mb-1 block">Core Philosophy</span>
         <div className="text-lg font-display font-bold text-gradient">Relentless Craft</div>
+      </div>
+    ),
+  },
+  {
+    id: 9,
+    x: 1900,
+    y: 750,
+    width: 400,
+    type: 'card',
+    content: (
+      <div className="p-8 select-none">
+        <h4 className="font-display font-bold text-sm text-white uppercase tracking-wider mb-4">Industries We Scale</h4>
+        <div className="grid grid-cols-2 gap-2.5 text-xs text-muted">
+          {['FinTech Platforms', 'Luxury E-Commerce', 'SaaS Projects', 'HealthTech Hubs', 'Logistics Systems', 'AI Products'].map(i => (
+            <div key={i} className="flex items-center gap-2">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#FF5E00]" />
+              <span>{i}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+    ),
+  },
+  {
+    id: 10,
+    x: 850,
+    y: 720,
+    width: 400,
+    type: 'card',
+    content: (
+      <div className="p-8 flex flex-col gap-3 select-none">
+        <Sparkles size={24} className="text-[#FF1E1E]" />
+        <h4 className="font-display font-bold text-lg text-white">Strategic Roadmap</h4>
+        <p className="text-xs text-muted leading-relaxed">
+          We align your product engineering with commercial outcomes. In-depth market fit analysis and strategic launch timelines.
+        </p>
+      </div>
+    ),
+  },
+  {
+    id: 11,
+    x: 900,
+    y: 320,
+    width: 400,
+    type: 'card',
+    content: (
+      <div className="p-8 flex flex-col gap-3 select-none">
+        <Shield size={24} className="text-[#FF5E00]" />
+        <h4 className="font-display font-bold text-lg text-white">Rigorous Testing</h4>
+        <p className="text-xs text-muted leading-relaxed">
+          Comprehensive unit, integration, and end-to-end testing pipelines. Zero-regression builds pushed automatically on every commit.
+        </p>
+      </div>
+    ),
+  },
+  {
+    id: 12,
+    x: 2350,
+    y: 1450,
+    width: 420,
+    type: 'card',
+    content: (
+      <div className="p-8 flex flex-col gap-3 select-none">
+        <Shield size={24} className="text-[#FF5E00]" />
+        <h4 className="font-display font-bold text-lg text-white">Bulletproof Security</h4>
+        <p className="text-xs text-muted leading-relaxed">
+          Continuous vulnerability scans, HTTPS-only forced routing, encrypted database schemes, and strict CORS policies.
+        </p>
+      </div>
+    ),
+  },
+  {
+    id: 13,
+    x: 450,
+    y: 720,
+    width: 420,
+    type: 'card',
+    content: (
+      <div className="p-8 flex flex-col gap-3 select-none">
+        <Layout size={24} className="text-[#FF1E1E]" />
+        <h4 className="font-display font-bold text-lg text-white">Visual Narrative</h4>
+        <p className="text-xs text-muted leading-relaxed">
+          Motion graphics, brand films, and high-fidelity video production integrated right into your marketing pipelines.
+        </p>
       </div>
     ),
   },

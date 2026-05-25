@@ -2,7 +2,6 @@ import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom'
 import { AnimatePresence } from 'framer-motion'
 import Navbar from './components/Navbar'
 import Hero from './components/Hero'
-import Horizon from './components/Horizon'
 import Marquee from './components/Marquee'
 import Services from './components/Services'
 import Work from './components/Work'
@@ -15,17 +14,18 @@ import Story from './components/Story'
 import CursorGlow from './components/CursorGlow'
 import PageWrapper from './components/PageWrapper'
 import ScrollToTop from './components/ScrollToTop'
+import ExploreCanvas from './components/ExploreCanvas'
 
 function Home() {
   return (
     <PageWrapper>
       <Hero />
-      <Horizon />
       <Marquee />
       <Services />
       <Work />
       <Testimonials />
       <About />
+      <ExploreCanvas />
       <Process />
       <Contact />
     </PageWrapper>
@@ -57,6 +57,7 @@ function AboutPage() {
     <PageWrapper>
       <About />
       <Story />
+      <ExploreCanvas />
       <Testimonials />
       <Contact />
     </PageWrapper>

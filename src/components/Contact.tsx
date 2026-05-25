@@ -1,6 +1,8 @@
 import { useRef, useState } from 'react'
 import { motion, useInView } from 'framer-motion'
 import { ArrowRight, Send } from 'lucide-react'
+import Magnetic from './Magnetic'
+import TextReveal from './TextReveal'
 
 const services = [
   'Branding', 'Web Design', 'Web Development', 'Mobile App',
@@ -47,15 +49,13 @@ export default function Contact() {
             >
               Contact
             </motion.p>
-            <motion.h2
-              initial={{ opacity: 0, y: 24 }}
-              animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.72, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+            <TextReveal
+              lines={["Let's build something", "remarkable together."]}
+              gradientWords={["remarkable"]}
               className="font-display font-bold text-white"
               style={{ fontSize: 'clamp(1.8rem, 4vw, 3rem)' }}
-            >
-              Let's build something<br />remarkable together.
-            </motion.h2>
+              delay={0.1}
+            />
           </div>
           <motion.p
             initial={{ opacity: 0, y: 16 }}
@@ -217,16 +217,18 @@ export default function Contact() {
                   />
                 </div>
 
-                <motion.button
-                  type="submit"
-                  whileHover={{ scale: 1.02, boxShadow: '0 0 28px rgba(255,94,0,0.28)' }}
-                  whileTap={{ scale: 0.98 }}
-                  className="group w-full flex items-center justify-center gap-2.5 py-4 rounded-xl text-sm font-semibold transition-all duration-300 cursor-pointer"
-                  style={{ background: 'linear-gradient(135deg,#FF5E00,#FF1E1E)', color: '#000000' }}
-                >
-                  Send Message
-                  <ArrowRight size={15} className="group-hover:translate-x-1 transition-transform" />
-                </motion.button>
+                <Magnetic className="w-full block">
+                  <motion.button
+                    type="submit"
+                    whileHover={{ scale: 1.02, boxShadow: '0 0 28px rgba(255,94,0,0.28)' }}
+                    whileTap={{ scale: 0.98 }}
+                    className="group w-full flex items-center justify-center gap-2.5 py-4 rounded-xl text-sm font-semibold transition-all duration-300 cursor-pointer"
+                    style={{ background: 'linear-gradient(135deg,#FF5E00,#FF1E1E)', color: '#000000' }}
+                  >
+                    Send Message
+                    <ArrowRight size={15} className="group-hover:translate-x-1 transition-transform" />
+                  </motion.button>
+                </Magnetic>
               </form>
             )}
           </motion.div>

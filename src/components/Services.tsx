@@ -1,6 +1,8 @@
 import { useRef, useState } from 'react'
 import { motion, useInView } from 'framer-motion'
 import { ArrowRight } from 'lucide-react'
+import Tilt from './Tilt'
+import TextReveal from './TextReveal'
 
 const services = [
   {
@@ -164,20 +166,21 @@ function ServiceCard({ service, index }: { service: typeof services[0]; index: n
   const row = Math.floor(index / 2)
 
   return (
-    <motion.div
-      ref={ref}
-      initial={{ opacity: 0, x: col === 0 ? -40 : 40, y: 20 }}
-      animate={inView ? { opacity: 1, x: 0, y: 0 } : {}}
-      transition={{ duration: 0.72, delay: row * 0.1, ease: [0.16, 1, 0.3, 1] }}
-      onHoverStart={() => setHovered(true)}
-      onHoverEnd={() => setHovered(false)}
-      className="group relative flex items-stretch cursor-pointer rounded-xl overflow-hidden transition-all duration-400"
-      style={{
-        background: hovered ? 'rgba(20,20,20,0.5)' : 'rgba(12,12,12,0.45)',
-        border: `1px solid ${hovered ? 'rgba(255,94,0,0.25)' : 'rgba(255,255,255,0.06)'}`,
-        boxShadow: hovered ? '0 16px 48px rgba(255,30,30,0.06)' : 'none',
-      }}
-    >
+    <Tilt className="h-full flex items-stretch">
+      <motion.div
+        ref={ref}
+        initial={{ opacity: 0, x: col === 0 ? -40 : 40, y: 20 }}
+        animate={inView ? { opacity: 1, x: 0, y: 0 } : {}}
+        transition={{ duration: 0.72, delay: row * 0.1, ease: [0.16, 1, 0.3, 1] }}
+        onHoverStart={() => setHovered(true)}
+        onHoverEnd={() => setHovered(false)}
+        className="group relative flex flex-1 items-stretch cursor-pointer rounded-xl overflow-hidden transition-all duration-400"
+        style={{
+          background: hovered ? 'rgba(20,20,20,0.5)' : 'rgba(12,12,12,0.45)',
+          border: `1px solid ${hovered ? 'rgba(255,94,0,0.25)' : 'rgba(255,255,255,0.06)'}`,
+          boxShadow: hovered ? '0 16px 48px rgba(255,30,30,0.06)' : 'none',
+        }}
+      >
       {/* left: text */}
       <div className="flex-1 p-12 flex flex-col justify-between min-h-[280px]">
         <div>
@@ -223,7 +226,8 @@ function ServiceCard({ service, index }: { service: typeof services[0]; index: n
           <Visual type={service.visual} hovered={hovered} />
         </motion.div>
       </div>
-    </motion.div>
+      </motion.div>
+    </Tilt>
   )
 }
 
@@ -251,15 +255,11 @@ export default function Services() {
           >
             Services
           </motion.p>
-          <motion.h2
-            initial={{ opacity: 0, y: 24 }}
-            animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.72, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-            className="font-display font-bold text-white"
+          <TextReveal
+            lines={["End-to-End Digital Solutions."]}
+            className="font-display font-bold text-white text-center"
             style={{ fontSize: 'clamp(2rem, 4.5vw, 3.4rem)' }}
-          >
-            From strategy to launch.
-          </motion.h2>
+          />
         </div>
 
         {/* 2-col grid */}

@@ -1,5 +1,6 @@
 import { useRef } from 'react'
 import { motion, useScroll, useTransform, useInView } from 'framer-motion'
+import TextReveal from './TextReveal'
 
 const chapters = [
   {
@@ -112,18 +113,13 @@ export default function Story() {
             </span>
           </motion.div>
 
-          <motion.h2
-            initial={{ opacity: 0, y: 30 }}
-            animate={headerInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.8, delay: 0.1 }}
-            className="font-display font-bold text-white-soft mb-6"
+          <TextReveal
+            lines={["A Story of Relentless", "Innovation"]}
+            gradientWords={["Relentless"]}
+            className="font-display font-bold text-white-soft text-center mb-6"
             style={{ fontSize: 'clamp(2rem, 5vw, 4rem)' }}
-          >
-            A Story of{' '}
-            <span className="text-gradient">Relentless</span>
-            <br />
-            Innovation
-          </motion.h2>
+            delay={0.1}
+          />
 
           <motion.p
             initial={{ opacity: 0, y: 20 }}

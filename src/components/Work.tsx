@@ -1,6 +1,8 @@
 import { useRef, useState } from 'react'
 import { motion, useInView } from 'framer-motion'
 import { ArrowRight } from 'lucide-react'
+import Magnetic from './Magnetic'
+import TextReveal from './TextReveal'
 
 const projects = [
   {
@@ -198,22 +200,24 @@ function MidCTA() {
       <p className="text-sm" style={{ color: 'rgba(160,168,192,0.75)' }}>
         Free 30-minute call to talk about your project.
       </p>
-      <motion.button
-        whileHover={{ scale: 1.04, boxShadow: '0 0 28px rgba(255,94,0,0.3)' }}
-        whileTap={{ scale: 0.97 }}
-        onClick={() => {
-          const element = document.querySelector('#contact');
-          if (element) {
-            element.scrollIntoView({ behavior: 'smooth' });
-          } else {
-            window.location.href = '/contact';
-          }
-        }}
-        className="flex items-center gap-2 px-6 py-3 rounded-xl text-sm font-semibold cursor-pointer"
-        style={{ background: 'linear-gradient(135deg,#FF5E00,#FF1E1E)', color: '#000000' }}
-      >
-        See how we can help <ArrowRight size={14} />
-      </motion.button>
+      <Magnetic>
+        <motion.button
+          whileHover={{ scale: 1.04, boxShadow: '0 0 28px rgba(255,94,0,0.3)' }}
+          whileTap={{ scale: 0.97 }}
+          onClick={() => {
+            const element = document.querySelector('#contact');
+            if (element) {
+              element.scrollIntoView({ behavior: 'smooth' });
+            } else {
+              window.location.href = '/contact';
+            }
+          }}
+          className="flex items-center gap-2 px-6 py-3 rounded-xl text-sm font-semibold cursor-pointer"
+          style={{ background: 'linear-gradient(135deg,#FF5E00,#FF1E1E)', color: '#000000' }}
+        >
+          See how we can help <ArrowRight size={14} />
+        </motion.button>
+      </Magnetic>
     </motion.div>
   )
 }
@@ -244,15 +248,11 @@ export default function Work() {
             >
               Projects
             </motion.p>
-            <motion.h2
-              initial={{ opacity: 0, y: 24 }}
-              animate={headerInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.72, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+            <TextReveal
+              lines={["Work that speaks."]}
               className="font-display font-bold text-white"
               style={{ fontSize: 'clamp(2rem, 4.5vw, 3.4rem)' }}
-            >
-              Work that speaks.
-            </motion.h2>
+            />
           </div>
           <motion.p
             initial={{ opacity: 0, y: 16 }}
@@ -304,14 +304,16 @@ export default function Work() {
           className="flex justify-center mt-10 pt-10"
           style={{ borderTop: '1px solid rgba(255,255,255,0.06)' }}
         >
-          <motion.button
-            whileHover={{ x: 4 }}
-            className="group flex items-center gap-2 text-sm font-medium cursor-pointer"
-            style={{ color: 'rgba(160,168,192,0.7)' }}
-          >
-            All projects
-            <ArrowRight size={13} className="group-hover:translate-x-1 transition-transform" style={{ color: '#FF5E00' }} />
-          </motion.button>
+          <Magnetic>
+            <motion.button
+              whileHover={{ x: 4 }}
+              className="group flex items-center gap-2 text-sm font-medium cursor-pointer"
+              style={{ color: 'rgba(160,168,192,0.7)' }}
+            >
+              All projects
+              <ArrowRight size={13} className="group-hover:translate-x-1 transition-transform" style={{ color: '#FF5E00' }} />
+            </motion.button>
+          </Magnetic>
         </motion.div>
       </div>
     </section>

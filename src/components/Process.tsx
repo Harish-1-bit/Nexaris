@@ -4,8 +4,8 @@ import { Plus, Minus } from 'lucide-react'
 
 const faqs = [
   {
-    q: 'How much does it cost to build a website with Nexaris?',
-    a: 'Every project is unique. Pricing depends on scope, complexity, and timeline. We offer a free 30-minute discovery call to understand your needs and provide a transparent, detailed proposal.',
+    q: 'How much does an entire digital ecosystem cost?',
+    a: 'Every enterprise is unique. Pricing depends on the scope of services—whether you need full-stack development, brand strategy, or ongoing digital marketing. We offer a free discovery call to outline a custom, transparent proposal.',
   },
   {
     q: 'Can my business get subsidies for your services?',
@@ -16,8 +16,8 @@ const faqs = [
     a: "Absolutely. Some of our best projects started with just a feeling or a problem to solve. We're here to help you shape the vision before we build it.",
   },
   {
-    q: 'What are the steps involved in creating a website?',
-    a: 'Our process has four phases: Discovery (understanding your goals), Strategy (planning architecture and design direction), Creation (design and development), and Launch & Growth (deployment, monitoring, and iteration).',
+    q: 'What is your process for full-scale digital transformations?',
+    a: 'Our process is fully integrated: Discovery (aligning on business goals), Strategy (planning architecture, brand, and marketing), Execution (design, code, video, and content creation), and Scaling (deployment, analytics, and continuous growth).',
   },
   {
     q: 'What kind of businesses work with Nexaris?',

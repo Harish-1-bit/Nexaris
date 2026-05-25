@@ -1,6 +1,8 @@
 import { useEffect, useRef, useState } from 'react'
 import { motion, useScroll, useTransform, useMotionValue } from 'framer-motion'
 import HexGrid from './HexGrid'
+import Magnetic from './Magnetic'
+import TextReveal from './TextReveal'
 
 
 export default function Hero() {
@@ -76,13 +78,13 @@ export default function Hero() {
           <HexGrid />
         </div>
 
-        {/* ── TEXT CONTENT (absolute positioned inside unified wrapper) ── */}
-        <div className="absolute bottom-[14vh] left-8 md:left-14 z-20 max-w-[660px] pointer-events-none">
+        {/* ── TEXT CONTENT (Centered in unified wrapper) ── */}
+        <div className="absolute inset-0 z-20 flex flex-col items-center justify-center pointer-events-none text-center">
           <motion.div
             initial={{ opacity: 0, y: 14 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.15 }}
-            className="flex items-center gap-2 mb-6"
+            className="flex items-center justify-center gap-2 mb-6"
           >
             <span className="w-1.5 h-1.5 rounded-full" style={{ background: '#FF5E00' }} />
             <span className="text-xs font-medium tracking-[0.22em] uppercase" style={{ color: '#FF5E00' }}>
@@ -90,64 +92,56 @@ export default function Hero() {
             </span>
           </motion.div>
 
-          <motion.h1
-            initial={{ opacity: 0, y: 45 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1.0, delay: 0.25, ease: [0.16, 1, 0.3, 1] }}
-            className="font-display font-bold leading-[1.05] tracking-tight"
+          <TextReveal
+            tag="h1"
+            lines={["Your Entire Digital", "Ecosystem, Built Here."]}
+            gradientWords={["Built", "Here"]}
+            className="font-display font-bold leading-[1.05] tracking-tight max-w-[800px] text-center"
             style={{ fontSize: 'clamp(2.8rem, 6.4vw, 5.8rem)', color: '#F0EEF8' }}
+            delay={0.15}
+          />
+
+          <motion.p
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.9, delay: 1.0 }}
+            style={{ color: 'rgba(155,147,184,0.85)' }}
+            className="max-w-[420px] text-center text-sm md:text-base leading-relaxed mt-6"
           >
-            A digital studio<br />
-            built for your<br />
-            <span style={{
-              background: 'linear-gradient(135deg, #F0EEF8 0%, #FF7A29 45%, #FF1E1E 100%)',
-              WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: 'transparent',
-              backgroundClip: 'text',
-            }}>
-              ambition.
-            </span>
-          </motion.h1>
+            Code, design, video, and strategy. We scale your vision by handling every aspect of your enterprise's digital presence under one roof.
+          </motion.p>
 
           {/* CTA buttons */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.7 }}
-            className="flex items-center gap-4 mt-8 pointer-events-auto"
+            className="flex items-center justify-center gap-4 mt-10 pointer-events-auto"
           >
-            <motion.button
-              whileHover={{ scale: 1.05, boxShadow: '0 0 32px rgba(255,94,0,0.40)' }}
-              whileTap={{ scale: 0.97 }}
-              onClick={() => document.querySelector('#services')?.scrollIntoView({ behavior: 'smooth' })}
-              className="px-7 py-3.5 rounded-xl text-sm font-semibold cursor-pointer"
-              style={{ background: 'linear-gradient(135deg,#FF5E00,#FF1E1E)', color: '#fff' }}
-            >
-              Explore Services
-            </motion.button>
-            <motion.button
-              whileHover={{ scale: 1.03, borderColor: 'rgba(255,94,0,0.4)' }}
-              whileTap={{ scale: 0.97 }}
-              onClick={() => document.querySelector('#work')?.scrollIntoView({ behavior: 'smooth' })}
-              className="px-7 py-3.5 rounded-xl text-sm font-medium transition-all duration-250 cursor-pointer"
-              style={{ border: '1px solid rgba(255,255,255,0.12)', color: 'rgba(240,238,248,0.75)' }}
-            >
-              View Our Work
-            </motion.button>
+            <Magnetic>
+              <motion.button
+                whileHover={{ scale: 1.05, boxShadow: '0 0 32px rgba(255,94,0,0.40)' }}
+                whileTap={{ scale: 0.97 }}
+                onClick={() => document.querySelector('#services')?.scrollIntoView({ behavior: 'smooth' })}
+                className="px-7 py-3.5 rounded-xl text-sm font-semibold cursor-pointer"
+                style={{ background: 'linear-gradient(135deg,#FF5E00,#FF1E1E)', color: '#fff' }}
+              >
+                Explore Services
+              </motion.button>
+            </Magnetic>
+            <Magnetic>
+              <motion.button
+                whileHover={{ scale: 1.03, borderColor: 'rgba(255,94,0,0.4)' }}
+                whileTap={{ scale: 0.97 }}
+                onClick={() => document.querySelector('#work')?.scrollIntoView({ behavior: 'smooth' })}
+                className="px-7 py-3.5 rounded-xl text-sm font-medium transition-all duration-250 cursor-pointer"
+                style={{ border: '1px solid rgba(255,255,255,0.12)', color: 'rgba(240,238,248,0.75)' }}
+              >
+                View Our Work
+              </motion.button>
+            </Magnetic>
           </motion.div>
         </div>
-
-        {/* ── DESCRIPTION (bottom-right of the same wrapper) ── */}
-        <motion.p
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.9, delay: 1.0 }}
-          style={{ color: 'rgba(155,147,184,0.85)' }}
-          className="absolute bottom-[11vh] right-8 md:right-14 z-20 max-w-[240px] text-right text-sm leading-relaxed pointer-events-none"
-        >
-          IT services &amp; digital solutions studio. We create visual identities and
-          digital experiences that truly reflect who you are.
-        </motion.p>
       </motion.div>
 
       {/* ── SCROLL LINE indicator ── */}

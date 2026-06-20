@@ -1,150 +1,15 @@
 import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { gsap } from 'gsap'
-
-interface Particle {
-  x: number;
-  y: number;
-  vx: number;
-  vy: number;
-  baseVx: number;
-  baseVy: number;
-  size: number;
-  opacity: number;
-}
+import HexGrid from './HexGrid'
 
 export default function Hero() {
   const containerRef = useRef<HTMLDivElement>(null)
-  const canvasRef = useRef<HTMLCanvasElement>(null)
   const eyebrowRef = useRef<HTMLDivElement>(null)
   const subheadlineRef = useRef<HTMLParagraphElement>(null)
   const ctaRef = useRef<HTMLDivElement>(null)
   const chevronRef = useRef<SVGSVGElement>(null)
   const [showScroll, setShowScroll] = useState(true)
-
-  // Particle field effect
-  useEffect(() => {
-    const canvas = canvasRef.current
-    if (!canvas) return
-
-    const ctx = canvas.getContext('2d')
-    if (!ctx) return
-
-    let animationFrameId: number
-    const particles: Particle[] = []
-    const particleCount = 120
-    const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0
-    const mouse = { x: -9999, y: -9999 }
-
-    const resizeCanvas = () => {
-      canvas.width = canvas.clientWidth
-      canvas.height = canvas.clientHeight
-    }
-
-    resizeCanvas()
-    window.addEventListener('resize', resizeCanvas)
-
-    // Spawn particles on canvas init
-    for (let i = 0; i < particleCount; i++) {
-      const size = Math.random() * (5 - 2.5) + 2.5 // randomly between 2.5px and 5px
-      const opacity = Math.random() * (0.22 - 0.06) + 0.06 // randomly between 0.06 and 0.22
-      const vx = Math.random() * (0.15 - -0.15) + -0.15 // random velocity between -0.15 and +0.15
-      const vy = Math.random() * (0.15 - -0.15) + -0.15
-      particles.push({
-        x: Math.random() * canvas.width,
-        y: Math.random() * canvas.height,
-        vx,
-        vy,
-        baseVx: vx,
-        baseVy: vy,
-        size,
-        opacity,
-      })
-    }
-
-    const handleMouseMove = (e: MouseEvent) => {
-      const rect = canvas.getBoundingClientRect()
-      mouse.x = e.clientX - rect.left
-      mouse.y = e.clientY - rect.top
-    }
-
-    const handleMouseLeave = () => {
-      mouse.x = -9999
-      mouse.y = -9999
-    }
-
-    if (!isTouchDevice) {
-      window.addEventListener('mousemove', handleMouseMove, { passive: true })
-      window.addEventListener('mouseleave', handleMouseLeave, { passive: true })
-    }
-
-    // Animation Loop
-    const render = () => {
-      ctx.clearRect(0, 0, canvas.width, canvas.height)
-
-      particles.forEach((p) => {
-        // 1. Drift back to natural velocity slowly (lerp with factor 0.03)
-        p.vx += (p.baseVx - p.vx) * 0.03
-        p.vy += (p.baseVy - p.vy) * 0.03
-
-        // 2. Mouse Repulsion Force (disabled on touch devices)
-        if (!isTouchDevice && mouse.x !== -9999) {
-          const dx = p.x - mouse.x
-          const dy = p.y - mouse.y
-          const dist = Math.sqrt(dx * dx + dy * dy)
-
-          if (dist < 120 && dist > 0) {
-            const proximity = (120 - dist) / 120 // 0 at edge, 1 at cursor
-            const pushStrength = proximity * 0.8 // gentle repulsion force
-            const dirX = dx / dist
-            const dirY = dy / dist
-
-            p.vx += dirX * pushStrength
-            p.vy += dirY * pushStrength
-          }
-        }
-
-        // Cap speed to prevent particles from flying off too fast
-        const speed = Math.sqrt(p.vx * p.vx + p.vy * p.vy)
-        const maxSpeed = 3.5
-        if (speed > maxSpeed) {
-          p.vx = (p.vx / speed) * maxSpeed
-          p.vy = (p.vy / speed) * maxSpeed
-        }
-
-        // 3. Update positions
-        p.x += p.vx
-        p.y += p.vy
-
-        // 4. Wrap around edges
-        if (p.x < 0) p.x = canvas.width
-        if (p.x > canvas.width) p.x = 0
-        if (p.y < 0) p.y = canvas.height
-        if (p.y > canvas.height) p.y = 0
-
-        // 5. Draw diamond orientation rotated 45 degrees
-        ctx.save()
-        ctx.translate(p.x, p.y)
-        ctx.rotate(Math.PI / 4)
-        ctx.fillStyle = `rgba(255, 255, 255, ${p.opacity})`
-        ctx.fillRect(-p.size / 2, -p.size / 2, p.size, p.size)
-        ctx.restore()
-      })
-
-      animationFrameId = requestAnimationFrame(render)
-    }
-
-    render()
-
-    return () => {
-      window.removeEventListener('resize', resizeCanvas)
-      if (!isTouchDevice) {
-        window.removeEventListener('mousemove', handleMouseMove)
-        window.removeEventListener('mouseleave', handleMouseLeave)
-      }
-      cancelAnimationFrame(animationFrameId)
-    }
-  }, [])
 
   // GSAP Entrance animations and Chevron loop
   useEffect(() => {
@@ -238,12 +103,8 @@ export default function Hero() {
       className="relative flex items-center justify-center w-full select-none"
       style={{ height: '100vh', background: '#0A0A0A', overflow: 'hidden' }}
     >
-      {/* Canvas Particle Field */}
-      <canvas
-        ref={canvasRef}
-        className="absolute inset-0 w-full h-full block"
-        style={{ zIndex: 1 }}
-      />
+      {/* HexGrid Background */}
+      <HexGrid />
 
       {/* Hero Content Overlay */}
       <div
@@ -266,15 +127,14 @@ export default function Hero() {
         >
           <div className="flex flex-wrap justify-center gap-x-[0.25em]">
             <span className="hero-headline-word inline-block opacity-0">We</span>
-            <span className="hero-headline-word inline-block opacity-0">don't</span>
-            <span className="hero-headline-word inline-block opacity-0">build</span>
+            <span className="hero-headline-word inline-block opacity-0"> turn</span>
+            <span className="hero-headline-word inline-block opacity-0"> "what if"</span>
           </div>
           <div className="flex flex-wrap justify-center gap-x-[0.25em]">
-            <span className="hero-headline-word inline-block opacity-0">companies.</span>
+            <span className="hero-headline-word inline-block opacity-0">into</span>
           </div>
           <div className="flex flex-wrap justify-center gap-x-[0.25em]">
-            <span className="hero-headline-word inline-block opacity-0">We</span>
-            <span className="hero-headline-word inline-block opacity-0">build</span>
+            <span className="hero-headline-word inline-block opacity-0"> "what's</span>
             <span
               className="hero-headline-word inline-block opacity-0"
               style={{
@@ -284,7 +144,7 @@ export default function Hero() {
                 backgroundClip: 'text',
               }}
             >
-              people.
+               next."
             </span>
           </div>
         </h1>

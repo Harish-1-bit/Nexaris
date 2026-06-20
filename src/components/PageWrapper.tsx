@@ -1,5 +1,4 @@
 import { motion } from 'framer-motion'
-import CurvedCurtain from './CurvedCurtain'
 
 interface PageWrapperProps {
   children: React.ReactNode
@@ -8,16 +7,12 @@ interface PageWrapperProps {
 export default function PageWrapper({ children }: PageWrapperProps) {
   return (
     <motion.div
-      initial={{ opacity: 1 }}
+      initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
-      exit={{ opacity: 1 }}
-      transition={{ duration: 0.85 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.25, ease: 'easeOut' }}
     >
-      {/* Curtain sweeps down to reveal page */}
-      <CurvedCurtain mode="enter" />
       {children}
-      {/* Curtain sweeps up to cover page when exiting */}
-      <CurvedCurtain mode="exit" />
     </motion.div>
   )
 }

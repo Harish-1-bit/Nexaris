@@ -5,13 +5,15 @@ import Navbar from './components/Navbar'
 import Hero from './components/Hero'
 import Marquee from './components/Marquee'
 import Services from './components/Services'
+import ServicesOverview from './components/ServicesOverview'
 import Work from './components/Work'
-import Testimonials from './components/Testimonials'
 import About from './components/About'
+import AboutTHH from './components/AboutTHH'
+import Manifesto from './components/Manifesto'
 import Process from './components/Process'
 import Contact from './components/Contact'
 import Footer from './components/Footer'
-import Story from './components/Story'
+import Testimonials from './components/Testimonials'
 import CursorGlow from './components/CursorGlow'
 import PageWrapper from './components/PageWrapper'
 import ScrollToTop from './components/ScrollToTop'
@@ -37,9 +39,7 @@ function Home() {
 function ServicesPage() {
   return (
     <PageWrapper>
-      <Services />
-      <Process />
-      <Contact />
+      <ServicesOverview />
     </PageWrapper>
   )
 }
@@ -57,11 +57,7 @@ function WorkPage() {
 function AboutPage() {
   return (
     <PageWrapper>
-      <About />
-      <Story />
-      <ExploreCanvas />
-      <Testimonials />
-      <Contact />
+      <AboutTHH />
     </PageWrapper>
   )
 }
@@ -70,6 +66,14 @@ function ContactPage() {
   return (
     <PageWrapper>
       <Contact />
+    </PageWrapper>
+  )
+}
+
+function ManifestoPage() {
+  return (
+    <PageWrapper>
+      <Manifesto />
     </PageWrapper>
   )
 }
@@ -108,6 +112,7 @@ function AppContent() {
             <Route path="/work" element={<WorkPage />} />
             <Route path="/about" element={<AboutPage />} />
             <Route path="/contact" element={<ContactPage />} />
+            <Route path="/manifesto" element={<ManifestoPage />} />
           </Routes>
         </AnimatePresence>
       </main>

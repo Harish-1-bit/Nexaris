@@ -5,10 +5,10 @@
 
 /* ─────────────────────────────────────────────────────────
    COLOR PALETTE
-   Primary:    violet #6C3BFF  /  purple #A855F7
-   Complement: amber  #F59E0B  /  coral  #FF6B6B
-   Accent:     magenta #EC4899 /  pink   #F472B6
-   Base:       #080510 (near-black, purple undertone)
+   Primary:    Smart Blue #3066BE
+   Accent:     Cinnabar   #EF3E36
+   Neutrals:   Ivory      #F5FBEF
+   Base:       Black      #000000
 ───────────────────────────────────────────────────────── */
 @theme {
   /* backgrounds */
@@ -16,26 +16,26 @@
   --color-base-soft:  #080808;
   --color-base-card:  #141414;
 
-  /* violet / purple mapped to Neon Red / Solar Orange */
-  --color-violet-600: #FF1E1E;
-  --color-violet-500: #FF3333;
-  --color-violet-400: #FF4D4D;
-  --color-purple-500: #FF5E00;
-  --color-purple-400: #FF7A29;
+  /* violet / purple mapped to Cinnabar / Smart Blue */
+  --color-violet-600: #EF3E36;
+  --color-violet-500: #F1544D;
+  --color-violet-400: #F47B75;
+  --color-purple-500: #3066BE;
+  --color-purple-400: #5985CB;
 
   /* magenta / pink — accent */
-  --color-magenta:    #FF1E1E;
-  --color-pink-400:   #FF5E00;
+  --color-magenta:    #EF3E36;
+  --color-pink-400:   #3066BE;
 
   /* amber / coral — complement */
-  --color-amber-400:  #FF5E00;
-  --color-amber-300:  #FF7A29;
-  --color-coral:      #FF1E1E;
+  --color-amber-400:  #3066BE;
+  --color-amber-300:  #5985CB;
+  --color-coral:      #EF3E36;
 
   /* neutrals */
-  --color-white-soft: #F0EEF8;
-  --color-muted:      #9B93B8;
-  --color-muted-dim:  #5C5478;
+  --color-white-soft: #F5FBEF;
+  --color-muted:      #9FAEB8;
+  --color-muted-dim:  #5C6678;
 
   --font-sans:    'Inter', system-ui, sans-serif;
   --font-display: 'Syne', 'Inter', system-ui, sans-serif;
@@ -53,34 +53,34 @@
 
   body {
     background: #000000;
-    color: #F0EEF8;
+    color: #F5FBEF;
     font-family: 'Inter', system-ui, sans-serif;
     overflow-x: hidden;
   }
 
-  ::selection { background: rgba(255,94,0,0.30); color: #F0EEF8; }
+  ::selection { background: rgba(48, 102, 190, 0.30); color: #F5FBEF; }
 
   ::-webkit-scrollbar { width: 3px; }
   ::-webkit-scrollbar-track { background: #000000; }
   ::-webkit-scrollbar-thumb {
-    background: linear-gradient(to bottom, #FF5E00, #FF1E1E);
+    background: linear-gradient(to bottom, #3066BE, #EF3E36);
     border-radius: 2px;
   }
 }
 
 /* ── UTILITIES ────────────────────────────────────────── */
 @layer utilities {
-  /* Red-Orange gradient text */
+  /* Smart Blue-Cinnabar gradient text */
   .text-gradient {
-    background: linear-gradient(135deg, #F0EEF8 0%, #FF7A29 50%, #FF1E1E 100%);
+    background: linear-gradient(135deg, #F5FBEF 0%, #5985CB 50%, #EF3E36 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
   }
 
-  /* amber accent text */
+  /* smart blue accent text */
   .text-amber {
-    background: linear-gradient(135deg, #FF7A29 0%, #FF5E00 100%);
+    background: linear-gradient(135deg, #5985CB 0%, #3066BE 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -90,24 +90,24 @@
     background: rgba(15, 15, 15, 0.60);
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
-    border: 1px solid rgba(255, 94, 0, 0.12);
+    border: 1px solid rgba(48, 102, 190, 0.12);
   }
 
   .glass-amber {
     background: rgba(15, 15, 15, 0.55);
     backdrop-filter: blur(14px);
-    border: 1px solid rgba(255, 94, 0, 0.15);
+    border: 1px solid rgba(48, 102, 190, 0.15);
   }
 
   .grid-bg {
     background-image:
-      linear-gradient(rgba(255,30,30,0.04) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(255,30,30,0.04) 1px, transparent 1px);
+      linear-gradient(rgba(239, 62, 54, 0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(239, 62, 54, 0.04) 1px, transparent 1px);
     background-size: 60px 60px;
   }
 
   .dot-grid {
-    background-image: radial-gradient(rgba(255,94,0,0.12) 1px, transparent 1px);
+    background-image: radial-gradient(rgba(48, 102, 190, 0.12) 1px, transparent 1px);
     background-size: 30px 30px;
   }
 }

@@ -1,161 +1,208 @@
 import { useEffect, useRef, useState } from 'react'
-import { motion, useScroll, useTransform, useMotionValue } from 'framer-motion'
+import { Link } from 'react-router-dom'
+import { gsap } from 'gsap'
 import HexGrid from './HexGrid'
-import Magnetic from './Magnetic'
-import TextReveal from './TextReveal'
-
 
 export default function Hero() {
   const containerRef = useRef<HTMLDivElement>(null)
-  const [mousePos, setMousePos] = useState({ x: 50, y: 50 }) // % values for spotlight
+  const eyebrowRef = useRef<HTMLDivElement>(null)
+  const subheadlineRef = useRef<HTMLParagraphElement>(null)
+  const ctaRef = useRef<HTMLDivElement>(null)
+  const chevronRef = useRef<SVGSVGElement>(null)
+  const [showScroll, setShowScroll] = useState(true)
 
-  // Spring-smoothed mouse for blob parallax
-  const mouseX = useMotionValue(0)
-  const mouseY = useMotionValue(0)
-
-
-  const { scrollYProgress } = useScroll({ target: containerRef, offset: ['start start', 'end start'] })
-  const fadeOut   = useTransform(scrollYProgress, [0, 0.55], [1, 0])
-  const parallaxY = useTransform(scrollYProgress, [0, 1], ['0%', '18%'])
-
+  // GSAP Entrance animations and Chevron loop
   useEffect(() => {
-    let rafId = 0
-    let pending = false
-    const onMove = (e: MouseEvent) => {
-      if (pending) return
-      pending = true
-      rafId = requestAnimationFrame(() => {
-        const w = window.innerWidth
-        const h = window.innerHeight
-        // Spotlight position as percentage
-        setMousePos({ x: (e.clientX / w) * 100, y: (e.clientY / h) * 100 })
-        // Blob parallax offset
-        mouseX.set(((e.clientX / w) - 0.5) * 32)
-        mouseY.set(((e.clientY / h) - 0.5) * 20)
-        pending = false
+    if (!containerRef.current) return
+
+    const headlineWords = containerRef.current.querySelectorAll('.hero-headline-word')
+
+    const ctx = gsap.context(() => {
+      // 1. Stagger each word of the headline: starts at opacity 0, translateY 20px, to opacity 1, translateY 0
+      gsap.fromTo(
+        headlineWords,
+        { opacity: 0, y: 20 },
+        {
+          opacity: 1,
+          y: 0,
+          stagger: 0.06,
+          ease: 'power2.out',
+          delay: 0.3,
+          duration: 0.8,
+        }
+      )
+
+      // 2. Eyebrow fades in: opacity 0 -> 1
+      gsap.fromTo(
+        eyebrowRef.current,
+        { opacity: 0 },
+        {
+          opacity: 1,
+          duration: 0.8,
+          delay: 0.1,
+          ease: 'power2.out',
+        }
+      )
+
+      // 3. Subheadline fades in: opacity 0 -> 1, translateY 12px -> 0
+      gsap.fromTo(
+        subheadlineRef.current,
+        { opacity: 0, y: 12 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.8,
+          delay: 0.7,
+          ease: 'power2.out',
+        }
+      )
+
+      // 4. CTA row fades in: opacity 0 -> 1, translateY 12px -> 0
+      gsap.fromTo(
+        ctaRef.current,
+        { opacity: 0, y: 12 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.6,
+          delay: 0.9,
+          ease: 'power2.out',
+        }
+      )
+
+      // 5. Chevron animation: translateY 0 -> 4px -> 0, loop infinitely, duration 1.4s, ease sine inOut
+      gsap.to(chevronRef.current, {
+        y: 4,
+        duration: 0.7, // 0.7s down, 0.7s up = 1.4s total period
+        ease: 'sine.inOut',
+        yoyo: true,
+        repeat: -1,
       })
+    }, containerRef)
+
+    return () => ctx.revert()
+  }, [])
+
+  // Fade out scroll indicator on scroll past 100px
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 100) {
+        setShowScroll(false)
+      } else {
+        setShowScroll(true)
+      }
     }
-    window.addEventListener('mousemove', onMove, { passive: true })
-    return () => { window.removeEventListener('mousemove', onMove); cancelAnimationFrame(rafId) }
-  }, [mouseX, mouseY])
+    window.addEventListener('scroll', handleScroll, { passive: true })
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
 
   return (
     <section
       ref={containerRef}
       id="hero"
-      className="relative w-full overflow-hidden"
-      style={{ height: '100svh', minHeight: 620, background: '#000000' }}
+      className="relative flex items-center justify-center w-full select-none"
+      style={{ height: '100vh', background: '#0A0A0A', overflow: 'hidden' }}
     >
-      {/* ── INTERACTIVE MOUSE-TRACKED RADIAL SPOTLIGHT ── */}
-      <div
-        className="absolute inset-0 pointer-events-none transition-none"
-        style={{
-          background: `radial-gradient(ellipse 55% 55% at ${mousePos.x}% ${mousePos.y}%,
-            rgba(255,30,30,0.15) 0%,
-            rgba(255,94,0,0.08) 30%,
-            rgba(255,30,30,0.04) 55%,
-            transparent 75%)`,
-          willChange: 'background',
-        }}
-      />
+      {/* HexGrid Background */}
+      <HexGrid />
 
-      {/* ── STATIC BASE GLOW — bottom-center ambient ── */}
+      {/* Hero Content Overlay */}
       <div
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          background:
-            'radial-gradient(ellipse 80% 60% at 50% 100%, rgba(255,30,30,0.18) 0%, rgba(255,94,0,0.08) 40%, transparent 70%)',
-        }}
-      />
-
-      {/* ── UNIFIED PARALLAX WRAPPER (handles scroll parallax & fadeOut) ── */}
-      <motion.div
-        style={{ y: parallaxY, opacity: fadeOut, willChange: 'transform, opacity' }}
-        className="absolute inset-0 z-10 pointer-events-none"
+        className="relative z-10 flex flex-col items-center justify-center text-center px-6 max-w-4xl"
+        style={{ pointerEvents: 'auto' }}
       >
-        {/* ── ISOMETRIC HEX GRID BACKDROP ── */}
-        <div className="absolute inset-0 w-full h-full pointer-events-auto">
-          <HexGrid />
+        {/* Eyebrow Text */}
+        <div
+          ref={eyebrowRef}
+          className="font-sans font-medium tracking-[0.14em] uppercase opacity-0"
+          style={{ fontSize: '11px', color: 'rgba(255, 255, 255, 0.35)', marginBottom: '24px' }}
+        >
+          Est. July 26, 2023 · Indore, India
         </div>
 
-        {/* ── TEXT CONTENT (Centered in unified wrapper) ── */}
-        <div className="absolute inset-0 z-20 flex flex-col items-center justify-center pointer-events-none text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 14 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.15 }}
-            className="flex items-center justify-center gap-2 mb-6"
-          >
-            <span className="w-1.5 h-1.5 rounded-full" style={{ background: '#FF5E00' }} />
-            <span className="text-xs font-medium tracking-[0.22em] uppercase" style={{ color: '#FF5E00' }}>
-              Digital Innovation Studio
+        {/* Main Headline */}
+        <h1
+          className="font-display font-medium leading-[1.1] tracking-[-0.03em] flex flex-col items-center"
+          style={{ fontSize: 'clamp(40px, 6vw, 80px)', color: '#FFFFFF' }}
+        >
+          <div className="flex flex-wrap justify-center gap-x-[0.25em]">
+            <span className="hero-headline-word inline-block opacity-0">We</span>
+            <span className="hero-headline-word inline-block opacity-0"> turn</span>
+            <span className="hero-headline-word inline-block opacity-0"> "what if"</span>
+          </div>
+          <div className="flex flex-wrap justify-center gap-x-[0.25em]">
+            <span className="hero-headline-word inline-block opacity-0">into</span>
+          </div>
+          <div className="flex flex-wrap justify-center gap-x-[0.25em]">
+            <span className="hero-headline-word inline-block opacity-0"> "what's</span>
+            <span
+              className="hero-headline-word inline-block opacity-0"
+              style={{
+                color: '#EF3E36',
+              }}
+            >
+               next."
             </span>
-          </motion.div>
+          </div>
+        </h1>
 
-          <TextReveal
-            tag="h1"
-            lines={["We Architect Elite", "Digital Ecosystems."]}
-            gradientWords={["Digital", "Ecosystems"]}
-            className="font-display font-bold leading-[1.05] tracking-tight max-w-[800px] text-center"
-            style={{ fontSize: 'clamp(2.2rem, 6.2vw, 5.4rem)', color: '#F0EEF8' }}
-            delay={0.15}
-          />
+        {/* Subheadline */}
+        <p
+          ref={subheadlineRef}
+          className="font-sans font-normal opacity-0"
+          style={{
+            fontSize: '16px',
+            color: 'rgba(255, 255, 255, 0.45)',
+            maxWidth: '480px',
+            lineHeight: 1.7,
+            marginTop: '20px',
+          }}
+        >
+          Marketing. Design. Development. AI. Built from nothing, by people who had nothing to lose.
+        </p>
 
-          <motion.p
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.9, delay: 1.0 }}
-            style={{ color: 'rgba(155,147,184,0.85)' }}
-            className="max-w-[480px] text-center text-sm md:text-base leading-relaxed mt-6 px-4"
+        {/* CTA Buttons */}
+        <div ref={ctaRef} className="flex gap-3 justify-center opacity-0" style={{ marginTop: '36px' }}>
+          <Link
+            to="/work"
+            className="font-sans font-medium text-[14px] leading-none text-[#0A0A0A] bg-white rounded-[4px] cursor-pointer hover:opacity-88 transition-opacity flex items-center justify-center"
+            style={{ padding: '12px 28px' }}
           >
-            A bespoke design and engineering studio. We partner with forward-thinking enterprises to construct and scale class-defining digital platforms.
-          </motion.p>
-
-          {/* CTA buttons */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.7 }}
-            className="flex items-center justify-center gap-4 mt-10 pointer-events-auto"
+            See Our Work
+          </Link>
+          <Link
+            to="/about"
+            className="font-sans font-medium text-[14px] leading-none text-white/75 bg-transparent border-[0.5px] border-white/30 rounded-[4px] cursor-pointer hover:border-white hover:text-white transition-colors flex items-center justify-center"
+            style={{ padding: '12px 28px' }}
           >
-            <Magnetic>
-              <motion.button
-                whileHover={{ scale: 1.05, boxShadow: '0 0 32px rgba(255,94,0,0.40)' }}
-                whileTap={{ scale: 0.97 }}
-                onClick={() => document.querySelector('#services')?.scrollIntoView({ behavior: 'smooth' })}
-                className="px-7 py-3.5 rounded-xl text-sm font-semibold cursor-pointer"
-                style={{ background: 'linear-gradient(135deg,#FF5E00,#FF1E1E)', color: '#fff' }}
-              >
-                Explore Services
-              </motion.button>
-            </Magnetic>
-            <Magnetic>
-              <motion.button
-                whileHover={{ scale: 1.03, borderColor: 'rgba(255,94,0,0.4)' }}
-                whileTap={{ scale: 0.97 }}
-                onClick={() => document.querySelector('#work')?.scrollIntoView({ behavior: 'smooth' })}
-                className="px-7 py-3.5 rounded-xl text-sm font-medium transition-all duration-250 cursor-pointer"
-                style={{ border: '1px solid rgba(255,255,255,0.12)', color: 'rgba(240,238,248,0.75)' }}
-              >
-                View Our Work
-              </motion.button>
-            </Magnetic>
-          </motion.div>
+            Our Story &rarr;
+          </Link>
         </div>
-      </motion.div>
+      </div>
 
-      {/* ── SCROLL LINE indicator ── */}
-      <motion.div
-        initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1.6 }}
-        className="absolute bottom-7 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-1"
+      {/* Scroll Indicator */}
+      <div
+        className="absolute bottom-[28px] left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 pointer-events-none select-none transition-opacity duration-500 ease-in-out"
+        style={{ opacity: showScroll ? 1 : 0, zIndex: 10 }}
       >
-        <motion.div
-          animate={{ scaleY: [0, 1, 0], opacity: [0, 1, 0] }}
-          transition={{ duration: 2.0, repeat: Infinity, ease: 'easeInOut' }}
-          className="w-px h-10 origin-top"
-          style={{ background: 'linear-gradient(to bottom,rgba(255,94,0,.8),transparent)', willChange: 'transform, opacity' }}
-        />
-      </motion.div>
+        <span
+          className="font-sans font-medium tracking-[0.12em] uppercase"
+          style={{ fontSize: '10px', color: 'rgba(255, 255, 255, 0.25)' }}
+        >
+          Scroll
+        </span>
+        <svg
+          ref={chevronRef}
+          width="12"
+          height="8"
+          viewBox="0 0 12 8"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+          className="opacity-30 block"
+        >
+          <path d="M1 1L6 6L11 1" stroke="white" strokeWidth="1.5" strokeLinecap="round" />
+        </svg>
+      </div>
     </section>
   )
 }

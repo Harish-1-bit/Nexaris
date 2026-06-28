@@ -33,7 +33,7 @@ export default function Navbar() {
         style={{
           background:     scrolled ? 'rgba(0,0,0,0.88)' : 'transparent',
           backdropFilter: scrolled ? 'blur(18px)'        : 'none',
-          borderBottom:   scrolled ? '1px solid rgba(255,94,0,0.10)' : 'none',
+          borderBottom:   scrolled ? '1px solid rgba(48,102,190,0.10)' : 'none',
           padding:        scrolled ? '12px 0' : '22px 0',
         }}
       >
@@ -47,16 +47,16 @@ export default function Navbar() {
             >
               <div className="relative w-8 h-8">
                 <div className="absolute inset-0 rounded-lg"
-                  style={{ background: 'linear-gradient(135deg,#FF5E00,#FF1E1E)' }} />
+                  style={{ background: 'linear-gradient(135deg,#3066BE,#EF3E36)' }} />
                 <div className="absolute inset-[1.5px] rounded-md flex items-center justify-center"
                   style={{ background: '#000000' }}>
                   <span className="font-display font-black text-[11px]"
-                    style={{ background: 'linear-gradient(135deg,#FF5E00,#FF1E1E)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
+                    style={{ background: 'linear-gradient(135deg,#3066BE,#EF3E36)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
                     N
                   </span>
                 </div>
               </div>
-              <span className="font-display font-bold text-base tracking-tight" style={{ color: '#F0EEF8' }}>
+              <span className="font-display font-bold text-base tracking-tight" style={{ color: '#F5FBEF' }}>
                 Nexaris
               </span>
             </Link>
@@ -69,29 +69,29 @@ export default function Navbar() {
                 key={link.href}
                 to={link.href}
                 className="relative text-sm font-medium transition-colors duration-250 group cursor-pointer py-1"
-                style={{ color: isActive(link.href) ? '#FF5E00' : 'rgba(155,147,184,0.75)' }}
+                style={{ color: isActive(link.href) ? '#3066BE' : 'rgba(155,147,184,0.75)' }}
               >
                 {link.label}
                 <span className="absolute -bottom-0.5 left-0 h-px transition-all duration-300 group-hover:w-full"
-                  style={{ width: isActive(link.href) ? '100%' : '0%', background: 'linear-gradient(to right,#FF5E00,#FF1E1E)' }} />
+                  style={{ width: isActive(link.href) ? '100%' : '0%', background: 'linear-gradient(to right,#3066BE,#EF3E36)' }} />
               </Link>
             ))}
           </div>
 
           {/* CTA */}
           <div className="hidden md:block">
-            <motion.div whileHover={{ scale: 1.04, boxShadow: '0 0 20px rgba(255,94,0,0.35)' }} whileTap={{ scale: 0.97 }}>
+            <motion.div whileHover={{ scale: 1.04, boxShadow: '0 0 20px rgba(48, 102, 190, 0.35)' }} whileTap={{ scale: 0.97 }}>
               <Link
                 to="/contact"
                 className="inline-block px-5 py-2.5 rounded-lg text-sm font-semibold transition-all duration-250 cursor-pointer"
-                style={{ background: 'linear-gradient(135deg,#FF5E00,#FF1E1E)', color: '#000000' }}
+                style={{ background: '#3066BE', color: '#FFFFFF' }}
               >
                 Contact us
               </Link>
             </motion.div>
           </div>
 
-          <button className="md:hidden p-1.5 cursor-pointer" style={{ color: 'rgba(240,238,248,0.7)' }}
+          <button className="md:hidden p-1.5 cursor-pointer" style={{ color: 'rgba(245,251,239,0.7)' }}
             onClick={() => setMenuOpen(!menuOpen)}>
             {menuOpen ? <X size={20} /> : <Menu size={20} />}
           </button>
@@ -118,7 +118,7 @@ export default function Navbar() {
                     to={link.href}
                     onClick={() => setMenuOpen(false)}
                     className="text-left font-display font-bold text-3xl transition-colors block cursor-pointer"
-                    style={{ color: isActive(link.href) ? '#FF5E00' : '#F0EEF8' }}
+                    style={{ color: isActive(link.href) ? '#3066BE' : '#F5FBEF' }}
                   >
                     {link.label}
                   </Link>
@@ -128,8 +128,8 @@ export default function Navbar() {
                 <Link
                   to="/contact"
                   onClick={() => setMenuOpen(false)}
-                  className="mt-4 inline-block px-6 py-3.5 rounded-xl font-semibold text-base text-center text-black cursor-pointer"
-                  style={{ background: 'linear-gradient(135deg,#FF5E00,#FF1E1E)' }}
+                  className="mt-4 inline-block px-6 py-3.5 rounded-xl font-semibold text-base text-center text-white cursor-pointer"
+                  style={{ background: '#3066BE' }}
                 >
                   Contact us
                 </Link>

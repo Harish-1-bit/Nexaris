@@ -1,7 +1,6 @@
-import { useRef, useState } from 'react'
+import { useRef, useState, useEffect } from 'react'
 import { motion, useInView } from 'framer-motion'
-import { ArrowRight } from 'lucide-react'
-import Magnetic from './Magnetic'
+import { ChevronLeft, ChevronRight } from 'lucide-react'
 import TextReveal from './TextReveal'
 
 const projects = [
@@ -44,11 +43,11 @@ const projects = [
 
 /* gradient visual per project */
 const palettes = [
-  { a: 'rgba(255,30,30,0.32)',  b: 'rgba(255,94,0,0.14)', line: '#FF5E00' },
-  { a: 'rgba(255,30,30,0.28)',  b: 'rgba(255,94,0,0.10)', line: '#FF7A29' },
-  { a: 'rgba(200,40,40,0.35)',  b: 'rgba(255,94,0,0.08)', line: '#FF5E00' },
-  { a: 'rgba(140,20,20,0.4)',   b: 'rgba(255,30,30,0.14)', line: '#FF1E1E' },
-  { a: 'rgba(180,40,40,0.30)',  b: 'rgba(255,94,0,0.12)', line: '#FF5E00' },
+  { a: 'rgba(48,102,190,0.32)',  b: 'rgba(239,62,54,0.14)', line: '#3066BE' },
+  { a: 'rgba(239,62,54,0.28)',  b: 'rgba(48,102,190,0.10)', line: '#EF3E36' },
+  { a: 'rgba(48,102,190,0.35)',  b: 'rgba(239,62,54,0.08)', line: '#3066BE' },
+  { a: 'rgba(239,62,54,0.4)',   b: 'rgba(48,102,190,0.14)', line: '#EF3E36' },
+  { a: 'rgba(48,102,190,0.30)',  b: 'rgba(239,62,54,0.12)', line: '#3066BE' },
 ]
 
 function ProjectVisual({ id }: { id: number }) {
@@ -60,15 +59,15 @@ function ProjectVisual({ id }: { id: number }) {
       <div className="absolute inset-0"
         style={{
           backgroundImage: `linear-gradient(${p.line}15 1px,transparent 1px),linear-gradient(90deg,${p.line}15 1px,transparent 1px)`,
-          backgroundSize: '30px 30px',
+          backgroundSize: '24px 24px',
         }} />
       {/* center glow */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-36 h-36 rounded-full"
-        style={{ background: `radial-gradient(circle,${p.line}28 0%,transparent 70%)`, filter: 'blur(18px)' }} />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-28 h-28 rounded-full"
+        style={{ background: `radial-gradient(circle,${p.line}28 0%,transparent 70%)`, filter: 'blur(14px)' }} />
       {/* decorative rings */}
       <svg className="absolute inset-0 w-full h-full opacity-35" viewBox="0 0 280 200">
-        <circle cx="140" cy="100" r="60" fill="none" stroke={p.line} strokeWidth="0.8" />
-        <circle cx="140" cy="100" r="38" fill="none" stroke={p.line} strokeWidth="0.5" />
+        <circle cx="140" cy="100" r="50" fill="none" stroke={p.line} strokeWidth="0.8" />
+        <circle cx="140" cy="100" r="30" fill="none" stroke={p.line} strokeWidth="0.5" />
         <line x1="80"  y1="40"  x2="200" y2="160" stroke={p.line} strokeWidth="0.5" opacity=".5" />
         <line x1="200" y1="40"  x2="80"  y2="160" stroke={p.line} strokeWidth="0.5" opacity=".5" />
       </svg>
@@ -79,161 +78,40 @@ function ProjectVisual({ id }: { id: number }) {
   )
 }
 
-function ProjectCardMobile({ project }: { project: typeof projects[0] }) {
-  return (
-    <div
-      className="rounded-2xl overflow-hidden p-5 flex flex-col gap-4"
-      style={{ background: 'rgba(15,15,15,0.6)', border: '1px solid rgba(255,255,255,0.06)' }}
-    >
-      {/* visual */}
-      <div className="relative w-full aspect-[16/10] rounded-xl overflow-hidden">
-        <ProjectVisual id={project.id} />
-        <div className="absolute bottom-2 left-2 flex flex-wrap gap-1 z-10">
-          {project.tags.map((tag) => (
-            <span key={tag} className="px-2 py-0.5 rounded text-[9px] font-medium"
-              style={{ background: 'rgba(0,0,0,0.8)', border: '1px solid rgba(255,94,0,0.15)', color: 'rgba(255,255,255,0.8)' }}>
-              {tag}
-            </span>
-          ))}
-        </div>
-      </div>
-      {/* text */}
-      <div>
-        <h4 className="font-display font-bold text-lg text-white mb-2">{project.title}</h4>
-        <p className="text-xs leading-relaxed" style={{ color: 'rgba(160,168,192,0.7)' }}>{project.description}</p>
-        <div className="flex items-center gap-1 text-xs font-semibold mt-4" style={{ color: '#FF5E00' }}>
-          View Project <ArrowRight size={11} />
-        </div>
-      </div>
-    </div>
-  )
-}
-
-function ProjectCardDesktop({
-  project,
-  index,
-  hoveredIndex,
-  setHoveredIndex,
-}: {
-  project: typeof projects[0]
-  index: number
-  hoveredIndex: number | null
-  setHoveredIndex: (idx: number | null) => void
-}) {
-  const baseX = (index - 2) * 300 // increased horizontal spacing offset
-  const baseRotate = (index - 2) * 6 // rotational fan angle
-  const baseTranslateY = Math.abs(index - 2) * 12 // vertical arc drop
-
-  const isHovered = hoveredIndex === index
-  const isLeft = hoveredIndex !== null && index < hoveredIndex
-  const isRight = hoveredIndex !== null && index > hoveredIndex
-
-  const x = isLeft ? baseX - 60 : isRight ? baseX + 60 : baseX
-  const y = isHovered ? -20 : baseTranslateY
-  const rotate = isHovered ? 0 : baseRotate
-  const scale = isHovered ? 1.04 : (hoveredIndex !== null ? 0.96 : 1)
-  const zIndex = isHovered ? 30 : 10 + index
-
-  return (
-    <motion.div
-      onHoverStart={() => setHoveredIndex(index)}
-      onHoverEnd={() => setHoveredIndex(null)}
-      animate={{ x, y, rotate, scale, zIndex }}
-      transition={{ ease: [0.16, 1, 0.3, 1], duration: 0.85 }}
-      className="absolute bottom-10 origin-bottom cursor-pointer rounded-2xl overflow-hidden p-5 flex flex-col justify-between"
-      style={{
-        width: 360,
-        height: 480,
-        background: 'rgba(15,15,15,0.85)',
-        backdropFilter: 'blur(16px)',
-        border: isHovered ? '1px solid rgba(255,94,0,0.35)' : '1px solid rgba(255,255,255,0.06)',
-        boxShadow: isHovered ? '0 25px 60px rgba(255,30,30,0.12)' : 'none',
-      }}
-    >
-      {/* Visual */}
-      <div className="relative w-full h-[220px] rounded-xl overflow-hidden mb-4">
-        <ProjectVisual id={project.id} />
-        <div className="absolute bottom-2 left-2 flex flex-wrap gap-1 z-10">
-          {project.tags.slice(0, 2).map((tag) => (
-            <span key={tag} className="px-2.5 py-0.5 rounded text-[10px] font-medium"
-              style={{ background: 'rgba(0,0,0,0.8)', border: '1px solid rgba(255,94,0,0.15)', color: 'rgba(255,255,255,0.8)' }}>
-              {tag}
-            </span>
-          ))}
-        </div>
-      </div>
-
-      {/* Info */}
-      <div className="flex-1 flex flex-col justify-between">
-        <div>
-          <h4 className="font-display font-bold text-lg text-white mb-2 leading-tight">
-            {project.title}
-          </h4>
-          <p className="text-sm leading-relaxed line-clamp-4" style={{ color: 'rgba(160,168,192,0.7)' }}>
-            {project.description}
-          </p>
-        </div>
-        <div className="flex items-center gap-1.5 text-xs font-semibold mt-3" style={{ color: '#FF5E00' }}>
-          View Project <ArrowRight size={12} />
-        </div>
-      </div>
-    </motion.div>
-  )
-}
-
-/* mid-section CTA */
-function MidCTA() {
-  const ref = useRef(null)
-  const inView = useInView(ref, { once: true, margin: '-60px' })
-  return (
-    <motion.div
-      ref={ref}
-      initial={{ opacity: 0, y: 24 }}
-      animate={inView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-      className="rounded-2xl p-10 flex flex-col items-start gap-5 my-2"
-      style={{ background: 'rgba(15,15,15,0.6)', border: '1px solid rgba(255,30,30,0.07)' }}
-    >
-      <h3 className="font-display font-bold text-white text-2xl leading-snug">
-        Got a project in mind?
-      </h3>
-      <p className="text-sm" style={{ color: 'rgba(160,168,192,0.75)' }}>
-        Free 30-minute call to talk about your project.
-      </p>
-      <Magnetic>
-        <motion.button
-          whileHover={{ scale: 1.04, boxShadow: '0 0 28px rgba(255,94,0,0.3)' }}
-          whileTap={{ scale: 0.97 }}
-          onClick={() => {
-            const element = document.querySelector('#contact');
-            if (element) {
-              element.scrollIntoView({ behavior: 'smooth' });
-            } else {
-              window.location.href = '/contact';
-            }
-          }}
-          className="flex items-center gap-2 px-6 py-3 rounded-xl text-sm font-semibold cursor-pointer"
-          style={{ background: 'linear-gradient(135deg,#FF5E00,#FF1E1E)', color: '#000000' }}
-        >
-          See how we can help <ArrowRight size={14} />
-        </motion.button>
-      </Magnetic>
-    </motion.div>
-  )
-}
-
 export default function Work() {
   const headerRef = useRef(null)
   const headerInView = useInView(headerRef, { once: true, margin: '-80px' })
-  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null)
+  const carouselRef = useRef(null)
+  const [activeIndex, setActiveIndex] = useState(0)
+  const interactedRef = useRef(false)
+
+  // Auto rotation every 4.5 seconds
+  useEffect(() => {
+    const timer = setInterval(() => {
+      if (!interactedRef.current) {
+        setActiveIndex((prev) => prev + 1)
+      }
+    }, 4500)
+    return () => clearInterval(timer)
+  }, [])
+
+  const handlePrev = () => {
+    interactedRef.current = true
+    setActiveIndex((prev) => prev - 1)
+  }
+
+  const handleNext = () => {
+    interactedRef.current = true
+    setActiveIndex((prev) => prev + 1)
+  }
 
   return (
-    <section id="work" className="relative py-28 overflow-hidden" style={{ background: '#000000' }}>
+    <section id="work" className="relative py-28 overflow-hidden bg-black select-none">
       <div className="absolute top-0 inset-x-0 h-px" style={{ background: 'rgba(255,255,255,0.06)' }} />
 
       {/* right ambient glow */}
       <div className="absolute right-0 top-1/3 w-[420px] h-[500px] pointer-events-none"
-        style={{ background: 'radial-gradient(ellipse at right,rgba(255,30,30,0.06) 0%,transparent 70%)' }} />
+        style={{ background: 'radial-gradient(ellipse at right,rgba(239,62,54,0.06) 0%,transparent 70%)' }} />
 
       <div className="max-w-7xl mx-auto px-8 md:px-14">
         {/* header — split layout */}
@@ -244,7 +122,7 @@ export default function Work() {
               animate={headerInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.5 }}
               className="text-xs font-medium tracking-[0.2em] uppercase mb-5"
-              style={{ color: '#FF5E00' }}
+              style={{ color: '#3066BE' }}
             >
               Projects
             </motion.p>
@@ -254,67 +132,125 @@ export default function Work() {
               style={{ fontSize: 'clamp(2rem, 4.5vw, 3.4rem)' }}
             />
           </div>
-          <motion.p
-            initial={{ opacity: 0, y: 16 }}
-            animate={headerInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.7, delay: 0.2 }}
-            className="text-sm leading-relaxed max-w-xs md:text-right"
-            style={{ color: 'rgba(160,168,192,0.75)' }}
-          >
-            We support brands in creating unique and memorable digital experiences.
-            Browse our projects and dive into our world.
-          </motion.p>
-        </div>
-
-        {/* Desktop interactive card deck / Mobile grid layout */}
-        <div className="relative w-full overflow-visible min-h-[480px] flex items-center justify-center my-10">
           
-          {/* Mobile vertical stack layout */}
-          <div className="flex flex-col gap-8 w-full md:hidden">
-            {projects.map((project) => (
-              <ProjectCardMobile key={project.id} project={project} />
-            ))}
-          </div>
-
-          {/* Desktop interactive fanned deck */}
-          <div className="hidden md:flex relative justify-center items-end h-[560px] w-full overflow-visible">
-            {projects.map((project, i) => (
-              <ProjectCardDesktop
-                key={project.id}
-                project={project}
-                index={i}
-                hoveredIndex={hoveredIndex}
-                setHoveredIndex={setHoveredIndex}
-              />
-            ))}
-          </div>
-        </div>
-
-        {/* mid CTA */}
-        <div className="mt-20">
-          <MidCTA />
-        </div>
-
-        {/* all projects link */}
-        <motion.div
-          initial={{ opacity: 0, y: 14 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.55 }}
-          className="flex justify-center mt-10 pt-10"
-          style={{ borderTop: '1px solid rgba(255,255,255,0.06)' }}
-        >
-          <Magnetic>
-            <motion.button
-              whileHover={{ x: 4 }}
-              className="group flex items-center gap-2 text-sm font-medium cursor-pointer"
-              style={{ color: 'rgba(160,168,192,0.7)' }}
+          <div className="flex flex-col md:items-end gap-6">
+            <motion.p
+              initial={{ opacity: 0, y: 16 }}
+              animate={headerInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.7, delay: 0.2 }}
+              className="text-sm leading-relaxed max-w-xs md:text-right"
+              style={{ color: 'rgba(160,168,192,0.75)' }}
             >
-              All projects
-              <ArrowRight size={13} className="group-hover:translate-x-1 transition-transform" style={{ color: '#FF5E00' }} />
-            </motion.button>
-          </Magnetic>
-        </motion.div>
+              We support brands in creating unique and memorable digital experiences.
+              Browse our projects and dive into our world.
+            </motion.p>
+            
+            {/* Custom Slider Navigation */}
+            <div className="flex items-center gap-3">
+              <button
+                onClick={handlePrev}
+                className="w-9 h-9 rounded-full flex items-center justify-center transition-all duration-200 bg-transparent"
+                style={{ border: '1px solid rgba(255,255,255,0.12)', color: 'rgba(160,168,192,0.7)', cursor: 'pointer' }}
+                onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.borderColor = 'rgba(48,102,190,0.4)'; (e.currentTarget as HTMLElement).style.color = '#3066BE' }}
+                onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.borderColor = 'rgba(255,255,255,0.12)'; (e.currentTarget as HTMLElement).style.color = 'rgba(160,168,192,0.7)' }}
+              >
+                <ChevronLeft size={16} />
+              </button>
+              <button
+                onClick={handleNext}
+                className="w-9 h-9 rounded-full flex items-center justify-center transition-all duration-200 bg-transparent"
+                style={{ border: '1px solid rgba(255,255,255,0.12)', color: 'rgba(160,168,192,0.7)', cursor: 'pointer' }}
+                onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.borderColor = 'rgba(48,102,190,0.4)'; (e.currentTarget as HTMLElement).style.color = '#3066BE' }}
+                onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.borderColor = 'rgba(255,255,255,0.12)'; (e.currentTarget as HTMLElement).style.color = 'rgba(160,168,192,0.7)' }}
+              >
+                <ChevronRight size={16} />
+              </button>
+            </div>
+          </div>
+        </div>
+
+        {/* Carousel Section */}
+        <div ref={carouselRef} className="mt-10 flex flex-col items-center justify-center gap-4 relative z-10 w-full overflow-hidden px-4 py-8">
+          <div className="flex items-center justify-center w-full max-w-[1100px]">
+            <div className="relative perspective-[1200px] flex items-center justify-center h-[460px] w-full max-w-[80vw] md:max-w-[800px] overflow-visible">
+              {projects.map((project, i) => {
+                const n = projects.length;
+                // Normalize active index to safely handle negative values
+                const active = ((activeIndex % n) + n) % n;
+                
+                // Calculate shortest path offset on the circle
+                let offset = i - active;
+                if (offset > Math.floor(n / 2)) offset -= n;
+                if (offset < -Math.floor(n / 2)) offset += n;
+
+                const isActive = offset === 0;
+                // Adjust opacity and z-index based on distance from center
+                const zIndex = 20 - Math.abs(offset);
+                const opacity = isActive ? 1 : Math.max(0.1, 1 - Math.abs(offset) * 0.4);
+                const scale = isActive ? 1.1 : 0.95 - Math.abs(offset) * 0.05;
+                const translateX = offset * 200; // Spread out the cards horizontally
+
+                return (
+                  <div 
+                    key={project.id}
+                    className="w-[260px] md:w-[280px] h-[400px] md:h-[420px] rounded-[12px] border border-[rgba(255,255,255,0.1)] bg-gradient-to-b from-[#1A1A1A] to-[#0A0A0A] p-6 flex flex-col justify-between shadow-2xl absolute transition-all duration-500 ease-out cursor-pointer select-none"
+                    onClick={() => {
+                      interactedRef.current = true;
+                      setActiveIndex(activeIndex + offset);
+                    }}
+                    style={{ 
+                      transformOrigin: 'top center',
+                      transform: `translateX(${translateX}px) translateY(${Math.abs(offset) * 30}px) rotateY(${offset * 15}deg) rotateZ(${offset * 5}deg) scale(${scale})`,
+                      zIndex,
+                      opacity,
+                      pointerEvents: Math.abs(offset) > 2 ? 'none' : 'auto'
+                    }}
+                  >
+                    <div>
+                      <p className="text-[rgba(255,255,255,0.4)] font-sans text-[12px] mb-4">0{project.id}</p>
+                      <h3 className="text-[20px] md:text-[22px] font-display font-medium leading-[1.2] text-white tracking-[-0.01em]">{project.title}</h3>
+                    </div>
+                    
+                    {/* Visual Graphics Container */}
+                    <div className="h-32 md:h-40 rounded-[4px] overflow-hidden bg-[rgba(255,255,255,0.03)] border border-[rgba(255,255,255,0.05)] flex items-center justify-center relative">
+                      <ProjectVisual id={project.id} />
+                    </div>
+                    
+                    <p className="text-[rgba(255,255,255,0.5)] font-sans text-[13px] leading-[1.6] line-clamp-3">
+                      {project.description}
+                    </p>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+
+          <div className="flex flex-col items-center mt-10 md:mt-12 max-w-[800px] mx-auto px-6">
+            <p className="text-center text-[rgba(255,255,255,0.5)] text-[16px] md:text-[18px] leading-relaxed">
+              Five core systems. Each one eliminates a specific way your business loses leads. Together, they make growth inevitable.
+            </p>
+          </div>
+
+          {/* CTA Buttons */}
+          <div className="flex items-center justify-center gap-4 mt-8">
+            <a
+              href="/contact"
+              className="font-sans font-medium text-[14px] bg-white text-[#0A0A0A] py-3 px-7 rounded-[4px] hover:opacity-85 transition-opacity duration-200"
+            >
+              Start a project →
+            </a>
+            <a
+              href="https://topmate.io/the_hustle_house/1492097"
+              target="_blank"
+              rel="noopener noreferrer"
+              data-gtm="book-call"
+              className="font-sans font-medium text-[14px] bg-transparent text-[rgba(255,255,255,0.75)] border-[0.5px] border-[rgba(255,255,255,0.3)] py-3 px-7 rounded-[4px] hover:border-white hover:text-white transition-colors duration-200"
+            >
+              Book a strategy call →
+            </a>
+          </div>
+        </div>
+
       </div>
     </section>
   )

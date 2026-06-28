@@ -18,7 +18,7 @@ export default function TextReveal({
   delay = 0,
   gradientWords = [],
   gradientStyle = {
-    background: 'linear-gradient(135deg, #F0EEF8 0%, #FF7A29 45%, #FF1E1E 100%)',
+    background: 'linear-gradient(135deg, #F5FBEF 0%, #5985CB 45%, #EF3E36 100%)',
     WebkitBackgroundClip: 'text',
     WebkitTextFillColor: 'transparent',
     backgroundClip: 'text',

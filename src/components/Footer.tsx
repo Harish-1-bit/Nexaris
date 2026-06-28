@@ -37,7 +37,7 @@ export default function Footer() {
             top: '50%', left: '50%',
             transform: 'translate(-50%,-50%)',
             width: 1200, height: 420,
-            background: 'radial-gradient(ellipse at center, rgba(255,94,0,0.52) 0%, rgba(255,30,30,0.32) 40%, transparent 75%)',
+            background: 'radial-gradient(ellipse at center, rgba(48,102,190,0.52) 0%, rgba(239,62,54,0.32) 40%, transparent 75%)',
             filter: 'blur(70px)',
             willChange: 'transform, opacity',
           }}
@@ -49,7 +49,7 @@ export default function Footer() {
             top: '50%', left: '50%',
             transform: 'translate(-50%,-50%)',
             width: 800, height: 260,
-            background: 'radial-gradient(ellipse at center, rgba(255,94,0,0.58) 0%, rgba(255,30,30,0.28) 50%, transparent 80%)',
+            background: 'radial-gradient(ellipse at center, rgba(48,102,190,0.58) 0%, rgba(239,62,54,0.28) 50%, transparent 80%)',
             filter: 'blur(45px)',
             willChange: 'transform, opacity',
           }}
@@ -63,7 +63,7 @@ export default function Footer() {
             style={{
               left: `${38 + i * 4}%`,
               width: 2,
-              background: 'linear-gradient(to bottom, transparent, rgba(255,94,0,0.42), rgba(255,30,30,0.52), rgba(255,94,0,0.32), transparent)',
+              background: 'linear-gradient(to bottom, transparent, rgba(48,102,190,0.42), rgba(239,62,54,0.52), rgba(48,102,190,0.32), transparent)',
               filter: 'blur(3px)',
               animationDelay: `${i * 0.42}s`,
               animationDuration: `${3 + i * 0.65}s`,
@@ -92,7 +92,7 @@ export default function Footer() {
             style={{
               background: 'rgba(0,0,0,0.48)',
               backdropFilter: 'blur(14px)',
-              border: '1px solid rgba(255,94,0,0.12)',
+              border: '1px solid rgba(48,102,190,0.12)',
             }}
           >
             <h2
@@ -102,7 +102,7 @@ export default function Footer() {
               Ready to build a brand that<br />matches your ambition?
             </h2>
             <motion.button
-              whileHover={{ scale: 1.05, boxShadow: '0 0 28px rgba(255,94,0,0.38)' }}
+              whileHover={{ scale: 1.05, boxShadow: '0 0 28px rgba(48,102,190,0.38)' }}
               whileTap={{ scale: 0.97 }}
               onClick={() => {
                 const element = document.querySelector('#contact');
@@ -113,7 +113,7 @@ export default function Footer() {
                 }
               }}
               className="inline-flex items-center gap-2 px-6 py-2.5 rounded-lg text-sm font-semibold cursor-pointer"
-              style={{ background: 'linear-gradient(135deg,#FF5E00,#FF1E1E)', color: '#000' }}
+              style={{ background: '#3066BE', color: '#FFF' }}
             >
               Let's talk <ArrowRight size={13} />
             </motion.button>
@@ -153,7 +153,7 @@ export default function Footer() {
                 }}
                 className="px-5 py-2 rounded-lg text-xs font-medium text-white transition-all duration-250 cursor-pointer"
                 style={{ border: '1px solid rgba(255,255,255,0.18)' }}
-                onMouseEnter={(e) => (e.currentTarget.style.borderColor = 'rgba(255,94,0,0.4)')}
+                onMouseEnter={(e) => (e.currentTarget.style.borderColor = 'rgba(48,102,190,0.4)')}
                 onMouseLeave={(e) => (e.currentTarget.style.borderColor = 'rgba(255,255,255,0.18)')}
               >
                 Contact us
@@ -222,7 +222,7 @@ export default function Footer() {
                         onMouseEnter={(e) => (e.currentTarget.style.color = '#e8eaf0')}
                         onMouseLeave={(e) => (e.currentTarget.style.color = 'rgba(160,168,192,0.7)')}
                       >
-                        <Icon size={12} style={{ color: 'rgba(255,94,0,0.55)', flexShrink: 0 }} />
+                        <Icon size={12} style={{ color: 'rgba(48,102,190,0.55)', flexShrink: 0 }} />
                         {item.value}
                       </a>
                     </li>

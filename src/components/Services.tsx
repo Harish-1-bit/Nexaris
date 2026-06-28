@@ -11,8 +11,8 @@ const services = [
     description: 'Brand strategy, logo, guidelines. The fundamentals of your image.',
     deliverables: ['Brand Strategy', 'Logo & Identity Design', 'Visual Guidelines', 'Stationery Systems'],
     visual: 'brand',
-    color: '#FF5E00',
-    glowColor: 'rgba(255, 94, 0, 0.15)',
+    color: '#3066BE',
+    glowColor: 'rgba(48, 102, 190, 0.15)',
   },
   {
     number: '02',
@@ -20,8 +20,8 @@ const services = [
     description: 'UX, UI, prototypes. Interfaces designed around real user needs.',
     deliverables: ['User Research', 'Figma Prototyping', 'Design Systems', 'Micro-Interactions'],
     visual: 'design',
-    color: '#FF1E1E',
-    glowColor: 'rgba(255, 30, 30, 0.15)',
+    color: '#EF3E36',
+    glowColor: 'rgba(239, 62, 54, 0.15)',
   },
   {
     number: '03',
@@ -29,8 +29,8 @@ const services = [
     description: 'Performance, security, scalability. A website built to last.',
     deliverables: ['Next.js & React 19', 'Tailwind CSS v4', 'Custom API Integrations', 'SEO & Performance'],
     visual: 'web',
-    color: '#00F0FF',
-    glowColor: 'rgba(0, 240, 255, 0.15)',
+    color: '#3066BE',
+    glowColor: 'rgba(48, 102, 190, 0.15)',
   },
   {
     number: '04',
@@ -38,8 +38,8 @@ const services = [
     description: 'iOS & Android. Native and cross-platform apps users love.',
     deliverables: ['iOS Swift Native', 'Android Kotlin Native', 'React Native Apps', 'App Store Launch'],
     visual: 'mobile',
-    color: '#FFD700',
-    glowColor: 'rgba(255, 215, 0, 0.15)',
+    color: '#EF3E36',
+    glowColor: 'rgba(239, 62, 54, 0.15)',
   },
   {
     number: '05',
@@ -47,8 +47,8 @@ const services = [
     description: 'Brand films, motion graphics, and social content that captivates.',
     deliverables: ['Storyboarding', 'Motion Graphics', 'Cinematography', 'Social Ad Campaigns'],
     visual: 'video',
-    color: '#FF00FF',
-    glowColor: 'rgba(255, 0, 255, 0.15)',
+    color: '#3066BE',
+    glowColor: 'rgba(48, 102, 190, 0.15)',
   },
   {
     number: '06',
@@ -56,8 +56,8 @@ const services = [
     description: 'Data-driven campaigns that deliver measurable ROI and growth.',
     deliverables: ['SEO Optimization', 'Paid Media Campaigns', 'Analytics Setup', 'Content Strategy'],
     visual: 'marketing',
-    color: '#00FF88',
-    glowColor: 'rgba(0, 255, 136, 0.15)',
+    color: '#EF3E36',
+    glowColor: 'rgba(239, 62, 54, 0.15)',
   },
 ]
 
@@ -73,17 +73,17 @@ function BrandShowcase({ active }: { active: boolean }) {
         <motion.div
           animate={active ? { rotate: 360 } : { rotate: 0 }}
           transition={{ duration: 25, repeat: Infinity, ease: 'linear' }}
-          className="absolute w-full h-full border border-dashed border-[#FF5E00]/40 rounded-full"
+          className="absolute w-full h-full border border-dashed border-[#3066BE]/40 rounded-full"
         />
         <motion.div
           animate={active ? { rotate: -360 } : { rotate: 0 }}
           transition={{ duration: 15, repeat: Infinity, ease: 'linear' }}
-          className="absolute w-36 h-36 border border-[#FF5E00]/30 rounded-3xl"
+          className="absolute w-36 h-36 border border-[#3066BE]/30 rounded-3xl"
         />
         <motion.div
           animate={active ? { scale: [1, 1.05, 1], rotate: 45 } : { rotate: 45 }}
           transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
-          className="absolute w-24 h-24 bg-gradient-to-br from-[#FF5E00]/20 to-[#FF1E1E]/20 border border-[#FF5E00] flex items-center justify-center shadow-[0_0_30px_rgba(255,94,0,0.15)]"
+          className="absolute w-24 h-24 bg-gradient-to-br from-[#3066BE]/20 to-[#EF3E36]/20 border border-[#3066BE] flex items-center justify-center shadow-[0_0_30px_rgba(48,102,190,0.15)]"
           style={{ transform: 'rotate(45deg)' }}
         >
           <Sparkles className="text-white w-8 h-8 -rotate-45" />
@@ -113,7 +113,7 @@ function DesignShowcase({ active }: { active: boolean }) {
             <span className="w-2 h-2 rounded-full bg-green-500/60" />
           </div>
           <div className="w-28 h-2.5 rounded-full bg-white/10" />
-          <div className="w-4 h-4 rounded-full bg-[#FF1E1E]/30 border border-[#FF1E1E]/40" />
+          <div className="w-4 h-4 rounded-full bg-[#EF3E36]/30 border border-[#EF3E36]/40" />
         </div>
         {/* Layout content blocks */}
         <div className="flex-1 p-3 flex gap-3">
@@ -126,8 +126,8 @@ function DesignShowcase({ active }: { active: boolean }) {
           {/* Right workspace */}
           <div className="flex-1 flex flex-col gap-2.5 justify-between">
             <div className="flex gap-2">
-              <div className="flex-1 h-12 border border-[#FF1E1E]/20 bg-[#FF1E1E]/5 rounded-lg flex items-center justify-center">
-                <div className="w-6 h-6 rounded-full bg-[#FF1E1E]/20 animate-pulse" />
+              <div className="flex-1 h-12 border border-[#EF3E36]/20 bg-[#EF3E36]/5 rounded-lg flex items-center justify-center">
+                <div className="w-6 h-6 rounded-full bg-[#EF3E36]/20 animate-pulse" />
               </div>
               <div className="w-1/3 h-12 border border-white/5 bg-white/[0.02] rounded-lg" />
             </div>
@@ -135,7 +135,7 @@ function DesignShowcase({ active }: { active: boolean }) {
               <motion.div 
                 animate={active ? { width: ['30%', '90%', '30%'] } : {}}
                 transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
-                className="h-2 rounded-full bg-[#FF1E1E]/40"
+                className="h-2 rounded-full bg-[#EF3E36]/40"
               />
             </div>
           </div>
@@ -162,18 +162,18 @@ function WebDevShowcase({ active }: { active: boolean }) {
       <div className="w-full max-w-[280px] h-[190px] rounded-lg border border-white/10 bg-black/90 font-mono text-[9.5px] text-white-soft flex flex-col shadow-2xl">
         {/* Terminal Header */}
         <div className="h-6 border-b border-white/10 px-3 flex items-center gap-1.5 bg-white/[0.02]">
-          <span className="w-1.5 h-1.5 rounded-full bg-[#00F0FF]/30" />
-          <span className="w-1.5 h-1.5 rounded-full bg-[#00F0FF]/20" />
-          <span className="w-1.5 h-1.5 rounded-full bg-[#00F0FF]/10" />
+          <span className="w-1.5 h-1.5 rounded-full bg-[#3066BE]/30" />
+          <span className="w-1.5 h-1.5 rounded-full bg-[#3066BE]/20" />
+          <span className="w-1.5 h-1.5 rounded-full bg-[#3066BE]/10" />
           <span className="text-[9px] text-white/40 ml-2">bash - build_nexus.js</span>
         </div>
         {/* Code editor body */}
         <div className="flex-1 p-3.5 space-y-1.5 leading-normal">
           <p className="text-gray-500">// Deploying Edge Cluster</p>
           <div className="flex items-center gap-1">
-            <span className="text-[#00F0FF]">const</span>
+            <span className="text-[#3066BE]">const</span>
             <span className="text-white">nexaris</span>
-            <span className="text-[#00F0FF]">=</span>
+            <span className="text-[#3066BE]">=</span>
             <span className="text-amber-300">init()</span>
           </div>
           
@@ -205,15 +205,15 @@ function WebDevShowcase({ active }: { active: boolean }) {
                 initial={{ opacity: 0, x: -5 }}
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0 }}
-                className="text-pink-400 flex items-center gap-1"
+                className="text-[#EF3E36] flex items-center gap-1"
               >
                 <span>➜ [SYS] Lighthouse score: 100/100</span>
               </motion.div>
             )}
           </AnimatePresence>
           <div className="flex items-center gap-0.5">
-            <span className="text-[#00F0FF]">$</span>
-            <span className="w-1.5 h-3 bg-[#00F0FF] animate-pulse inline-block" />
+            <span className="text-[#3066BE]">$</span>
+            <span className="w-1.5 h-3 bg-[#3066BE] animate-pulse inline-block" />
           </div>
         </div>
       </div>
@@ -232,19 +232,19 @@ function MobileShowcase({ active }: { active: boolean }) {
       >
         {/* Dynamic Island */}
         <div className="w-14 h-3 bg-white/20 rounded-full mx-auto mb-2 flex items-center justify-center">
-          <span className="w-1 h-1 rounded-full bg-[#FFD700]" />
+          <span className="w-1 h-1 rounded-full bg-[#EF3E36]" />
         </div>
         {/* Mock Screen Content */}
         <div className="flex-1 rounded-[16px] border border-white/5 bg-white/[0.02] p-2 flex flex-col gap-2 relative overflow-hidden">
           {/* Header widget */}
-          <div className="h-9 border border-[#FFD700]/20 bg-[#FFD700]/5 rounded-lg flex items-center justify-center">
-            <span className="text-[8.5px] text-[#FFD700] font-bold tracking-wider">NEXARIS APP</span>
+          <div className="h-9 border border-[#EF3E36]/20 bg-[#EF3E36]/5 rounded-lg flex items-center justify-center">
+            <span className="text-[8.5px] text-[#EF3E36] font-bold tracking-wider">NEXARIS APP</span>
           </div>
           {/* List items */}
           <div className="space-y-1.5">
             <div className="h-6 rounded bg-white/5 flex items-center px-1.5 justify-between">
               <span className="w-8 h-1 bg-white/20 rounded" />
-              <span className="w-3.5 h-3.5 rounded-full bg-[#FFD700]/40" />
+              <span className="w-3.5 h-3.5 rounded-full bg-[#EF3E36]/40" />
             </div>
             <div className="h-6 rounded bg-white/5 flex items-center px-1.5 justify-between">
               <span className="w-10 h-1 bg-white/20 rounded" />
@@ -259,7 +259,7 @@ function MobileShowcase({ active }: { active: boolean }) {
           <motion.div
             animate={active ? { x: [20, 60, 20], y: [80, 20, 80] } : { x: 20, y: 80 }}
             transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut' }}
-            className="absolute w-4 h-4 rounded-full bg-[#FFD700]/40 border border-[#FFD700] shadow-[0_0_10px_rgba(255,215,0,0.5)]"
+            className="absolute w-4 h-4 rounded-full bg-[#EF3E36]/40 border border-[#EF3E36] shadow-[0_0_10px_rgba(239,62,54,0.5)]"
           />
         </div>
       </motion.div>
@@ -298,7 +298,7 @@ function VideoShowcase({ active }: { active: boolean }) {
               key={i}
               animate={active ? { height: [height * 0.4, height, height * 0.4] } : { height: height * 0.4 }}
               transition={{ duration: 1.5 + (i * 0.1), repeat: Infinity, ease: 'easeInOut' }}
-              className="w-1 rounded-full bg-gradient-to-t from-[#FF00FF] to-pink-500"
+              className="w-1 rounded-full bg-gradient-to-t from-[#3066BE] to-[#EF3E36]"
               style={{ height: height * 0.4 }}
             />
           ))}
@@ -311,7 +311,7 @@ function VideoShowcase({ active }: { active: boolean }) {
             <motion.div
               animate={active ? { left: ['-100%', '100%', '-100%'] } : {}}
               transition={{ duration: 8, repeat: Infinity, ease: 'linear' }}
-              className="absolute w-1/3 h-full bg-[#FF00FF] rounded-full"
+              className="absolute w-1/3 h-full bg-[#3066BE] rounded-full"
             />
           </div>
           <span>00:10:00</span>
@@ -334,7 +334,7 @@ function MarketingShowcase({ active }: { active: boolean }) {
             <h4 className="text-[10px] uppercase tracking-wider text-white/40 font-semibold">Net Conversions</h4>
             <div className="text-lg font-bold text-white leading-none mt-0.5">+182.4%</div>
           </div>
-          <span className="text-[8px] font-medium text-emerald-400 bg-emerald-500/10 px-1.5 py-0.5 rounded border border-emerald-500/20">Active Growth</span>
+          <span className="text-[8px] font-medium text-[#EF3E36] bg-[#EF3E36]/10 px-1.5 py-0.5 rounded border border-[#EF3E36]/20">Active Growth</span>
         </div>
         {/* Dynamic bar charts */}
         <div className="flex items-end justify-between h-16 w-full pt-4">
@@ -347,8 +347,8 @@ function MarketingShowcase({ active }: { active: boolean }) {
                   transition={{ duration: 1.2, delay: i * 0.1, ease: 'easeOut' }}
                   className="w-full rounded-t"
                   style={{
-                    background: 'linear-gradient(to top, rgba(0,255,136,0.1), #00FF88)',
-                    boxShadow: '0 0 10px rgba(0,255,136,0.3)',
+                    background: 'linear-gradient(to top, rgba(239,62,54,0.1), #EF3E36)',
+                    boxShadow: '0 0 10px rgba(239,62,54,0.3)',
                   }}
                 />
               </div>

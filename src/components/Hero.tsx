@@ -138,10 +138,7 @@ export default function Hero() {
             <span
               className="hero-headline-word inline-block opacity-0"
               style={{
-                background: 'linear-gradient(90deg, #C0392B, #E8682A)',
-                WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
-                backgroundClip: 'text',
+                color: '#EF3E36',
               }}
             >
                next."

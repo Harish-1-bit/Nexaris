@@ -20,8 +20,8 @@ export default function Contact() {
     onFocus: () => setFocused(name),
     onBlur: () => setFocused(null),
     style: {
-      background: focused === name ? 'rgba(255,94,0,0.04)' : 'rgba(255,255,255,0.03)',
-      border: `1px solid ${focused === name ? 'rgba(255,94,0,0.35)' : 'rgba(255,255,255,0.09)'}`,
+      background: focused === name ? 'rgba(48,102,190,0.04)' : 'rgba(255,255,255,0.03)',
+      border: `1px solid ${focused === name ? 'rgba(48,102,190,0.35)' : 'rgba(255,255,255,0.09)'}`,
       color: '#e8eaf0',
       outline: 'none',
       transition: 'all 0.25s',
@@ -34,7 +34,7 @@ export default function Contact() {
 
       {/* subtle glow */}
       <div className="absolute bottom-0 right-0 w-[500px] h-[500px] pointer-events-none"
-        style={{ background: 'radial-gradient(ellipse at bottom right,rgba(255,30,30,0.05) 0%,transparent 70%)' }} />
+        style={{ background: 'radial-gradient(ellipse at bottom right,rgba(239,62,54,0.05) 0%,transparent 70%)' }} />
 
       <div className="max-w-7xl mx-auto px-8 md:px-14">
         {/* header */}
@@ -45,7 +45,7 @@ export default function Contact() {
               animate={inView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.5 }}
               className="text-xs font-medium tracking-[0.2em] uppercase mb-5"
-              style={{ color: '#FF5E00' }}
+              style={{ color: '#3066BE' }}
             >
               Contact
             </motion.p>
@@ -99,7 +99,7 @@ export default function Contact() {
                 <a href={item.href}
                   className="text-sm font-medium transition-colors duration-200"
                   style={{ color: 'rgba(232,234,240,0.85)' }}
-                  onMouseEnter={(e) => (e.currentTarget.style.color = '#FF5E00')}
+                  onMouseEnter={(e) => (e.currentTarget.style.color = '#3066BE')}
                   onMouseLeave={(e) => (e.currentTarget.style.color = 'rgba(232,234,240,0.85)')}>
                   {item.value}
                 </a>
@@ -113,7 +113,7 @@ export default function Contact() {
               </p>
               {['Discovery Call', 'Strategy & Proposal', 'Design & Build', 'Launch & Grow'].map((step, i) => (
                 <div key={step} className="flex items-center gap-3 mb-3 last:mb-0">
-                  <span className="text-xs font-bold font-display" style={{ color: '#FF5E00' }}>
+                  <span className="text-xs font-bold font-display" style={{ color: '#3066BE' }}>
                     0{i + 1}
                   </span>
                   <div className="flex-1 h-px" style={{ background: 'rgba(255,255,255,0.07)' }} />
@@ -136,11 +136,11 @@ export default function Contact() {
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
                 className="h-full flex flex-col items-center justify-center text-center py-20 rounded-2xl"
-                style={{ border: '1px solid rgba(255,94,0,0.15)', background: 'rgba(20,20,20,0.5)' }}
+                style={{ border: '1px solid rgba(48,102,190,0.15)', background: 'rgba(20,20,20,0.5)' }}
               >
                 <div className="w-14 h-14 rounded-full flex items-center justify-center mb-6"
-                  style={{ background: 'linear-gradient(135deg,rgba(255,94,0,0.4),rgba(255,30,30,0.4))', border: '1px solid rgba(255,94,0,0.3)' }}>
-                  <Send size={20} style={{ color: '#FF5E00' }} />
+                  style={{ background: 'linear-gradient(135deg,rgba(48,102,190,0.4),rgba(239,62,54,0.4))', border: '1px solid rgba(48,102,190,0.3)' }}>
+                  <Send size={20} style={{ color: '#3066BE' }} />
                 </div>
                 <h3 className="font-display font-bold text-xl mb-2" style={{ color: '#e8eaf0' }}>Message sent!</h3>
                 <p className="text-sm" style={{ color: 'rgba(160,168,192,0.7)' }}>
@@ -220,10 +220,10 @@ export default function Contact() {
                 <Magnetic className="w-full block">
                   <motion.button
                     type="submit"
-                    whileHover={{ scale: 1.02, boxShadow: '0 0 28px rgba(255,94,0,0.28)' }}
+                    whileHover={{ scale: 1.02, boxShadow: '0 0 28px rgba(48,102,190,0.28)' }}
                     whileTap={{ scale: 0.98 }}
                     className="group w-full flex items-center justify-center gap-2.5 py-4 rounded-xl text-sm font-semibold transition-all duration-300 cursor-pointer"
-                    style={{ background: 'linear-gradient(135deg,#FF5E00,#FF1E1E)', color: '#000000' }}
+                    style={{ background: '#3066BE', color: '#FFFFFF' }}
                   >
                     Send Message
                     <ArrowRight size={15} className="group-hover:translate-x-1 transition-transform" />

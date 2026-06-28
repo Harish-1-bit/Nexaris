@@ -338,7 +338,7 @@ export default function AboutTHH() {
     <div 
       ref={containerRef} 
       style={{ background: '#0A0A0A' }} 
-      className="w-full text-[#F0EEF8] font-sans selection:bg-white/10 selection:text-white"
+      className="w-full text-[#F5FBEF] font-sans selection:bg-white/10 selection:text-white"
     >
       {/* SECTION 1: Hero / Page Header */}
       <section 

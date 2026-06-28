@@ -23,8 +23,8 @@ export default function Horizon() {
           background: `
             linear-gradient(to bottom,
               transparent 0%,
-              rgba(255,30,30,0.04) 40%,
-              rgba(255,94,0,0.10) 100%)
+              rgba(239, 62, 54, 0.04) 40%,
+              rgba(48, 102, 190, 0.10) 100%)
           `,
         }}
       >
@@ -37,13 +37,13 @@ export default function Horizon() {
         >
           <defs>
             <linearGradient id="hLineGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-              <stop offset="0%"   stopColor="rgba(255,30,30,0)"   />
-              <stop offset="60%"  stopColor="rgba(255,94,0,0.35)" />
-              <stop offset="100%" stopColor="rgba(255,30,30,0.55)" />
+              <stop offset="0%"   stopColor="rgba(239, 62, 54, 0)"   />
+              <stop offset="60%"  stopColor="rgba(48, 102, 190, 0.35)" />
+              <stop offset="100%" stopColor="rgba(239, 62, 54, 0.55)" />
             </linearGradient>
             <linearGradient id="vLineGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-              <stop offset="0%"   stopColor="rgba(255,30,30,0)"   />
-              <stop offset="100%" stopColor="rgba(255,94,0,0.28)" />
+              <stop offset="0%"   stopColor="rgba(239, 62, 54, 0)"   />
+              <stop offset="100%" stopColor="rgba(48, 102, 190, 0.28)" />
             </linearGradient>
           </defs>
 
@@ -84,7 +84,7 @@ export default function Horizon() {
         style={{
           top: '28%',
           height: 1,
-          background: 'linear-gradient(to right, transparent 0%, rgba(255,30,30,0.6) 15%, rgba(255,94,0,0.9) 50%, rgba(255,30,30,0.6) 85%, transparent 100%)',
+          background: 'linear-gradient(to right, transparent 0%, rgba(239, 62, 54, 0.6) 15%, rgba(48, 102, 190, 0.9) 50%, rgba(239, 62, 54, 0.6) 85%, transparent 100%)',
           willChange: 'transform, opacity',
         }}
       />
@@ -95,7 +95,7 @@ export default function Horizon() {
         style={{
           top: '18%',
           height: 60,
-          background: 'radial-gradient(ellipse 70% 100% at 50% 100%, rgba(255,94,0,0.28) 0%, rgba(255,30,30,0.18) 40%, transparent 80%)',
+          background: 'radial-gradient(ellipse 70% 100% at 50% 100%, rgba(48, 102, 190, 0.28) 0%, rgba(239, 62, 54, 0.18) 40%, transparent 80%)',
           filter: 'blur(12px)',
           willChange: 'transform, opacity',
         }}
@@ -106,7 +106,7 @@ export default function Horizon() {
         className="absolute horizon-glow"
         style={{
           top: '15%', left: '35%', right: '35%', height: 50,
-          background: 'radial-gradient(ellipse at center, rgba(255,94,0,0.22) 0%, transparent 80%)',
+          background: 'radial-gradient(ellipse at center, rgba(48, 102, 190, 0.22) 0%, transparent 80%)',
           filter: 'blur(16px)',
           animationDelay: '1.5s',
           willChange: 'transform, opacity',
@@ -120,7 +120,7 @@ export default function Horizon() {
           willChange: 'transform',
           position: 'absolute',
           top: '10%', width: '30%', height: '60%',
-          background: 'linear-gradient(to right, transparent, rgba(255,30,30,0.12), rgba(255,94,0,0.08), transparent)',
+          background: 'linear-gradient(to right, transparent, rgba(239, 62, 54, 0.12), rgba(48, 102, 190, 0.08), transparent)',
           filter: 'blur(8px)',
         }}
       />
@@ -156,7 +156,7 @@ export default function Horizon() {
             <div
               className="font-display font-bold text-2xl md:text-3xl mb-0.5"
               style={{
-                background: 'linear-gradient(135deg, #F0EEF8, #FF7A29, #FF1E1E)',
+                background: 'linear-gradient(135deg, #F5FBEF, #5985CB, #EF3E36)',
                 WebkitBackgroundClip: 'text',
                 WebkitTextFillColor: 'transparent',
                 backgroundClip: 'text',

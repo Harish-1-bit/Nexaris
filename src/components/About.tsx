@@ -19,7 +19,7 @@ function ScrubText({ text }: { text: string }) {
       {words.map((word, i) => {
         const start = i / words.length
         const end = start + (1 / words.length)
-        const color = useTransform(scrollYProgress, [start, end], ['rgba(160,168,192,0.15)', '#F0EEF8'])
+        const color = useTransform(scrollYProgress, [start, end], ['rgba(160,168,192,0.15)', '#F5FBEF'])
         return (
           <motion.span key={i} style={{ color }}>
             {word}
@@ -47,7 +47,7 @@ export default function About() {
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.55 }}
           className="text-xs font-medium tracking-[0.2em] uppercase mb-10"
-          style={{ color: '#FF5E00' }}
+          style={{ color: '#3066BE' }}
         >
           About
         </motion.p>
@@ -86,7 +86,7 @@ export default function About() {
                 style={{ color: '#a0a8c0' }}
               >
                 Discover the studio
-                <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" style={{ color: '#FF5E00' }} />
+                <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" style={{ color: '#3066BE' }} />
               </motion.button>
             </Magnetic>
           </div>

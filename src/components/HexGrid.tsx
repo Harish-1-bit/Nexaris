@@ -11,7 +11,7 @@ export default function HexGrid() {
         if (spotlightRef.current) {
           const x = (e.clientX / window.innerWidth) * 100
           const y = (e.clientY / window.innerHeight) * 100
-          spotlightRef.current.style.background = `radial-gradient(circle 800px at ${x}% ${y}%, rgba(255, 94, 0, 0.2), transparent 80%)`
+          spotlightRef.current.style.background = `radial-gradient(circle 800px at ${x}% ${y}%, rgba(48, 102, 190, 0.2), transparent 80%)`
         }
       })
     }
@@ -105,11 +105,11 @@ export default function HexGrid() {
               id={`hex-inner-${c}-${r}`}
               className="w-full h-full transition-transform duration-300 ease-out"
               style={{
-                background: `rgba(255, 94, 0, ${baseOpacity})`,
-                boxShadow: 'inset 0 0 20px rgba(255, 30, 30, 0.5)', 
+                background: `rgba(48, 102, 190, ${baseOpacity})`,
+                boxShadow: 'inset 0 0 20px rgba(239, 62, 54, 0.5)', 
                 clipPath: 'polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%)',
                 // This single line creates the 3D depth block without any extra DOM nodes or preserve-3d!
-                filter: 'drop-shadow(0px 16px 0px rgba(120, 20, 0, 0.9))',
+                filter: 'drop-shadow(0px 16px 0px rgba(16, 40, 90, 0.9))',
               }}
             >
               {/* Highlight on top edge */}
@@ -151,7 +151,7 @@ export default function HexGrid() {
             ref={spotlightRef}
             className="absolute inset-0 pointer-events-none z-0"
             style={{
-              background: `radial-gradient(circle 800px at 50% 50%, rgba(255, 94, 0, 0.25), transparent 80%)`,
+              background: `radial-gradient(circle 800px at 50% 50%, rgba(48, 102, 190, 0.25), transparent 80%)`,
               willChange: 'background',
               transform: 'translateZ(1px)', // just above the hexes
             }}

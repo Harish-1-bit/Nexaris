@@ -50,7 +50,7 @@ export default function CursorGlow() {
           y: springYGlow,
           translateX: '-50%',
           translateY: '-50%',
-          background: 'radial-gradient(circle, rgba(255,48,48,0.06) 0%, transparent 70%)',
+          background: 'radial-gradient(circle, rgba(239,62,54,0.06) 0%, transparent 70%)',
         }}
       />
       
@@ -66,8 +66,8 @@ export default function CursorGlow() {
           y: mouseY,
           translateX: '-50%',
           translateY: '-50%',
-          background: '#FF5E00',
-          boxShadow: '0 0 10px rgba(255, 94, 0, 0.8)'
+          background: '#3066BE',
+          boxShadow: '0 0 10px rgba(48, 102, 190, 0.8)'
         }}
       />
 
@@ -78,8 +78,8 @@ export default function CursorGlow() {
         animate={{
           width: isHovering ? 56 : 32,
           height: isHovering ? 56 : 32,
-          backgroundColor: isHovering ? 'rgba(255, 94, 0, 0.15)' : 'transparent',
-          border: isHovering ? '1px solid rgba(255, 94, 0, 0.5)' : '1px solid rgba(255, 94, 0, 0.3)',
+          backgroundColor: isHovering ? 'rgba(48, 102, 190, 0.15)' : 'transparent',
+          border: isHovering ? '1px solid rgba(48, 102, 190, 0.5)' : '1px solid rgba(48, 102, 190, 0.3)',
           backdropFilter: isHovering ? 'blur(2px)' : 'none',
         }}
         transition={{ duration: 0.25, ease: "easeOut" }}
@@ -94,7 +94,7 @@ export default function CursorGlow() {
         <motion.div 
           initial={{ opacity: 0 }}
           animate={{ opacity: isHovering ? 0 : 0 }} // Hidden by default, we can make it show on specific items later
-          className="absolute inset-0 flex items-center justify-center text-[10px] font-bold text-[#FF5E00] tracking-wider"
+          className="absolute inset-0 flex items-center justify-center text-[10px] font-bold text-[#3066BE] tracking-wider"
         >
           VIEW
         </motion.div>

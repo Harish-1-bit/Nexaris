@@ -99,14 +99,14 @@ export default function Manifesto() {
   return (
     <div 
       style={{ background: '#0A0A0A' }}
-      className="w-full min-h-screen text-[#F0EEF8] font-sans selection:bg-white/10 selection:text-white pb-32"
+      className="w-full min-h-screen text-[#F5FBEF] font-sans selection:bg-white/10 selection:text-white pb-32"
     >
       {/* Fixed edge-to-edge reading progress bar */}
       <div 
         className="fixed top-0 left-0 h-[2px] z-[100] transition-all duration-75"
         style={{
           width: `${scrollProgress}%`,
-          background: 'linear-gradient(90deg, #C0392B, #E8682A)',
+          background: 'linear-gradient(90deg, #3066BE, #EF3E36)',
         }}
       />
 
@@ -193,7 +193,7 @@ export default function Manifesto() {
                       <span 
                         className="absolute top-0 left-0 transition-opacity duration-300 opacity-0 group-hover:opacity-100 select-none pointer-events-none"
                         style={{
-                          background: 'linear-gradient(135deg, #8B0000, #C0392B, #E8682A)',
+                          background: 'linear-gradient(135deg, #EF3E36, #3066BE, #5985CB)',
                           WebkitBackgroundClip: 'text',
                           WebkitTextFillColor: 'transparent',
                           backgroundClip: 'text',

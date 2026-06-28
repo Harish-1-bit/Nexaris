@@ -15,30 +15,49 @@ import {
   Palette, 
   Cpu, 
   Code2, 
-  Bot 
+  ArrowRight,
+  Smartphone,
+  Settings,
+  Search,
+  Compass,
+  Sparkles
 } from 'lucide-react'
 
 gsap.registerPlugin(ScrollTrigger)
 
-const marketingServices = [
-  { name: "Personal Branding", icon: User },
-  { name: "Performance Marketing", icon: TrendingUp },
-  { name: "Digital Marketing", icon: Globe },
-  { name: "Social Media Management", icon: Share2 }
+const webDevServices = [
+  { name: "Custom Web Applications", icon: Code2 },
+  { name: "E-Commerce Solutions", icon: Globe },
+  { name: "CMS & WordPress Development", icon: Layout },
+  { name: "API & Backend Integrations", icon: Cpu }
 ]
 
-const designServices = [
-  { name: "Brand Identity", icon: Fingerprint },
-  { name: "UI/UX Design", icon: Layout },
-  { name: "Funnel Design", icon: Filter },
-  { name: "Website Design", icon: Monitor },
-  { name: "Graphic Design", icon: Palette },
-  { name: "Software Design", icon: Cpu }
+const webDesignServices = [
+  { name: "UI/UX & Wireframing", icon: Layout },
+  { name: "Landing Page & Funnel Design", icon: Filter },
+  { name: "Interactive Prototyping", icon: Monitor },
+  { name: "Design System Architecture", icon: Palette }
 ]
 
-const devServices = [
-  { name: "Web Development", icon: Code2 },
-  { name: "AI Solutions & Automation", icon: Bot }
+const appDevServices = [
+  { name: "iOS & Android Native Apps", icon: Smartphone },
+  { name: "Cross-Platform Frameworks", icon: Code2 },
+  { name: "Mobile UI/UX Prototyping", icon: User },
+  { name: "App Deployment & Maintenance", icon: Settings }
+]
+
+const seoServices = [
+  { name: "Technical SEO Audits", icon: Search },
+  { name: "Keyword & Market Strategy", icon: TrendingUp },
+  { name: "On-Page Optimization", icon: Globe },
+  { name: "Link Building & Domain Authority", icon: Share2 }
+]
+
+const brandingServices = [
+  { name: "Brand Identity Design", icon: Fingerprint },
+  { name: "Logo & Style Guides", icon: Palette },
+  { name: "Brand Positioning Strategy", icon: Compass },
+  { name: "Marketing Collateral Systems", icon: Sparkles }
 ]
 
 const processSteps = [
@@ -50,6 +69,7 @@ const processSteps = [
 
 const row1Industries = ["SaaS", "Real Estate", "Fashion", "Hospitality", "EdTech", "Healthcare", "E-Commerce", "Finance", "Fitness", "Food & Beverage"]
 const row2Industries = ["Personal Brands", "Architecture", "Legal Services", "Events", "Media", "FinTech", "Coaching", "Consulting", "Retail", "Manufacturing"]
+
 
 export default function ServicesOverview() {
   const containerRef = useRef<HTMLDivElement>(null)
@@ -103,24 +123,29 @@ export default function ServicesOverview() {
         }
       )
 
-      // Section 2: Verticals blocks scroll reveals
-      gsap.utils.toArray('.vertical-block').forEach((block: any) => {
-        gsap.fromTo(
-          block,
-          { y: 30, opacity: 0 },
-          {
-            y: 0,
-            opacity: 1,
-            duration: 0.7,
-            ease: 'power2.out',
-            scrollTrigger: {
-              trigger: block,
-              start: 'top 80%',
-              toggleActions: 'play none none none',
-            }
-          }
-        )
+      // Section 2: Stacking Verticals scroll timeline
+      const cardsTl = gsap.timeline({
+        scrollTrigger: {
+          trigger: '.verticals-scroll-track',
+          start: 'top top',
+          end: 'bottom bottom',
+          scrub: true,
+          pin: '.verticals-sticky-wrapper',
+        }
       })
+
+      cardsTl
+        // Card 2 enters
+        .fromTo('.vertical-card-2', { yPercent: 100, opacity: 0, pointerEvents: 'none' }, { yPercent: 0, opacity: 1, pointerEvents: 'auto', ease: 'none' }, 'card2')
+        
+        // Card 3 enters
+        .fromTo('.vertical-card-3', { yPercent: 100, opacity: 0, pointerEvents: 'none' }, { yPercent: 0, opacity: 1, pointerEvents: 'auto', ease: 'none' }, 'card3')
+
+        // Card 4 enters
+        .fromTo('.vertical-card-4', { yPercent: 100, opacity: 0, pointerEvents: 'none' }, { yPercent: 0, opacity: 1, pointerEvents: 'auto', ease: 'none' }, 'card4')
+
+        // Card 5 enters
+        .fromTo('.vertical-card-5', { yPercent: 100, opacity: 0, pointerEvents: 'none' }, { yPercent: 0, opacity: 1, pointerEvents: 'auto', ease: 'none' }, 'card5')
 
       // Section 3: Process Steps animation timeline
       const tl = gsap.timeline({
@@ -187,7 +212,7 @@ export default function ServicesOverview() {
     <div 
       ref={containerRef}
       style={{ background: '#0A0A0A' }}
-      className="w-full text-[#F0EEF8] font-sans selection:bg-white/10 selection:text-white"
+      className="w-full text-[#F5FBEF] font-sans selection:bg-white/10 selection:text-white"
     >
       {/* SECTION 1: HERO */}
       <section 
@@ -264,151 +289,223 @@ export default function ServicesOverview() {
         />
       </section>
 
-      {/* SECTION 2: THE THREE VERTICALS */}
+      {/* SECTION 2: THE FIVE VERTICALS (Sticky Stacking Layout) */}
       <section 
-        className="w-full"
-        style={{ background: '#0A0A0A', padding: '120px 0' }}
+        className="verticals-scroll-track relative w-full"
+        style={{ minHeight: '500vh', background: '#0A0A0A' }}
       >
-        <div className="w-full max-w-[1100px] mx-auto px-6 md:px-12 flex flex-col items-start font-sans">
-          
-          {/* Label */}
-          <div 
-            className="uppercase tracking-[0.12em] text-white/25 font-medium select-none"
-            style={{ fontSize: '11px', marginBottom: '64px' }}
-          >
-            Our verticals
+        <div className="verticals-sticky-wrapper sticky top-0 h-screen w-full flex flex-col justify-start items-center overflow-hidden">
+          {/* Label container to align "Our verticals" */}
+          <div className="w-full h-[80px] px-8 md:px-16 flex items-center justify-start flex-shrink-0">
+            <div className="uppercase tracking-[0.12em] text-white/25 font-medium select-none text-[11px]">
+              Our verticals
+            </div>
           </div>
 
-          {/* Vertical Stack Blocks */}
-          <div className="w-full flex flex-col items-start">
+          {/* Stacking Cards Container */}
+          <div className="relative w-full flex-1 overflow-visible">
             
-            {/* Block 1 — Marketing */}
-            <div className="vertical-block w-full flex flex-col lg:flex-row lg:items-stretch gap-8 lg:gap-12 min-h-[320px] py-12 border-t border-white/[0.08]">
-              {/* Left Side */}
-              <div className="w-full lg:w-[45%] flex flex-col justify-between items-start">
-                <div>
-                  <div className="font-mono text-white/25 text-[11px] mb-4">01</div>
-                  <h3 
-                    className="text-white font-medium"
-                    style={{ fontSize: 'clamp(32px, 4vw, 52px)', letterSpacing: '-0.025em', lineHeight: 1.1 }}
-                  >
-                    Marketing
+            {/* Card 1 — Web Development */}
+            <div className="vertical-card-1 absolute inset-x-0 bottom-0 w-full bg-black border-t border-b border-white/10 flex flex-col justify-start" style={{ top: '80px', zIndex: 10 }}>
+              {/* Header Bar */}
+              <div className="w-full h-[70px] border-b border-white/5 flex items-center justify-between px-8 md:px-16 flex-shrink-0 bg-black">
+                <div className="flex items-center gap-6">
+                  <span className="font-display font-medium text-[20px] text-white/40">01</span>
+                  <h3 className="font-display font-medium text-white text-[20px] md:text-[24px]">
+                    Web Development
                   </h3>
-                  <div 
-                    className="text-[11px] uppercase tracking-[0.1em] text-white/30 border border-white/[0.12] px-2.5 py-1 rounded-full mt-3 inline-block select-none"
-                  >
-                    4 services
-                  </div>
-                </div>
-                <Link 
-                  to="/services/marketing"
-                  className="text-[13px] text-white/50 hover:text-white transition-colors duration-200 mt-8 lg:mt-0 font-medium"
-                >
-                  Explore vertical &rarr;
-                </Link>
-              </div>
-              {/* Right Side Services Grid */}
-              <div className="w-full lg:w-[55%] grid grid-cols-1 sm:grid-cols-2 gap-3 self-center">
-                {marketingServices.map((service, sIdx) => (
-                  <Link 
-                    key={sIdx}
-                    to="/services/marketing"
-                    className="flex items-center gap-2 p-3 px-4 rounded border border-white/[0.1] bg-transparent hover:bg-white/[0.04] hover:border-white/[0.25] transition-all duration-200 group"
-                  >
-                    <service.icon size={14} className="text-white/40 group-hover:text-white transition-colors" />
-                    <span className="text-[13px] text-white font-medium">{service.name}</span>
-                  </Link>
-                ))}
-              </div>
-            </div>
-
-            {/* Block 2 — Design */}
-            <div className="vertical-block w-full flex flex-col lg:flex-row lg:items-stretch gap-8 lg:gap-12 min-h-[320px] py-12 border-t border-white/[0.08]">
-              {/* Left Side */}
-              <div className="w-full lg:w-[45%] flex flex-col justify-between items-start">
-                <div>
-                  <div className="font-mono text-white/25 text-[11px] mb-4">02</div>
-                  <h3 
-                    className="text-white font-medium"
-                    style={{ fontSize: 'clamp(32px, 4vw, 52px)', letterSpacing: '-0.025em', lineHeight: 1.1 }}
-                  >
-                    Design
-                  </h3>
-                  <div 
-                    className="text-[11px] uppercase tracking-[0.1em] text-white/30 border border-white/[0.12] px-2.5 py-1 rounded-full mt-3 inline-block select-none"
-                  >
-                    6 services
-                  </div>
-                </div>
-                <Link 
-                  to="/services/design"
-                  className="text-[13px] text-white/50 hover:text-white transition-colors duration-200 mt-8 lg:mt-0 font-medium"
-                >
-                  Explore vertical &rarr;
-                </Link>
-              </div>
-              {/* Right Side Services Grid */}
-              <div className="w-full lg:w-[55%] grid grid-cols-1 sm:grid-cols-2 gap-3 self-center">
-                {designServices.map((service, sIdx) => (
-                  <Link 
-                    key={sIdx}
-                    to="/services/design"
-                    className="flex items-center gap-2 p-3 px-4 rounded border border-white/[0.1] bg-transparent hover:bg-white/[0.04] hover:border-white/[0.25] transition-all duration-200 group"
-                  >
-                    <service.icon size={14} className="text-white/40 group-hover:text-white transition-colors" />
-                    <span className="text-[13px] text-white font-medium">{service.name}</span>
-                  </Link>
-                ))}
-              </div>
-            </div>
-
-            {/* Block 3 — Development & AI */}
-            <div className="vertical-block w-full flex flex-col lg:flex-row lg:items-stretch gap-8 lg:gap-12 min-h-[320px] py-12 border-t border-white/[0.08] border-b border-white/[0.08]">
-              {/* Left Side */}
-              <div className="w-full lg:w-[45%] flex flex-col justify-between items-start">
-                <div>
-                  <div className="font-mono text-white/25 text-[11px] mb-4">03</div>
-                  <h3 
-                    className="text-white font-medium flex items-center"
-                    style={{ fontSize: 'clamp(32px, 4vw, 52px)', letterSpacing: '-0.025em', lineHeight: 1.1 }}
-                  >
-                    <span>Development & AI</span>
-                    <span 
-                      className="text-[9px] tracking-[0.1em] text-[#C0392B] border border-[#C0392B] py-0.5 px-1.5 rounded-[3px] align-middle ml-2.5 inline-block font-medium select-none"
-                    >
-                      NEW
-                    </span>
-                  </h3>
-                  <div 
-                    className="text-[11px] uppercase tracking-[0.1em] text-white/30 border border-white/[0.12] px-2.5 py-1 rounded-full mt-3 inline-block select-none"
-                  >
-                    2 services
-                  </div>
                 </div>
                 <Link 
                   to="/services/development"
-                  className="text-[13px] text-white/50 hover:text-white transition-colors duration-200 mt-8 lg:mt-0 font-medium"
+                  className="text-[12px] text-white/40 hover:text-white transition-colors duration-200 inline-flex items-center gap-1"
                 >
-                  Explore vertical &rarr;
+                  Explore vertical <ArrowRight size={12} />
                 </Link>
               </div>
-              {/* Right Side Services Grid */}
-              <div className="w-full lg:w-[55%] grid grid-cols-1 sm:grid-cols-2 gap-3 self-center">
-                {devServices.map((service, sIdx) => (
-                  <Link 
-                    key={sIdx}
-                    to="/services/development"
-                    className="flex items-center gap-2 p-3 px-4 rounded border border-white/[0.1] bg-transparent hover:bg-white/[0.04] hover:border-white/[0.25] transition-all duration-200 group"
-                  >
-                    <service.icon size={14} className="text-white/40 group-hover:text-white transition-colors" />
-                    <span className="text-[13px] text-white font-medium">{service.name}</span>
-                  </Link>
-                ))}
+              {/* Body Area */}
+              <div className="flex-1 w-full px-8 md:px-16 py-8 flex flex-col lg:flex-row lg:items-start justify-between lg:gap-16 overflow-hidden">
+                {/* Column 1: Image / Visual Portrait */}
+                <div className="w-full lg:w-[240px] h-[160px] lg:h-[280px] rounded-xl overflow-hidden relative flex-shrink-0 bg-[#121212] border border-white/5">
+                  <img src="/web_dev.png" alt="Web Development" className="w-full h-full object-cover" />
+                </div>
+                {/* Column 2: Deliverables List */}
+                <div className="w-full lg:w-[320px] flex-shrink-0 flex flex-col gap-1.5 justify-center">
+                  <span className="text-[11px] font-sans font-bold uppercase tracking-[0.15em] text-white/40 mb-2 block">Services</span>
+                  {webDevServices.map((service, sIdx) => (
+                    <Link 
+                      key={sIdx}
+                      to="/services/development"
+                      className="flex items-center justify-between py-2 border-b border-white/10 hover:border-white/20 transition-all duration-200 group cursor-pointer"
+                    >
+                      <span className="text-[13px] text-white/75 group-hover:text-white font-medium transition-colors">{service.name}</span>
+                      <ArrowRight size={12} className="text-white/20 group-hover:text-[#EF3E36] group-hover:translate-x-1 transition-all" />
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            {/* Card 2 — Web Design */}
+            <div className="vertical-card-2 absolute inset-x-0 bottom-0 w-full bg-black border-t border-b border-white/10 flex flex-col justify-start opacity-0 pointer-events-none" style={{ top: '150px', zIndex: 20 }}>
+              {/* Header Bar */}
+              <div className="w-full h-[70px] border-b border-white/5 flex items-center justify-between px-8 md:px-16 flex-shrink-0 bg-black">
+                <div className="flex items-center gap-6">
+                  <span className="font-display font-medium text-[20px] text-white/40">02</span>
+                  <h3 className="font-display font-medium text-white text-[20px] md:text-[24px]">
+                    Web Design
+                  </h3>
+                </div>
+                <Link 
+                  to="/services/design"
+                  className="text-[12px] text-white/40 hover:text-white transition-colors duration-200 inline-flex items-center gap-1"
+                >
+                  Explore vertical <ArrowRight size={12} />
+                </Link>
+              </div>
+              {/* Body Area */}
+              <div className="flex-1 w-full px-8 md:px-16 py-8 flex flex-col lg:flex-row lg:items-start justify-between lg:gap-16 overflow-hidden">
+                {/* Column 1: Image / Visual Portrait */}
+                <div className="w-full lg:w-[240px] h-[160px] lg:h-[280px] rounded-xl overflow-hidden relative flex-shrink-0 bg-[#121212] border border-white/5">
+                  <img src="/web_design.png" alt="Web Design" className="w-full h-full object-cover" />
+                </div>
+                {/* Column 2: Deliverables List */}
+                <div className="w-full lg:w-[320px] flex-shrink-0 flex flex-col gap-1.5 justify-center">
+                  <span className="text-[11px] font-sans font-bold uppercase tracking-[0.15em] text-white/40 mb-2 block">Services</span>
+                  {webDesignServices.map((service, sIdx) => (
+                    <Link 
+                      key={sIdx}
+                      to="/services/design"
+                      className="flex items-center justify-between py-2 border-b border-white/10 hover:border-white/20 transition-all duration-200 group cursor-pointer"
+                    >
+                      <span className="text-[13px] text-white/75 group-hover:text-white font-medium transition-colors">{service.name}</span>
+                      <ArrowRight size={12} className="text-white/20 group-hover:text-[#EF3E36] group-hover:translate-x-1 transition-all" />
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            {/* Card 3 — App Development */}
+            <div className="vertical-card-3 absolute inset-x-0 bottom-0 w-full bg-black border-t border-b border-white/10 flex flex-col justify-start opacity-0 pointer-events-none" style={{ top: '220px', zIndex: 30 }}>
+              {/* Header Bar */}
+              <div className="w-full h-[70px] border-b border-white/5 flex items-center justify-between px-8 md:px-16 flex-shrink-0 bg-black">
+                <div className="flex items-center gap-6">
+                  <span className="font-display font-medium text-[20px] text-white/40">03</span>
+                  <h3 className="font-display font-medium text-white text-[20px] md:text-[24px]">
+                    App Development
+                  </h3>
+                </div>
+                <Link 
+                  to="/services/development"
+                  className="text-[12px] text-white/40 hover:text-white transition-colors duration-200 inline-flex items-center gap-1"
+                >
+                  Explore vertical <ArrowRight size={12} />
+                </Link>
+              </div>
+              {/* Body Area */}
+              <div className="flex-1 w-full px-8 md:px-16 py-8 flex flex-col lg:flex-row lg:items-start justify-between lg:gap-16 overflow-hidden">
+                {/* Column 1: Image / Visual Portrait */}
+                <div className="w-full lg:w-[240px] h-[160px] lg:h-[280px] rounded-xl overflow-hidden relative flex-shrink-0 bg-[#121212] border border-white/5">
+                  <img src="/app_dev.png" alt="App Development" className="w-full h-full object-cover" />
+                </div>
+                {/* Column 2: Deliverables List */}
+                <div className="w-full lg:w-[320px] flex-shrink-0 flex flex-col gap-1.5 justify-center">
+                  <span className="text-[11px] font-sans font-bold uppercase tracking-[0.15em] text-white/40 mb-2 block">Services</span>
+                  {appDevServices.map((service, sIdx) => (
+                    <Link 
+                      key={sIdx}
+                      to="/services/development"
+                      className="flex items-center justify-between py-2 border-b border-white/10 hover:border-white/20 transition-all duration-200 group cursor-pointer"
+                    >
+                      <span className="text-[13px] text-white/75 group-hover:text-white font-medium transition-colors">{service.name}</span>
+                      <ArrowRight size={12} className="text-white/20 group-hover:text-[#EF3E36] group-hover:translate-x-1 transition-all" />
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            {/* Card 4 — SEO */}
+            <div className="vertical-card-4 absolute inset-x-0 bottom-0 w-full bg-black border-t border-b border-white/10 flex flex-col justify-start opacity-0 pointer-events-none" style={{ top: '290px', zIndex: 40 }}>
+              {/* Header Bar */}
+              <div className="w-full h-[70px] border-b border-white/5 flex items-center justify-between px-8 md:px-16 flex-shrink-0 bg-black">
+                <div className="flex items-center gap-6">
+                  <span className="font-display font-medium text-[20px] text-white/40">04</span>
+                  <h3 className="font-display font-medium text-white text-[20px] md:text-[24px]">
+                    SEO
+                  </h3>
+                </div>
+                <Link 
+                  to="/services/marketing"
+                  className="text-[12px] text-white/40 hover:text-white transition-colors duration-200 inline-flex items-center gap-1"
+                >
+                  Explore vertical <ArrowRight size={12} />
+                </Link>
+              </div>
+              {/* Body Area */}
+              <div className="flex-1 w-full px-8 md:px-16 py-8 flex flex-col lg:flex-row lg:items-start justify-between lg:gap-16 overflow-hidden">
+                {/* Column 1: Image / Visual Portrait */}
+                <div className="w-full lg:w-[240px] h-[160px] lg:h-[280px] rounded-xl overflow-hidden relative flex-shrink-0 bg-[#121212] border border-white/5">
+                  <img src="/seo.png" alt="SEO" className="w-full h-full object-cover" />
+                </div>
+                {/* Column 2: Deliverables List */}
+                <div className="w-full lg:w-[320px] flex-shrink-0 flex flex-col gap-1.5 justify-center">
+                  <span className="text-[11px] font-sans font-bold uppercase tracking-[0.15em] text-white/40 mb-2 block">Services</span>
+                  {seoServices.map((service, sIdx) => (
+                    <Link 
+                      key={sIdx}
+                      to="/services/marketing"
+                      className="flex items-center justify-between py-2 border-b border-white/10 hover:border-white/20 transition-all duration-200 group cursor-pointer"
+                    >
+                      <span className="text-[13px] text-white/75 group-hover:text-white font-medium transition-colors">{service.name}</span>
+                      <ArrowRight size={12} className="text-white/20 group-hover:text-[#EF3E36] group-hover:translate-x-1 transition-all" />
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            {/* Card 5 — Branding */}
+            <div className="vertical-card-5 absolute inset-x-0 bottom-0 w-full bg-black border-t border-b border-white/10 flex flex-col justify-start opacity-0 pointer-events-none" style={{ top: '360px', zIndex: 50 }}>
+              {/* Header Bar */}
+              <div className="w-full h-[70px] border-b border-white/5 flex items-center justify-between px-8 md:px-16 flex-shrink-0 bg-black">
+                <div className="flex items-center gap-6">
+                  <span className="font-display font-medium text-[20px] text-white/40">05</span>
+                  <h3 className="font-display font-medium text-white text-[20px] md:text-[24px]">
+                    Branding
+                  </h3>
+                </div>
+                <Link 
+                  to="/services/design"
+                  className="text-[12px] text-white/40 hover:text-white transition-colors duration-200 inline-flex items-center gap-1"
+                >
+                  Explore vertical <ArrowRight size={12} />
+                </Link>
+              </div>
+              {/* Body Area */}
+              <div className="flex-1 w-full px-8 md:px-16 py-8 flex flex-col lg:flex-row lg:items-start justify-between lg:gap-16 overflow-hidden">
+                {/* Column 1: Image / Visual Portrait */}
+                <div className="w-full lg:w-[240px] h-[160px] lg:h-[280px] rounded-xl overflow-hidden relative flex-shrink-0 bg-[#121212] border border-white/5">
+                  <img src="/branding.png" alt="Branding" className="w-full h-full object-cover" />
+                </div>
+                {/* Column 2: Deliverables List */}
+                <div className="w-full lg:w-[320px] flex-shrink-0 flex flex-col gap-1.5 justify-center">
+                  <span className="text-[11px] font-sans font-bold uppercase tracking-[0.15em] text-white/40 mb-2 block">Services</span>
+                  {brandingServices.map((service, sIdx) => (
+                    <Link 
+                      key={sIdx}
+                      to="/services/design"
+                      className="flex items-center justify-between py-2 border-b border-white/10 hover:border-white/20 transition-all duration-200 group cursor-pointer"
+                    >
+                      <span className="text-[13px] text-white/75 group-hover:text-white font-medium transition-colors">{service.name}</span>
+                      <ArrowRight size={12} className="text-white/20 group-hover:text-[#EF3E36] group-hover:translate-x-1 transition-all" />
+                    </Link>
+                  ))}
+                </div>
               </div>
             </div>
 
           </div>
-
         </div>
       </section>
 

@@ -63,7 +63,7 @@ export default function Preloader({ onComplete }: PreloaderProps) {
       <div 
         className="absolute w-[400px] h-[400px] rounded-full blur-[100px] opacity-15 transition-all duration-300"
         style={{
-          background: 'radial-gradient(circle, #FF5E00 0%, #FF1E1E 100%)'
+          background: 'radial-gradient(circle, #3066BE 0%, #EF3E36 100%)'
         }}
       />
 
@@ -80,8 +80,8 @@ export default function Preloader({ onComplete }: PreloaderProps) {
         {/* Console Log status message */}
         <div className="flex flex-col items-center gap-2.5">
           <div className="flex items-center gap-2">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#FF5E00] animate-ping" />
-            <span className="text-[10px] font-mono tracking-[0.25em] text-[#FF5E00] uppercase font-bold">
+            <span className="w-1.5 h-1.5 rounded-full bg-[#3066BE] animate-ping" />
+            <span className="text-[10px] font-mono tracking-[0.25em] text-[#3066BE] uppercase font-bold">
               SYSTEM_BOOT
             </span>
           </div>
@@ -97,7 +97,7 @@ export default function Preloader({ onComplete }: PreloaderProps) {
       {/* Extreme border progress lines */}
       <div className="absolute bottom-0 inset-x-0 h-0.5 bg-white/5 z-20">
         <motion.div
-          className="h-full bg-gradient-to-r from-[#FF5E00] to-[#FF1E1E]"
+          className="h-full bg-gradient-to-r from-[#3066BE] to-[#EF3E36]"
           style={{ width: `${progress}%` }}
           transition={{ ease: 'easeOut', duration: 0.15 }}
         />

@@ -40,25 +40,25 @@ const services = [
     visual: 'mobile',
     color: '#EF3E36',
     glowColor: 'rgba(239, 62, 54, 0.15)',
-  },
-  {
-    number: '05',
-    title: 'Video Production',
-    description: 'Brand films, motion graphics, and social content that captivates.',
-    deliverables: ['Storyboarding', 'Motion Graphics', 'Cinematography', 'Social Ad Campaigns'],
-    visual: 'video',
-    color: '#3066BE',
-    glowColor: 'rgba(48, 102, 190, 0.15)',
-  },
-  {
-    number: '06',
-    title: 'Digital Marketing',
-    description: 'Data-driven campaigns that deliver measurable ROI and growth.',
-    deliverables: ['SEO Optimization', 'Paid Media Campaigns', 'Analytics Setup', 'Content Strategy'],
-    visual: 'marketing',
-    color: '#EF3E36',
-    glowColor: 'rgba(239, 62, 54, 0.15)',
-  },
+  }
+  // {
+  //   number: '05',
+  //   title: 'Video Production',
+  //   description: 'Brand films, motion graphics, and social content that captivates.',
+  //   deliverables: ['Storyboarding', 'Motion Graphics', 'Cinematography', 'Social Ad Campaigns'],
+  //   visual: 'video',
+  //   color: '#3066BE',
+  //   glowColor: 'rgba(48, 102, 190, 0.15)',
+  // },
+  // {
+  //   number: '06',
+  //   title: 'Digital Marketing',
+  //   description: 'Data-driven campaigns that deliver measurable ROI and growth.',
+  //   deliverables: ['SEO Optimization', 'Paid Media Campaigns', 'Analytics Setup', 'Content Strategy'],
+  //   visual: 'marketing',
+  //   color: '#EF3E36',
+  //   glowColor: 'rgba(239, 62, 54, 0.15)',
+  // },
 ]
 
 /* ── Interactive vector showcases per service ── */

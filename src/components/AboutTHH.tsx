@@ -2,7 +2,6 @@ import { useEffect, useRef } from 'react'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import Lenis from 'lenis'
-import { Link } from 'react-router-dom'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -45,14 +44,6 @@ const timelineEvents = [
   }
 ]
 
-const teamMembers = [
-  { name: "Sanidhya Rawat", role: "Founder · Marketing", dept: "Marketing" },
-  { name: "Ishaan Khandelwal", role: "Co-Founder · Design", dept: "Design" },
-  { name: "Sourabh", role: "Head of Development", dept: "Development" },
-  { name: "[Team Member]", role: "Marketing Lead", dept: "Marketing" },
-  { name: "[Team Member]", role: "Designer", dept: "Design" },
-  { name: "[Team Member]", role: "Developer", dept: "Development" }
-]
 
 export default function AboutTHH() {
   const containerRef = useRef<HTMLDivElement>(null)
@@ -291,40 +282,8 @@ export default function AboutTHH() {
         )
       })
 
-      // Section 6: Team Grid Animations
-      gsap.fromTo(
-        '.team-card',
-        { y: 20, opacity: 0 },
-        {
-          y: 0,
-          opacity: 1,
-          duration: 0.6,
-          stagger: 0.05,
-          ease: 'power2.out',
-          scrollTrigger: {
-            trigger: '.team-grid-container',
-            start: 'top 80%',
-            toggleActions: 'play none none none',
-          }
-        }
-      )
 
-      // Section 7: CTA Animations
-      gsap.fromTo(
-        '.cta-container',
-        { y: 30, opacity: 0 },
-        {
-          y: 0,
-          opacity: 1,
-          duration: 0.8,
-          ease: 'power2.out',
-          scrollTrigger: {
-            trigger: '.cta-section',
-            start: 'top 80%',
-            toggleActions: 'play none none none',
-          }
-        }
-      )
+
     }, containerRef)
 
     return () => {
@@ -851,135 +810,8 @@ export default function AboutTHH() {
         </div>
       </section>
 
-      {/* SECTION 6: The Team */}
-      <section 
-        className="w-full"
-        style={{ background: '#0A0A0A', padding: '120px 0' }}
-      >
-        <div className="w-full max-w-[1100px] mx-auto px-6 md:px-12 flex flex-col items-start font-sans">
-          
-          {/* Label */}
-          <div 
-            className="uppercase tracking-[0.12em] text-white/25 font-medium select-none"
-            style={{ fontSize: '11px', marginBottom: '16px' }}
-          >
-            The people
-          </div>
 
-          {/* Sublabel */}
-          <p 
-            className="font-normal text-white/40"
-            style={{ fontSize: '15px', lineHeight: '1.7', maxWidth: '500px', marginBottom: '64px' }}
-          >
-            Everyone who has worked inside THH has left changed. These are the ones here now.
-          </p>
 
-          {/* Grid */}
-          <div 
-            className="team-grid-container w-full grid"
-            style={{
-              gridTemplateColumns: 'repeat(auto-fill, minmax(180px, 1fr))',
-              gap: '24px'
-            }}
-          >
-            {teamMembers.map((member, index) => (
-              <div 
-                key={index} 
-                className="team-card group flex flex-col items-start w-full p-5 rounded-lg bg-white/[0.02] border border-white/[0.07] hover:border-white/[0.15] hover:bg-white/[0.04] transition-all duration-300 cursor-pointer"
-              >
-                {/* Avatar Placeholder */}
-                {/* Replace with team member photo */}
-                <div className="w-12 h-12 rounded-full bg-white/[0.06] border border-white/[0.1]" />
-                
-                {/* Name */}
-                <div 
-                  className="font-medium text-white"
-                  style={{ fontSize: '15px', marginTop: '14px' }}
-                >
-                  {member.name}
-                </div>
-
-                {/* Role */}
-                <div 
-                  className="font-normal text-white/[0.38]"
-                  style={{ fontSize: '12px', marginTop: '4px' }}
-                >
-                  {member.role}
-                </div>
-
-                {/* Department Badge */}
-                <div 
-                  className="text-[10px] py-[3px] px-2 rounded-full border border-white/12 text-white/35 mt-[12px] font-medium uppercase tracking-wider select-none"
-                >
-                  {member.dept}
-                </div>
-              </div>
-            ))}
-            {/* Add remaining team members here — cards auto-flow in grid */}
-          </div>
-
-        </div>
-      </section>
-
-      {/* SECTION 7: About Page CTA */}
-      <section 
-        className="cta-section w-full"
-        style={{ 
-          background: '#0A0A0A', 
-          padding: '100px 0 140px',
-          borderTop: '0.5px solid rgba(255,255,255,0.06)' 
-        }}
-      >
-        <div className="cta-container w-full max-w-[640px] mx-auto px-6 flex flex-col items-center text-center font-sans">
-          
-          {/* Label */}
-          <div 
-            className="uppercase tracking-[0.14em] text-white/35 font-medium select-none"
-            style={{ fontSize: '11px', marginBottom: '24px' }}
-          >
-            There's more to the story.
-          </div>
-
-          {/* Headline */}
-          <h2 
-            className="text-white font-medium"
-            style={{
-              fontSize: 'clamp(36px, 5vw, 64px)',
-              letterSpacing: '-0.03em',
-              marginBottom: '16px',
-              lineHeight: 1.1,
-            }}
-          >
-            Read the Manifesto.
-          </h2>
-
-          {/* Sub */}
-          <p 
-            className="font-normal text-white/45"
-            style={{
-              fontSize: '16px',
-              lineHeight: 1.8,
-              marginBottom: '36px',
-            }}
-          >
-            Everything THH believes — about building, about people, about what this entity is becoming — written in plain language. No corporate speak. No mission statements. Just the truth.
-          </p>
-
-          {/* CTA Button */}
-          <Link 
-            to="/manifesto"
-            className="font-medium text-white border-[0.5px] border-white hover:bg-white hover:text-[#0A0A0A] transition-all duration-250 flex items-center justify-center select-none"
-            style={{
-              fontSize: '15px',
-              padding: '14px 36px',
-              borderRadius: '4px',
-            }}
-          >
-            Read the Manifesto &rarr;
-          </Link>
-
-        </div>
-      </section>
     </div>
   )
 }

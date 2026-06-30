@@ -9,7 +9,6 @@ import ServicesOverview from './components/ServicesOverview'
 import Work from './components/Work'
 import About from './components/About'
 import AboutTHH from './components/AboutTHH'
-import Manifesto from './components/Manifesto'
 import Process from './components/Process'
 import Contact from './components/Contact'
 import Footer from './components/Footer'
@@ -70,13 +69,6 @@ function ContactPage() {
   )
 }
 
-function ManifestoPage() {
-  return (
-    <PageWrapper>
-      <Manifesto />
-    </PageWrapper>
-  )
-}
 
 function AppContent() {
   const location = useLocation()
@@ -112,7 +104,6 @@ function AppContent() {
             <Route path="/work" element={<WorkPage />} />
             <Route path="/about" element={<AboutPage />} />
             <Route path="/contact" element={<ContactPage />} />
-            <Route path="/manifesto" element={<ManifestoPage />} />
           </Routes>
         </AnimatePresence>
       </main>

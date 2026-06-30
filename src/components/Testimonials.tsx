@@ -1,182 +1,166 @@
-import { useRef, useState } from 'react'
-import { motion, useInView, AnimatePresence } from 'framer-motion'
-import { ChevronLeft, ChevronRight } from 'lucide-react'
+import { useEffect, useRef } from 'react'
+import gsap from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
-const testimonials = [
-  {
-    quote: "We called on Nexaris for our branding and digital presence. Perfect support from start to finish. The team took all our wishes into consideration, but also knew how to advise us on the best approach for our target audience. We recommend them without a doubt.",
-    author: 'Sarah Mitchell',
-    role: 'CEO',
-    company: 'Luminary Finance',
-    initials: 'SM',
-  },
-  {
-    quote: "Working with Nexaris felt like having a world-class creative partner embedded in our team. They understood our vision immediately and delivered something that exceeded every expectation we had going in.",
-    author: 'David Park',
-    role: 'Founder',
-    company: 'Aura Health',
-    initials: 'DP',
-  },
-  {
-    quote: "The brand identity Nexaris created became the foundation of our entire market positioning. Three years later it still feels fresh, modern, and completely authentic to who we are as a company.",
-    author: 'Elena Vasquez',
-    role: 'CMO',
-    company: 'Vertex Studio',
-    initials: 'EV',
-  },
-  {
-    quote: "Our platform went from concept to launch in under six months. Nexaris's process is rigorous, their communication is impeccable, and their output is consistently extraordinary.",
-    author: 'James Okafor',
-    role: 'CTO',
-    company: 'Pulse Technologies',
-    initials: 'JO',
-  },
-]
-
-/* client logo placeholders */
-const clients = ['Luminary', 'Aura', 'Vertex', 'Pulse', 'Solaris']
+gsap.registerPlugin(ScrollTrigger);
 
 export default function Testimonials() {
-  const [current, setCurrent] = useState(0)
-  const ref = useRef(null)
-  const inView = useInView(ref, { once: true, margin: '-80px' })
+  const containerRef = useRef<HTMLDivElement>(null);
+  const textRef = useRef<HTMLParagraphElement>(null);
 
-  const prev = () => setCurrent((c) => (c - 1 + testimonials.length) % testimonials.length)
-  const next = () => setCurrent((c) => (c + 1) % testimonials.length)
-  const t = testimonials[current]
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: containerRef.current,
+          start: 'top 75%',
+        }
+      });
+
+      // 1. Frame Lines (Radial wipe mimics a line draw perfectly around corners)
+      tl.fromTo('.frame-line-tr',
+        { clipPath: 'circle(0% at 100% 100%)' },
+        { clipPath: 'circle(150% at 100% 100%)', duration: 1.2, ease: 'power2.inOut' },
+        0
+      );
+      tl.fromTo('.frame-line-bl',
+        { clipPath: 'circle(0% at 0% 0%)' },
+        { clipPath: 'circle(150% at 0% 0%)', duration: 1.2, ease: 'power2.inOut' },
+        0
+      );
+
+      // 2. Quotation Marks Pop Out
+      tl.fromTo('.quote-top',
+        { x: -30, opacity: 0, scale: 0.5 },
+        { x: 0, opacity: 1, scale: 1, duration: 0.8, ease: 'back.out(1.5)' },
+        0.4
+      );
+      tl.fromTo('.quote-bottom',
+        { x: 30, opacity: 0, scale: 0.5 },
+        { x: 0, opacity: 1, scale: 1, duration: 0.8, ease: 'back.out(1.5)' },
+        0.4
+      );
+
+      // 3. Center Text Reveal (Hero Style Stagger)
+      if (textRef.current) {
+        const words = textRef.current.querySelectorAll('.word');
+        tl.fromTo(words,
+          { opacity: 0, y: 20 },
+          { opacity: 1, y: 0, stagger: 0.04, duration: 0.8, ease: 'power2.out' },
+          0.6
+        );
+      }
+
+      // 4. Author Info
+      tl.fromTo('.author-info',
+        { opacity: 0, y: 15 },
+        { opacity: 1, y: 0, duration: 0.8, ease: 'power2.out' },
+        1.2
+      );
+
+      // 5. Stat & Logos (Fade up slowly)
+      tl.fromTo('.stat-logos',
+        { opacity: 0, y: 20 },
+        { opacity: 1, y: 0, duration: 1, ease: 'power2.out' },
+        1.4
+      );
+
+    }, containerRef);
+    return () => ctx.revert();
+  }, []);
+
+  const wrapWords = (text: string) => {
+    return text.split(' ').filter(word => word !== '').map((word, i) => {
+      let className = "word inline-block opacity-0 mr-[0.25em]";
+      let displayWord = word;
+
+      // Highlight formatting: *word* -> bold & white
+      if (displayWord.startsWith('*') && displayWord.endsWith('*')) {
+        className += " text-white font-semibold";
+        displayWord = displayWord.slice(1, -1);
+      }
+      // Highlight formatting: _word_ -> italic & white
+      else if (displayWord.startsWith('_') && displayWord.endsWith('_')) {
+        className += " italic text-white";
+        displayWord = displayWord.slice(1, -1);
+      }
+
+      return (
+        <span key={i} className={className}>
+          {displayWord}
+        </span>
+      );
+    });
+  };
+
+  const testimonialText = "Working with Nexaris felt like having a *world-class* creative partner embedded in our team. They understood our vision immediately and delivered something that _exceeded_ _every_ _expectation_ we had.";
 
   return (
-    <section className="relative py-28 overflow-hidden" style={{ background: '#000000' }}>
-      <div className="absolute top-0 inset-x-0 h-px" style={{ background: 'rgba(255,255,255,0.06)' }} />
+    <section className="bg-black py-[140px] px-6 md:px-12 relative overflow-hidden">
+      {/* Background glow for depth */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[400px] bg-white/[0.02] blur-[120px] pointer-events-none" />
 
-      <div className="absolute top-0 right-1/4 w-[500px] h-[250px] pointer-events-none"
-        style={{ background: 'radial-gradient(ellipse at top,rgba(239,62,54,0.06) 0%,transparent 70%)' }} />
+      <div ref={containerRef} className="max-w-[1100px] mx-auto flex flex-col items-center">
 
-      <div className="max-w-7xl mx-auto px-8 md:px-14">
-        {/* label */}
-        <motion.p
-          ref={ref}
-          initial={{ opacity: 0, y: 12 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.5 }}
-          className="text-xs font-medium tracking-[0.2em] uppercase mb-14"
-          style={{ color: '#3066BE' }}
-        >
-          Testimonies
-        </motion.p>
+        {/* The Premium Quote Frame */}
+        <div className="relative w-full max-w-[940px] px-8 py-16 md:px-20 md:py-24 mb-20">
 
-        {/* heading */}
-        <motion.h2
-          initial={{ opacity: 0, y: 24 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.72, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-          className="font-display font-bold text-white mb-14"
-          style={{ fontSize: 'clamp(1.8rem, 4vw, 3rem)' }}
-        >
-          What our clients say
-        </motion.h2>
+          {/* Decorative Frame Hooks */}
+          <div className="absolute inset-0 pointer-events-none">
+            {/* Top Right Hook */}
+            <div className="frame-line-tr absolute top-0 right-0 w-[70%] h-[60%] border-t border-r border-white/20 rounded-tr-[80px]" />
+            {/* Bottom Left Hook */}
+            <div className="frame-line-bl absolute bottom-0 left-0 w-[70%] h-[60%] border-b border-l border-white/20 rounded-bl-[80px]" />
+          </div>
 
-        {/* carousel */}
-        <div className="grid grid-cols-1 lg:grid-cols-5 gap-10 items-start">
-          {/* quote — 3 cols */}
-          <div className="lg:col-span-3">
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={current}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -16 }}
-                transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
-              >
-                {/* opening quote mark */}
-                <div className="text-6xl font-display font-bold leading-none mb-4 select-none"
-                  style={{ color: 'rgba(239,62,54,0.25)' }}>
-                  "
-                </div>
-                <blockquote
-                  className="text-base md:text-lg leading-relaxed mb-8 font-light"
-                  style={{ color: 'rgba(232,234,240,0.9)' }}
-                >
-                  {t.quote}
-                </blockquote>
+          {/* Quote Marks */}
+          <div className="quote-top absolute -top-6 left-12 text-white">
+            <svg width="48" height="38" viewBox="0 0 48 38" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+              <path d="M0 21.375V0H18.75V21.375C18.75 30.75 14.25 38 4.5 38H0.75C6 32.75 8.25 28.25 8.25 21.375H0ZM27 21.375V0H45.75V21.375C45.75 30.75 41.25 38 31.5 38H27.75C33 32.75 35.25 28.25 35.25 21.375H27Z" />
+            </svg>
+          </div>
+          <div className="quote-bottom absolute -bottom-6 right-12 text-white rotate-180">
+            <svg width="48" height="38" viewBox="0 0 48 38" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+              <path d="M0 21.375V0H18.75V21.375C18.75 30.75 14.25 38 4.5 38H0.75C6 32.75 8.25 28.25 8.25 21.375H0ZM27 21.375V0H45.75V21.375C45.75 30.75 41.25 38 31.5 38H27.75C33 32.75 35.25 28.25 35.25 21.375H27Z" />
+            </svg>
+          </div>
 
-                {/* author */}
-                <div className="flex items-center gap-4">
-                  <div
-                    className="w-11 h-11 rounded-full flex items-center justify-center text-sm font-bold flex-shrink-0"
-                    style={{ background: 'linear-gradient(135deg,rgba(48,102,190,0.6),rgba(239,62,54,0.6))', color: '#e8eaf0' }}
-                  >
-                    {t.initials}
-                  </div>
-                  <div>
-                    <div className="font-semibold text-sm" style={{ color: '#e8eaf0' }}>{t.author}</div>
-                    <div className="text-xs" style={{ color: 'rgba(160,168,192,0.7)' }}>{t.role}, {t.company}</div>
-                  </div>
-                </div>
-              </motion.div>
-            </AnimatePresence>
+          {/* Quote Text */}
+          <div className="text-center relative z-10">
+            <p ref={textRef} className="font-display text-[26px] md:text-[38px] text-[rgba(255,255,255,0.7)] font-medium leading-[1.3] tracking-[-0.02em]">
+              {wrapWords(testimonialText)}
+            </p>
 
-            {/* nav */}
-            <div className="flex items-center gap-4 mt-10">
-              <button
-                onClick={prev}
-                className="w-9 h-9 rounded-full flex items-center justify-center transition-all duration-200"
-                style={{ border: '1px solid rgba(255,255,255,0.12)', color: 'rgba(160,168,192,0.7)' }}
-                onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.borderColor = 'rgba(48,102,190,0.4)'; (e.currentTarget as HTMLElement).style.color = '#3066BE' }}
-                onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.borderColor = 'rgba(255,255,255,0.12)'; (e.currentTarget as HTMLElement).style.color = 'rgba(160,168,192,0.7)' }}
-              >
-                <ChevronLeft size={16} />
-              </button>
-
-              <div className="flex gap-2">
-                {testimonials.map((_, i) => (
-                  <button
-                    key={i}
-                    onClick={() => setCurrent(i)}
-                    className="rounded-full transition-all duration-300"
-                    style={{
-                      width: i === current ? 24 : 8,
-                      height: 8,
-                      background: i === current
-                        ? 'linear-gradient(to right,#3066BE,#EF3E36)'
-                        : 'rgba(48,102,190,0.18)',
-                    }}
-                  />
-                ))}
-              </div>
-
-              <button
-                onClick={next}
-                className="w-9 h-9 rounded-full flex items-center justify-center transition-all duration-200"
-                style={{ border: '1px solid rgba(255,255,255,0.12)', color: 'rgba(160,168,192,0.7)' }}
-                onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.borderColor = 'rgba(48,102,190,0.4)'; (e.currentTarget as HTMLElement).style.color = '#3066BE' }}
-                onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.borderColor = 'rgba(255,255,255,0.12)'; (e.currentTarget as HTMLElement).style.color = 'rgba(160,168,192,0.7)' }}
-              >
-                <ChevronRight size={16} />
-              </button>
+            {/* Author */}
+            <div className="author-info mt-12 flex flex-col items-center opacity-0">
+              <div className="w-8 h-[1px] bg-white/20 mb-6" />
+              <span className="font-sans text-[16px] text-white font-medium tracking-wide">David Park</span>
+              <span className="font-sans text-[12px] text-white/40 uppercase tracking-[0.15em] mt-2">Founder, Aura Health</span>
             </div>
           </div>
+        </div>
 
-          {/* client logos — 2 cols */}
-          <div className="lg:col-span-2 flex flex-col gap-4 lg:pt-2">
-            {clients.map((name, i) => (
-              <motion.div
-                key={name}
-                initial={{ opacity: 0, x: 20 }}
-                animate={inView ? { opacity: 1, x: 0 } : {}}
-                transition={{ duration: 0.55, delay: 0.1 + i * 0.07 }}
-                className="flex items-center justify-center h-14 rounded-xl"
-                style={{ border: '1px solid rgba(48,102,190,0.12)', background: 'rgba(20,20,20,0.35)' }}
-              >
-                <span className="font-display font-bold text-sm tracking-widest uppercase"
-                  style={{ color: 'rgba(160,168,192,0.45)' }}>
-                  {name}
-                </span>
-              </motion.div>
+        {/* The Stat & Logos */}
+        <div className="stat-logos w-full border-t border-white/[0.03] pt-16 flex flex-col md:flex-row items-center justify-between gap-12 opacity-0">
+
+          {/* Stat */}
+          <div className="flex flex-col items-center md:items-start text-center md:text-left">
+            <span className="font-display text-[56px] text-white font-medium leading-[1]">50+</span>
+            <span className="font-sans text-[11px] text-white/40 uppercase tracking-[0.2em] mt-3">High-Growth Brands Built</span>
+          </div>
+
+          {/* Logos */}
+          <div className="flex flex-wrap justify-center md:justify-end items-center gap-10 md:gap-16 opacity-35 grayscale hover:opacity-60 transition-opacity duration-500">
+            {['LUMINARY', 'AURA', 'VERTEX', 'PULSE', 'SOLARIS'].map((brand, i) => (
+              <div key={i} className="font-display font-bold text-[18px] tracking-widest text-white italic">
+                {brand}
+              </div>
             ))}
           </div>
+
         </div>
+
       </div>
     </section>
-  )
+  );
 }

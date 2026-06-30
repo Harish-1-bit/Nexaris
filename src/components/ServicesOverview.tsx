@@ -147,23 +147,63 @@ export default function ServicesOverview() {
         // Card 5 enters
         .fromTo('.vertical-card-5', { yPercent: 100, opacity: 0, pointerEvents: 'none' }, { yPercent: 0, opacity: 1, pointerEvents: 'auto', ease: 'none' }, 'card5')
 
-      // Section 3: Process Steps animation timeline
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: '.process-container',
-          start: 'top 80%',
-          toggleActions: 'play none none none',
+      // Section 3: Process Steps animation timeline (Timeline line draws down as scrub)
+      gsap.fromTo(
+        '.process-line',
+        { scaleY: 0 },
+        {
+          scaleY: 1,
+          ease: 'none',
+          scrollTrigger: {
+            trigger: '.process-container',
+            start: 'top 60%',
+            end: 'bottom 60%',
+            scrub: true,
+          }
         }
-      })
+      )
 
-      // Stagger reveal of step contents and scaleX of horizontal connectors
-      tl.fromTo('.process-step-0', { opacity: 0, y: 15 }, { opacity: 1, y: 0, duration: 0.4 })
-        .fromTo('.process-line-0', { scaleX: 0 }, { scaleX: 1, duration: 0.3, ease: 'power1.inOut' })
-        .fromTo('.process-step-1', { opacity: 0, y: 15 }, { opacity: 1, y: 0, duration: 0.4 })
-        .fromTo('.process-line-1', { scaleX: 0 }, { scaleX: 1, duration: 0.3, ease: 'power1.inOut' })
-        .fromTo('.process-step-2', { opacity: 0, y: 15 }, { opacity: 1, y: 0, duration: 0.4 })
-        .fromTo('.process-line-2', { scaleX: 0 }, { scaleX: 1, duration: 0.3, ease: 'power1.inOut' })
-        .fromTo('.process-step-3', { opacity: 0, y: 15 }, { opacity: 1, y: 0, duration: 0.4 })
+      // Staggered timeline entries slide/fade-in
+      gsap.utils.toArray('.process-entry').forEach((entry: any, index: number) => {
+        const isEven = index % 2 === 0
+        const xOffset = isEven ? 20 : -20
+        const contentChildren = entry.querySelectorAll('.process-content > div > *')
+        
+        // Card content slide/fade-in staggered from inside to outside
+        gsap.fromTo(
+          contentChildren,
+          { opacity: 0, x: xOffset },
+          {
+            opacity: 1,
+            x: 0,
+            stagger: 0.12,
+            duration: 0.6,
+            ease: 'power2.out',
+            scrollTrigger: {
+              trigger: entry,
+              start: 'top 60%',
+              toggleActions: 'play none none none',
+            }
+          }
+        )
+
+        // Dot scale/fade-in
+        gsap.fromTo(
+          entry.querySelector('.process-dot'),
+          { scale: 0, opacity: 0 },
+          {
+            scale: 1,
+            opacity: 1,
+            duration: 0.4,
+            ease: 'back.out(1.7)',
+            scrollTrigger: {
+              trigger: entry,
+              start: 'top 60%',
+              toggleActions: 'play none none none',
+            }
+          }
+        )
+      })
 
       // Section 4: Industries header reveal
       gsap.fromTo(
@@ -242,7 +282,7 @@ export default function ServicesOverview() {
               fontWeight: 500,
             }}
           >
-            The Hustle House™ / Services
+            
           </div>
 
           {/* Main Headline */}
@@ -298,7 +338,7 @@ export default function ServicesOverview() {
           {/* Label container to align "Our verticals" */}
           <div className="w-full h-[80px] px-8 md:px-16 flex items-center justify-start flex-shrink-0">
             <div className="uppercase tracking-[0.12em] text-white/25 font-medium select-none text-[11px]">
-              Our verticals
+              
             </div>
           </div>
 
@@ -511,7 +551,7 @@ export default function ServicesOverview() {
 
       {/* SECTION 3: HOW WE WORK */}
       <section 
-        className="w-full"
+        className="w-full overflow-hidden"
         style={{ background: '#0D0D0D', padding: '120px 0' }}
       >
         <div className="w-full max-w-[1100px] mx-auto px-6 md:px-12 flex flex-col items-start font-sans">
@@ -538,46 +578,73 @@ export default function ServicesOverview() {
             We don't freelance your project. We join it.
           </h2>
 
-          {/* Row container */}
-          <div className="process-container flex flex-col md:flex-row gap-12 md:gap-16 w-full relative">
-            {processSteps.map((step, idx) => (
-              <div 
-                key={idx}
-                className={`process-step-${idx} relative flex-1 flex flex-col items-start opacity-0`}
-              >
-                {/* Connector line (desktop only) */}
-                {idx < 3 && (
+          {/* Timeline Wrapper */}
+          <div className="relative w-full process-container mt-8 pb-12">
+            {/* Center Spine */}
+            <div 
+              className="absolute left-[20px] md:left-1/2 top-0 bottom-0 w-[0.5px] origin-top scale-y-0 process-line"
+              style={{ background: 'rgba(255, 255, 255, 0.1)' }}
+            />
+
+            {/* Alternating Entries */}
+            <div className="flex flex-col gap-16 md:gap-24 w-full relative">
+              {processSteps.map((step, index) => {
+                const isEven = index % 2 === 0
+                return (
                   <div 
-                    className={`absolute top-[6px] left-[50px] right-[-64px] h-[0.5px] origin-left scale-x-0 process-line-${idx} hidden md:block`}
-                    style={{ background: 'rgba(255, 255, 255, 0.08)' }}
-                  />
-                )}
+                    key={index} 
+                    className={`relative flex flex-col w-full items-start md:items-center process-entry ${
+                      isEven ? 'md:flex-row' : 'md:flex-row-reverse'
+                    }`}
+                  >
+                    {/* Spine Dot */}
+                    <div 
+                      className="absolute left-[20px] md:left-1/2 -translate-x-1/2 w-2 h-2 rounded-full border border-white/30 bg-[#0D0D0D] z-10 process-dot"
+                    />
 
-                {/* Step Number */}
-                <div 
-                  className="font-mono text-white/25"
-                  style={{ fontSize: '11px' }}
-                >
-                  {step.num}
-                </div>
+                    {/* Alternating Card Content */}
+                    <div 
+                      className={`w-full md:w-1/2 flex justify-start pl-14 pr-6 md:pl-0 md:pr-0 process-content ${
+                        isEven 
+                          ? 'md:justify-end md:text-right md:pr-10' 
+                          : 'md:justify-start md:text-left md:pl-10'
+                      }`}
+                    >
+                      <div className={`flex flex-col max-w-[320px] ${isEven ? 'md:items-end' : 'md:items-start'}`}>
+                        {/* Date/Number */}
+                        <div 
+                          className="font-mono text-white/35"
+                          style={{ fontSize: '12px' }}
+                        >
+                          {step.num}
+                        </div>
+                        {/* Title */}
+                        <h4 
+                          className="text-white font-medium"
+                          style={{
+                            fontSize: '18px',
+                            marginTop: '4px',
+                            letterSpacing: '-0.01em',
+                          }}
+                        >
+                          {step.title}
+                        </h4>
+                        {/* Description */}
+                        <p 
+                          className="font-normal text-white/45"
+                          style={{ fontSize: '13px', lineHeight: 1.6, marginTop: '6px' }}
+                        >
+                          {step.desc}
+                        </p>
+                      </div>
+                    </div>
 
-                {/* Step Title */}
-                <h4 
-                  className="text-white font-medium"
-                  style={{ fontSize: '16px', marginTop: '8px' }}
-                >
-                  {step.title}
-                </h4>
-
-                {/* Description */}
-                <p 
-                  className="font-normal text-white/45"
-                  style={{ fontSize: '13px', lineHeight: 1.7, marginTop: '8px', maxWidth: '220px' }}
-                >
-                  {step.desc}
-                </p>
-              </div>
-            ))}
+                    {/* Empty Side on Desktop */}
+                    <div className="w-full md:w-1/2 hidden md:block" />
+                  </div>
+                )
+              })}
+            </div>
           </div>
 
         </div>
